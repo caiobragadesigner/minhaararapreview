@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minha Arara — A sua arara digital de gestão</title>
+
+  <!-- Font declarations (paths relative to landing/ → design-system/fonts/) -->
+  <style>
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-ExtraLight.ttf") format("truetype"); font-weight: 200; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Light.ttf") format("truetype"); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; font-display: swap; }
+
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-MediumItalic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-SemiBoldItalic.ttf") format("truetype"); font-weight: 600; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-BoldItalic.ttf") format("truetype"); font-weight: 700; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-ExtraBoldItalic.ttf") format("truetype"); font-weight: 800; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Black.ttf") format("truetype"); font-weight: 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-BlackItalic.ttf") format("truetype"); font-weight: 900; font-style: italic; font-display: swap; }
+  </style>
+
+  <link rel="stylesheet" href="../design-system/colors_and_type.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { margin: 0; padding: 0; }
+  </style>
+  <script>
+    // Restore scroll to top on every fresh load (refresh).
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
+  </script>
+  <style>
+    /* placeholder to keep style block continuous */
+    body {
+      background: var(--ma-warm-100);
+      color: var(--ma-brown-900);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    .container-narrow { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+
+    /* ===================== Nav ===================== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(246,244,238,.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .nav-inner { display: flex; align-items: center; gap: 32px; padding: 18px 32px; max-width: 1240px; margin: 0 auto; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.015em; color: var(--ma-brown-900); }
+    .brand-mark { width: 36px; height: 36px; border-radius: 12px; background: var(--ma-olive-800); display: inline-flex; align-items: center; justify-content: center; color: var(--ma-warm-100); }
+    .nav-links { display: flex; gap: 28px; flex: 1; justify-content: center; font-size: 14px; font-weight: 500; color: var(--ma-brown-900); }
+    .nav-links a:hover { color: var(--ma-olive-800); }
+    .nav-cta { display: flex; gap: 10px; align-items: center; }
+
+    /* Burger button */
+    .burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; padding: 8px; border: 0; background: transparent; cursor: pointer; border-radius: 10px; margin-left: auto; flex-shrink: 0; transition: background 160ms; }
+    .burger:hover { background: var(--ma-sand-200); }
+    .burger span { display: block; height: 2px; width: 22px; background: var(--ma-brown-900); border-radius: 2px; transition: transform 280ms cubic-bezier(.22,.61,.36,1), opacity 200ms; transform-origin: center; }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-mobile { display: none; flex-direction: column; gap: 2px; padding: 12px 20px 20px; border-top: 1px solid var(--color-border-subtle); animation: mobileMenuIn 240ms cubic-bezier(.22,.61,.36,1) both; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile-link { font-family: var(--font-sans); font-size: 16px; font-weight: 500; color: var(--ma-brown-900); padding: 13px 14px; border-radius: 12px; text-decoration: none; transition: background 140ms, color 140ms; }
+    .nav-mobile-link:hover { background: var(--ma-sand-200); color: var(--ma-olive-800); }
+    .nav-mobile-cta { display: flex; gap: 10px; margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--color-border-subtle); }
+    @keyframes mobileMenuIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===================== Buttons ===================== */
+    .btn { font-family: var(--font-sans); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; padding: 13px 22px; border-radius: 14px; transition: all 180ms cubic-bezier(.22,.61,.36,1); display: inline-flex; align-items: center; gap: 8px; line-height: 1; white-space: nowrap; text-decoration: none; }
+    .btn-primary { background: var(--ma-olive-800); color: var(--ma-warm-100); }
+    .btn-primary:hover { background: var(--ma-olive-900); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: transparent; color: var(--ma-olive-800); border: 1.5px solid var(--ma-sage-300); }
+    .btn-secondary:hover { background: var(--ma-sand-200); }
+    .btn-ghost { background: transparent; color: var(--ma-olive-700); }
+    .btn-ghost:hover { background: rgba(79,98,59,.08); }
+    .btn-lg { padding: 17px 28px; font-size: 16px; border-radius: 16px; }
+    .btn-light { background: var(--ma-warm-100); color: var(--ma-olive-900); }
+    .btn-light:hover { background: #fff; }
+
+    /* ===================== Hero ===================== */
+    .hero { padding: 64px 0 80px; position: relative; overflow: hidden; }
+    .hero-inner { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ma-olive-700); padding: 8px 14px; background: rgba(79,98,59,.10); border-radius: 999px; margin-bottom: 24px; }
+    .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(48px, 6vw, 84px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ma-brown-900); margin: 0 0 24px; }
+    .hero h1 em { font-style: italic; font-weight: 500; color: var(--ma-olive-800); }
+    .hero p.lead { font-size: 19px; line-height: 1.6; color: var(--ma-brown-700); max-width: 520px; margin: 0 0 32px; }
+    .hero-ctas { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .hero-meta { margin-top: 28px; display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--ma-brown-700); }
+    .meta-avatars { display: flex; }
+    .meta-avatars span { width: 32px; height: 32px; border-radius: 999px; border: 2px solid var(--ma-warm-100); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--ma-warm-100); margin-left: -8px; }
+    .meta-avatars span:first-child { margin-left: 0; }
+
+    .hero-visual { position: relative; aspect-ratio: 4/5; max-width: 560px; margin-left: auto; }
+    .hero-photo { position: absolute; inset: 0; border-radius: 32px; overflow: hidden; background: linear-gradient(180deg, rgba(47,62,34,0) 60%, rgba(47,62,34,.22) 100%), linear-gradient(135deg, #C9D0B8, #7A8A64); box-shadow: 0 32px 80px rgba(47,62,34,.18); }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; filter: saturate(0.88) contrast(0.96); }
+    .hero-photo-caption { position: absolute; bottom: 24px; left: 24px; color: var(--ma-warm-100); font-family: var(--font-display); font-style: italic; font-size: 18px; line-height: 1.3; max-width: 240px; text-shadow: 0 1px 12px rgba(47,62,34,.6); }
+    .mockup-shell { position: absolute; bottom: -24px; right: -32px; width: 64%; background: var(--ma-white); border-radius: 24px; box-shadow: 0 32px 80px rgba(47,62,34,.22); border: 1px solid var(--color-border-subtle); overflow: hidden; display: flex; flex-direction: column; transform: rotate(-1.5deg); }
+    .mockup-bar { background: var(--ma-warm-100); padding: 14px 18px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--color-border-subtle); }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 999px; }
+    .mockup-content { flex: 1; padding: 24px 22px; display: flex; flex-direction: column; gap: 16px; background: var(--ma-warm-100); }
+    .mockup-greet { font-family: var(--font-display); font-size: 24px; font-weight: 600; font-style: italic; color: var(--ma-brown-900); letter-spacing: -0.015em; line-height: 1.2; }
+    .mockup-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .mockup-card { background: #fff; border-radius: 16px; padding: 14px; border: 1px solid var(--color-border-subtle); }
+    .mockup-card .lbl { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ma-olive-700); }
+    .mockup-card .val { font-size: 22px; font-weight: 700; color: var(--ma-olive-900); margin-top: 4px; letter-spacing: -0.01em; }
+    .mockup-card .trend { font-size: 11px; color: var(--ma-olive-700); margin-top: 6px; }
+    .mockup-row { background: #fff; border-radius: 16px; padding: 14px; border: 1px solid var(--color-border-subtle); display: flex; align-items: center; gap: 12px; }
+    .mockup-row + .mockup-row { margin-top: 0; }
+    .mockup-thumb { width: 42px; height: 52px; border-radius: 10px; background: linear-gradient(160deg, var(--ma-sand-200), var(--ma-sage-300)); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--ma-olive-800); }
+    .mockup-row .row-meta { flex: 1; min-width: 0; }
+    .mockup-row .row-meta .t { font-size: 13px; font-weight: 600; color: var(--ma-olive-900); }
+    .mockup-row .row-meta .s { font-size: 11px; color: var(--ma-brown-700); margin-top: 2px; }
+    .mockup-row .price { font-size: 14px; font-weight: 700; color: var(--ma-olive-900); }
+    .mockup-badge { position: absolute; background: #fff; border-radius: 18px; padding: 14px 18px; box-shadow: var(--shadow-md); border: 1px solid var(--color-border-subtle); display: flex; align-items: center; gap: 12px; }
+    .mockup-badge-1 { bottom: -10px; left: -28px; transform: rotate(-3deg); }
+    .mockup-badge-2 { top: 50px; right: -36px; transform: rotate(2deg); }
+    .mockup-badge .ic { width: 38px; height: 38px; border-radius: 999px; background: var(--ma-sage-300); display: flex; align-items: center; justify-content: center; color: var(--ma-olive-800); }
+    .mockup-badge .l { font-size: 11px; color: var(--ma-brown-700); }
+    .mockup-badge .v { font-size: 15px; font-weight: 700; color: var(--ma-olive-900); line-height: 1.1; }
+
+    .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55; pointer-events: none; z-index: -1; }
+    .blob-1 { width: 380px; height: 380px; background: var(--ma-sage-300); top: -100px; right: -80px; }
+    .blob-2 { width: 280px; height: 280px; background: var(--ma-sand-200); bottom: -60px; left: 10%; opacity: 0.8; }
+
+    /* Hero ambient animations — subtle but perceptible drift */
+    @keyframes heroFloat {
+      0%, 100% { transform: rotate(-1.5deg) translateY(0px) translateX(0); }
+      50% { transform: rotate(-1.2deg) translateY(-18px) translateX(2px); }
+    }
+    @keyframes badge1Float {
+      0%, 100% { transform: rotate(-3deg) translateY(0px) translateX(0); }
+      50% { transform: rotate(-2.2deg) translateY(-16px) translateX(-3px); }
+    }
+    @keyframes badge2Float {
+      0%, 100% { transform: rotate(2deg) translateY(0px) translateX(0); }
+      50% { transform: rotate(2.8deg) translateY(-14px) translateX(4px); }
+    }
+    @keyframes heroPhotoBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.015); }
+    }
+    .mockup-shell { animation: heroFloat 5.5s ease-in-out infinite; }
+    .mockup-badge-1 { animation: badge1Float 6s ease-in-out infinite 0.8s; }
+    .mockup-badge-2 { animation: badge2Float 4.8s ease-in-out infinite 0.3s; }
+    .hero-photo img { animation: heroPhotoBreathe 9s ease-in-out infinite; }
+
+    /* ===================== Trust ===================== */
+    .trust { padding: 32px 0; border-top: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle); background: var(--ma-warm-100); }
+    .trust-row { display: flex; align-items: center; gap: 48px; justify-content: space-between; flex-wrap: wrap; }
+    .trust-label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ma-taupe-500); font-weight: 600; }
+    .trust-logo { font-family: var(--font-display); font-weight: 500; font-style: italic; font-size: 22px; color: var(--ma-brown-700); letter-spacing: -0.01em; opacity: 0.7; }
+
+    /* ===================== Pillars ===================== */
+    .pillars { padding: 96px 0 64px; }
+    .section-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+    .section-head .eyebrow { margin-bottom: 18px; }
+    .section-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.1; letter-spacing: -0.02em; color: var(--ma-brown-900); margin: 0 0 16px; }
+    .section-head h2 em { font-style: italic; font-weight: 500; color: var(--ma-olive-800); }
+    .section-head p { font-size: 18px; line-height: 1.6; color: var(--ma-brown-700); margin: 0; }
+    .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .pillar { background: #fff; border-radius: 28px; padding: 36px; border: 1px solid var(--color-border-subtle); transition: all 240ms cubic-bezier(.22,.61,.36,1); }
+    .pillar:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .pillar-ic { width: 56px; height: 56px; border-radius: 18px; background: var(--ma-sand-200); color: var(--ma-olive-800); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+    .pillar h3 { font-family: var(--font-sans); font-size: 22px; font-weight: 600; letter-spacing: -0.015em; color: var(--ma-olive-900); margin: 0 0 12px; }
+    .pillar p { font-size: 15px; line-height: 1.6; color: var(--ma-brown-700); margin: 0 0 20px; }
+    .pillar ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .pillar ul li { font-size: 14px; color: var(--ma-brown-900); display: flex; align-items: center; gap: 10px; }
+    .pillar ul li svg { color: var(--ma-olive-700); flex-shrink: 0; }
+
+    /* ===================== Feature blocks ===================== */
+    .feature { padding: 80px 0; }
+    .feature-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .feature-inner.reverse > div:first-child { order: 2; }
+    .feature h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(32px, 3.8vw, 44px); line-height: 1.12; letter-spacing: -0.02em; color: var(--ma-brown-900); margin: 16px 0 16px; }
+    .feature h3 em { font-style: italic; font-weight: 500; color: var(--ma-olive-800); }
+    .feature p { font-size: 17px; line-height: 1.6; color: var(--ma-brown-700); margin: 0 0 24px; }
+    .feature-list { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 14px; }
+    .feature-list li { display: flex; gap: 14px; font-size: 15px; color: var(--ma-brown-900); }
+    .feature-list li .ic { width: 28px; height: 28px; border-radius: 10px; background: rgba(79,98,59,.14); color: var(--ma-olive-700); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .feature-list li .ic + div { padding-top: 2px; }
+    .feature-list li strong { color: var(--ma-olive-900); font-weight: 600; }
+    .feat-visual { position: relative; aspect-ratio: 1/1; border-radius: 32px; overflow: hidden; background: linear-gradient(135deg, var(--ma-sand-200), var(--ma-sage-300)); padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .feat-visual.olive { background: var(--ma-olive-900); color: var(--ma-warm-100); }
+    .feat-card { background: #fff; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md); border: 1px solid var(--color-border-subtle); }
+    .feat-thumb { width: 44px; height: 56px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--ma-olive-800); }
+    .feat-thumb.a { background: linear-gradient(160deg, var(--ma-sand-200), var(--ma-sage-300)); }
+    .feat-thumb.b { background: linear-gradient(160deg, #F6F4EE, #E9E3D5); }
+    .looks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; background: rgba(255,255,255,.4); border-radius: 24px; }
+    .look-thumb { aspect-ratio: 1/1; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+    .chart-card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: var(--shadow-md); }
+    .chart-head { display: flex; justify-content: space-between; margin-bottom: 18px; }
+    .chart-title { font-size: 14px; font-weight: 600; color: var(--ma-olive-900); }
+    .chart-val { font-size: 24px; font-weight: 700; color: var(--ma-olive-900); letter-spacing: -0.01em; }
+    .chart-trend { font-size: 12px; color: var(--ma-olive-700); font-weight: 600; }
+
+    /* ===================== Stats ===================== */
+    .stats { background: var(--ma-olive-900); color: var(--ma-warm-100); padding: 80px 0; position: relative; overflow: hidden; }
+    .stats::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top right, rgba(200,164,106,.18), transparent 60%); pointer-events: none; }
+    .stats-head { max-width: 720px; text-align: center; margin: 0 auto 56px; position: relative; }
+    .stats-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 3.8vw, 48px); letter-spacing: -0.02em; line-height: 1.12; margin: 16px 0 0; }
+    .stats-head h2 em { font-style: italic; font-weight: 500; color: var(--ma-gold-500); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+    .stat { text-align: center; padding: 28px 16px; }
+    .stat-val { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 4.4vw, 60px); color: var(--ma-warm-100); letter-spacing: -0.02em; line-height: 1; margin-bottom: 10px; }
+    .stat-val em { font-style: italic; font-weight: 500; color: var(--ma-gold-500); }
+    .stat-lbl { font-size: 14px; color: rgba(246,244,238,.8); line-height: 1.45; }
+
+    /* ===================== Quote ===================== */
+    .quote { padding: 96px 0; background: var(--ma-sand-200); }
+    .quote-inner { max-width: 900px; margin: 0 auto; text-align: center; padding: 0 32px; }
+    .quote q { font-family: var(--font-display); font-weight: 500; font-style: italic; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.3; letter-spacing: -0.015em; color: var(--ma-brown-900); display: block; margin-bottom: 32px; quotes: "\201C" "\201D"; }
+    .quote-author { display: inline-flex; align-items: center; gap: 14px; text-align: left; }
+    .quote-author .av { width: 56px; height: 56px; border-radius: 999px; background: var(--ma-sage-500); color: var(--ma-warm-100); display: inline-flex; align-items: center; justify-content: center; font-weight: 600; font-size: 18px; }
+    .quote-author .n { font-weight: 600; font-size: 15px; color: var(--ma-olive-900); }
+    .quote-author .r { font-size: 13px; color: var(--ma-brown-700); margin-top: 2px; }
+
+    /* ===================== Pricing ===================== */
+    .pricing { padding: 96px 0; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .price-card { background: #fff; border-radius: 28px; padding: 36px; border: 1px solid var(--color-border-subtle); display: flex; flex-direction: column; transition: all 240ms cubic-bezier(.22,.61,.36,1); }
+    .price-card.featured { background: var(--ma-olive-900); color: var(--ma-warm-100); transform: translateY(-12px); box-shadow: 0 24px 60px rgba(47,62,34,.18); border: 0; position: relative; }
+    .price-card.featured::before { content: 'mais escolhido'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--ma-gold-500); color: var(--ma-brown-900); padding: 6px 16px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .price-name { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: inherit; letter-spacing: -0.01em; margin: 0 0 6px; }
+    .price-desc { font-size: 14px; color: var(--ma-brown-700); margin: 0 0 24px; min-height: 42px; line-height: 1.5; }
+    .price-card.featured .price-desc { color: rgba(246,244,238,.8); }
+    .price-val { font-family: var(--font-display); font-weight: 700; font-size: 48px; color: var(--ma-olive-900); letter-spacing: -0.02em; line-height: 1; display: flex; align-items: baseline; gap: 6px; }
+    .price-card.featured .price-val { color: var(--ma-warm-100); }
+    .price-val .per { font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--ma-brown-700); }
+    .price-card.featured .price-val .per { color: rgba(246,244,238,.7); }
+    .price-features { list-style: none; padding: 0; margin: 24px 0 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .price-features li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5; }
+    .price-features li svg { color: var(--ma-olive-700); flex-shrink: 0; margin-top: 2px; }
+    .price-card.featured .price-features li svg { color: var(--ma-gold-500); }
+
+    /* ===================== FAQ ===================== */
+    .faq { padding: 96px 0; background: var(--ma-warm-100); }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 820px; margin: 0 auto; }
+    .faq-item { background: #fff; border-radius: 20px; border: 1px solid var(--color-border-subtle); overflow: hidden; }
+    .faq-item summary { padding: 22px 24px; cursor: pointer; font-weight: 600; font-size: 16px; color: var(--ma-olive-900); display: flex; justify-content: space-between; align-items: center; list-style: none; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 24px; font-weight: 300; color: var(--ma-olive-700); transition: transform 180ms; }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item .ans { padding: 0 24px 22px; font-size: 15px; line-height: 1.6; color: var(--ma-brown-700); }
+
+    /* ===================== Final CTA ===================== */
+    .final-cta { padding: 96px 0; }
+    .cta-card { background: var(--ma-olive-800); color: var(--ma-warm-100); border-radius: 36px; padding: 72px 56px; text-align: center; position: relative; overflow: hidden; }
+    .cta-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top left, rgba(200,164,106,.20), transparent 50%), radial-gradient(ellipse at bottom right, rgba(122,138,100,.30), transparent 60%); pointer-events: none; }
+    .cta-card h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 18px; position: relative; }
+    .cta-card h2 em { font-style: italic; font-weight: 500; color: var(--ma-gold-500); }
+    .cta-card p { font-size: 18px; line-height: 1.6; color: rgba(246,244,238,.85); max-width: 560px; margin: 0 auto 32px; position: relative; }
+    .cta-buttons { display: inline-flex; gap: 12px; position: relative; }
+
+    /* ===================== Footer ===================== */
+    .foot { background: var(--ma-warm-100); padding: 56px 0 32px; border-top: 1px solid var(--color-border-subtle); }
+    .foot-inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 56px; padding-bottom: 40px; }
+    .foot-col h4 { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ma-olive-700); margin: 0 0 16px; }
+    .foot-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .foot-col a { font-size: 14px; color: var(--ma-brown-900); }
+    .foot-col a:hover { color: var(--ma-olive-800); }
+    .foot-brand p { font-size: 14px; color: var(--ma-brown-700); margin: 16px 0 0; line-height: 1.6; max-width: 320px; }
+    .foot-bottom { border-top: 1px solid var(--color-border-subtle); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ma-taupe-500); }
+    .foot-bottom a { color: var(--ma-taupe-500); }
+    .foot-bottom a:hover { color: var(--ma-olive-800); }
+
+    /* ===================== Responsive ===================== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 56px; }
+      .hero-visual { margin: 0 auto; max-width: 480px; }
+      .mockup-shell { right: -20px; bottom: -20px; }
+      .feature-inner { grid-template-columns: 1fr; gap: 48px; }
+      .feature-inner.reverse > div:first-child { order: 0; }
+      .pillar-grid { grid-template-columns: 1fr 1fr; }
+      .pillar-grid > article:last-child { grid-column: span 2; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .price-card.featured { transform: none; }
+      .foot-inner { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+      .foot-brand { grid-column: span 2; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .burger { display: flex; }
+      .container, .container-narrow { padding: 0 24px; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner { padding: 14px 20px; gap: 12px; }
+      .brand { font-size: 18px; }
+      .brand-mark { width: 32px; height: 32px; }
+      .hero { padding: 36px 0 56px; }
+      .hero-inner { gap: 44px; }
+      .eyebrow { padding: 6px 12px; font-size: 11px; }
+      .hero p.lead { font-size: 17px; }
+      .hero-visual { max-width: 100%; }
+      .mockup-shell { width: 70%; right: -16px; bottom: -16px; }
+      .mockup-badge { display: none; }
+      .trust { padding: 24px 0; }
+      .trust-row { gap: 24px; justify-content: center; }
+      .trust-logo { font-size: 18px; }
+      .pillars { padding: 56px 0 40px; }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .pillar-grid > article:last-child { grid-column: span 1; }
+      .pillar { padding: 28px; border-radius: 24px; }
+      .feature { padding: 56px 0; }
+      .feature-inner { gap: 36px; }
+      .section-head { margin-bottom: 36px; }
+      .feat-visual { padding: 24px; border-radius: 24px; }
+      .stats { padding: 56px 0; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .stat { padding: 16px 8px; }
+      .quote { padding: 56px 0; }
+      .pricing { padding: 56px 0; }
+      .price-card { padding: 28px; border-radius: 24px; }
+      .faq { padding: 56px 0; }
+      .faq-item summary { padding: 18px 20px; font-size: 15px; }
+      .faq-item .ans { padding: 0 20px 18px; font-size: 14px; }
+      .final-cta { padding: 56px 0; }
+      .cta-card { padding: 48px 28px; border-radius: 28px; }
+      .cta-buttons { flex-direction: column; width: 100%; }
+      .cta-buttons .btn { width: 100%; justify-content: center; }
+      .foot { padding: 40px 0 24px; }
+      .foot-inner { grid-template-columns: 1fr; gap: 32px; padding-bottom: 28px; }
+      .foot-brand { grid-column: span 1; }
+      .foot-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .container, .container-narrow { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#">
+        <img src="../design-system/assets/logo-final.png" alt="Minha Arara" style="height:32px;display:block;">
+      </a>
+      <div class="nav-links">
+        <a href="#produto">Produto</a>
+        <a href="#para-quem">Para quem é</a>
+        <a href="#planos">Planos</a>
+        <a href="#duvidas">Dúvidas</a>
+      </div>
+      <div class="nav-cta">
+        <a href="../app/index.html" class="btn btn-ghost">Entrar</a>
+        <a href="../app/index.html?signup=1" class="btn btn-primary">Começar grátis</a>
+      </div>
+      <!-- Burger -->
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile drawer -->
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="#produto" class="nav-mobile-link">Produto</a>
+      <a href="#para-quem" class="nav-mobile-link">Para quem é</a>
+      <a href="#planos" class="nav-mobile-link">Planos</a>
+      <a href="#duvidas" class="nav-mobile-link">Dúvidas</a>
+      <div class="nav-mobile-cta">
+        <a href="../app/index.html" class="btn btn-ghost" style="flex:1;justify-content:center;">Entrar</a>
+        <a href="../app/index.html?signup=1" class="btn btn-primary" style="flex:1;justify-content:center;">Começar grátis</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.5 2 8 0 5.5-4.8 10-10 10z"/></svg>
+            gestão leve para quem vive moda
+          </span>
+          <h1>Organize hoje. <em>Transforme sempre.</em></h1>
+          <p class="lead">A arara digital que ajuda você a cuidar de peças, looks e vendas em um só lugar — sem planilhas e sem virar ERP. Gestão leve para quem vive moda.</p>
+          <div class="hero-ctas">
+            <a href="../app/index.html?signup=1" class="btn btn-primary btn-lg">
+              Começar agora
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#produto" class="btn btn-secondary btn-lg">Ver como funciona</a>
+          </div>
+          <div class="hero-meta">
+            <div class="meta-avatars">
+              <span style="background:#7A8A64;">M</span>
+              <span style="background:#4F623B;">J</span>
+              <span style="background:#C8A46A;color:#3E2F23;">R</span>
+              <span style="background:#B8744E;">A</span>
+            </div>
+            <div><strong style="color:var(--ma-olive-900);">2.400+ pessoas</strong> já organizam moda com a Minha Arara</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="hero-visual">
+            <div class="hero-photo">
+              <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=80&auto=format&fit=crop" alt="Curadora organizando peças" loading="eager" />
+              <div class="hero-photo-caption">organize hoje.<br/>transforme sempre.</div>
+            </div>
+            <div class="mockup-shell">
+              <div class="mockup-bar">
+                <span class="mockup-dot" style="background:#B85C4A;"></span>
+                <span class="mockup-dot" style="background:#C8A46A;"></span>
+                <span class="mockup-dot" style="background:#4F623B;"></span>
+                <span style="flex:1;text-align:center;font-size:11px;color:var(--ma-taupe-500);">Minha Arara · Painel</span>
+              </div>
+              <div class="mockup-content">
+                <div>
+                  <div style="font-size:11px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--ma-olive-700);">quinta · 16 mai</div>
+                  <div class="mockup-greet" style="margin-top:4px;">Olá, Priscila.</div>
+                </div>
+                <div class="mockup-cards">
+                  <div class="mockup-card">
+                    <div class="lbl">peças</div>
+                    <div class="val" data-count-to="128">0</div>
+                    <div class="trend" data-trend-to="8" data-trend-prefix="+" data-trend-suffix=" esta semana">+0 esta semana</div>
+                  </div>
+                  <div class="mockup-card">
+                    <div class="lbl">vendas mai</div>
+                    <div class="val" data-count-to="4820" data-money="true">R$ 0</div>
+                    <div class="trend" data-trend-to="18" data-trend-prefix="+" data-trend-suffix="% vs abril">+0% vs abril</div>
+                  </div>
+                </div>
+                <div class="mockup-row">
+                  <div class="mockup-thumb">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>
+                  </div>
+                  <div class="row-meta">
+                    <div class="t">Vestido midi linho areia</div>
+                    <div class="s">Vestido · Tam M · disponível</div>
+                  </div>
+                  <div class="price">R$ 168</div>
+                </div>
+              </div>
+            </div>
+            <div class="mockup-badge mockup-badge-1">
+              <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <div><div class="l">Pronto.</div><div class="v">Peça salva.</div></div>
+            </div>
+            <div class="mockup-badge mockup-badge-2">
+              <div class="ic" style="background:rgba(200,164,106,.30);color:#7A5C24;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </div>
+              <div><div class="l">vendas do mês</div><div class="v" data-count-to="18" data-trend-prefix="+" data-trend-suffix="%">+0%</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust">
+    <div class="container">
+      <div class="trust-row reveal">
+        <div class="trust-label">Curadoras que confiam</div>
+        <span class="trust-logo">Brechó Asa Norte</span>
+        <span class="trust-logo">Outro Olhar</span>
+        <span class="trust-logo">Casa Madre</span>
+        <span class="trust-logo">Ateliê Folha</span>
+        <span class="trust-logo">Renovo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars" id="produto">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">o que você consegue fazer</span>
+        <h2>Tudo o que sua arara precisa, <em>sem virar planilha</em>.</h2>
+        <p>Três pilares para transformar a rotina de quem vive moda — do cadastro da peça à venda final.</p>
+      </div>
+      <div class="pillar-grid stagger">
+        <article class="pillar">
+          <div class="pillar-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+          <h3>Organize sua arara</h3>
+          <p>Cadastre peças com foto, categoria, etiqueta e valor. Veja tudo organizado em um catálogo simples e bonito.</p>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Cadastro rápido com foto</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Etiquetas personalizadas</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Busca por cor, tamanho ou estado</li>
+          </ul>
+        </article>
+        <article class="pillar">
+          <div class="pillar-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></div>
+          <h3>Crie looks com intenção</h3>
+          <p>Combine peças em looks salvos. Publique no perfil público e veja quais combinações o seu público mais ama.</p>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Composições visuais salvas</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Perfil público da sua arara</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Favoritos das suas clientes</li>
+          </ul>
+        </article>
+        <article class="pillar">
+          <div class="pillar-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 6-6"/></svg></div>
+          <h3>Acompanhe sem peso</h3>
+          <p>Veja receita, ticket médio, peças paradas e oportunidades de venda — em painéis que parecem feitos para gente.</p>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Vendas por canal</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Alertas de peças paradas</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Relatórios para parceiros</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE 1 — Cadastro -->
+  <section class="feature">
+    <div class="container">
+      <div class="feature-inner">
+        <div class="reveal-left">
+          <span class="eyebrow">Cadastro de peças</span>
+          <h3>Da foto à etiqueta, <em>tudo em uma tela</em>.</h3>
+          <p>Tire a foto, escolha categoria, escreva o que torna aquela peça especial. Pronto — está na sua arara, com etiqueta gerada e valor sugerido.</p>
+          <ul class="feature-list">
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></span><div><strong>Foto direto do celular.</strong> Capture e recorte sem sair do fluxo.</div></li>
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 10h8"/><path d="M8 14h4"/></svg></span><div><strong>Etiquetas personalizadas.</strong> Imprima em papel kraft, no formato da Minha Arara.</div></li>
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/></svg></span><div><strong>Sugestão de valor.</strong> A partir de categoria, marca e estado da peça.</div></li>
+          </ul>
+          <a href="../app/index.html?signup=1" class="btn btn-primary">Começar pelo cadastro</a>
+        </div>
+        <div>
+          <div class="feat-visual" style="background:none;padding:0;overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=1200&q=80&auto=format&fit=crop" alt="Vestido linho em cabide" style="width:100%;height:100%;object-fit:cover;border-radius:32px;filter:saturate(0.88) contrast(0.96);" />
+            <div class="feat-card" style="position:absolute;bottom:24px;left:24px;right:24px;transform:rotate(-1deg);">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ma-olive-700);font-weight:600;">Vestido · Tam M</div>
+                  <div style="font-size:15px;font-weight:600;color:var(--ma-olive-900);margin-top:2px;">Vestido midi linho areia</div>
+                </div>
+                <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:#E5EED4;color:#3C5026;font-size:11px;font-weight:600;"><span style="width:6px;height:6px;border-radius:999px;background:#6B8A47;"></span>R$ 168</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE 2 — Looks -->
+  <section class="feature" style="background:var(--ma-sand-200);">
+    <div class="container">
+      <div class="feature-inner reverse">
+        <div class="reveal-right">
+          <span class="eyebrow">Looks &amp; perfil público</span>
+          <h3>O perfil <em>mais bonito</em> da sua curadoria.</h3>
+          <p>Cada peça e cada look ganham um espaço bonito para serem descobertos. Compartilhe pelo link, no Instagram ou no WhatsApp — a venda começa por uma boa apresentação.</p>
+          <ul class="feature-list">
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg></span><div><strong>Perfil público próprio.</strong> Como uma vitrine digital, no seu jeito.</div></li>
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg></span><div><strong>Favoritos e mensagens.</strong> Quem ama, te procura. Direto pelo perfil.</div></li>
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><div><strong>Link único para vendas.</strong> Para o link na bio, lives e parcerias.</div></li>
+          </ul>
+          <a href="#" class="btn btn-secondary">Ver perfil de exemplo</a>
+        </div>
+        <div>
+          <div class="feat-visual">
+            <div class="looks-grid">
+              <div class="look-thumb" style="background:linear-gradient(140deg,#E9E3D5,#C9D0B8);"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#3F512E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.32;"><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+              <div class="look-thumb" style="background:linear-gradient(140deg,#D6D3C5,#7A8A64);"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#F6F4EE" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.45;"><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+              <div class="look-thumb" style="background:linear-gradient(140deg,#F0E6D3,#C8A46A);"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#3E2F23" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.32;"><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+              <div class="look-thumb" style="background:linear-gradient(140deg,#DCD9C4,#5D6B4A);"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#F6F4EE" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.4;"><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+            </div>
+            <div style="position:absolute;bottom:24px;left:24px;right:24px;background:#fff;padding:14px 18px;border-radius:16px;box-shadow:var(--shadow-md);display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:15px;font-weight:600;color:var(--ma-olive-900);">Domingo sereno</div>
+                <div style="font-size:12px;color:var(--ma-brown-700);">3 peças combinadas</div>
+              </div>
+              <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(184,116,78,.18);color:#7E4324;font-size:12px;font-weight:600;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg>
+                4 favoritos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE 3 — Painel -->
+  <section class="feature" id="para-quem">
+    <div class="container">
+      <div class="feature-inner">
+        <div class="reveal-left">
+          <span class="eyebrow">Painel inteligente</span>
+          <h3>Os números <em>conversam</em> com você.</h3>
+          <p>Receita por canal, ticket médio, peças paradas. A Minha Arara olha pra você como uma sócia atenta — apontando o que está indo bem e o que pede atenção.</p>
+          <ul class="feature-list">
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 6-6"/></svg></span><div><strong>Receita e giro</strong> por canal: loja, feira virtual, consignação.</div></li>
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><div><strong>Alertas suaves</strong> para peças paradas e oportunidades de repostagem.</div></li>
+            <li><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span><div><strong>Relatórios mensais</strong> bonitos, para enviar para parceiros e consignadas.</div></li>
+          </ul>
+        </div>
+        <div>
+          <div class="feat-visual olive">
+            <div class="chart-card">
+              <div class="chart-head">
+                <div><div class="chart-title">Vendas do mês</div><div class="chart-val">R$ 4.820</div></div>
+                <div class="chart-trend">+18% vs abril</div>
+              </div>
+              <svg viewBox="0 0 220 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block;">
+                <path d="M0 70 L25 60 L50 65 L75 45 L100 50 L125 32 L150 38 L175 22 L200 28 L220 12" stroke="#4F623B" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M0 70 L25 60 L50 65 L75 45 L100 50 L125 32 L150 38 L175 22 L200 28 L220 12 L220 90 L0 90 Z" fill="rgba(79,98,59,.14)"/>
+              </svg>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ma-taupe-500);text-transform:uppercase;letter-spacing:.06em;margin-top:6px;"><span>jan</span><span>fev</span><span>mar</span><span>abr</span><span>mai</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+              <div style="background:rgba(246,244,238,.10);border-radius:14px;padding:14px;backdrop-filter:blur(8px);">
+                <div style="font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:rgba(246,244,238,.65);font-weight:600;">ticket médio</div>
+                <div style="font-size:22px;font-weight:700;color:var(--ma-warm-100);margin-top:4px;letter-spacing:-0.01em;">R$ 142</div>
+              </div>
+              <div style="background:rgba(200,164,106,.20);border-radius:14px;padding:14px;">
+                <div style="font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--ma-gold-500);font-weight:600;">paradas 60+ dias</div>
+                <div style="font-size:22px;font-weight:700;color:var(--ma-warm-100);margin-top:4px;letter-spacing:-0.01em;">12</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-head reveal">
+        <span class="eyebrow" style="background:rgba(246,244,238,.10);color:var(--ma-gold-500);">números</span>
+        <h2>Uma rede que <em>cresce devagar</em>, com intenção.</h2>
+      </div>
+      <div class="stats-grid stagger">
+        <div class="stat"><div class="stat-val">2.<em>4</em>k</div><div class="stat-lbl">pessoas organizam moda com a Minha Arara</div></div>
+        <div class="stat"><div class="stat-val">68<em>%</em></div><div class="stat-lbl">de aumento médio nas vendas após 90 dias</div></div>
+        <div class="stat"><div class="stat-val">12<em>min</em></div><div class="stat-lbl">para cadastrar a primeira peça</div></div>
+        <div class="stat"><div class="stat-val">340<em>k</em></div><div class="stat-lbl">peças com nova história em circulação</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote">
+    <div class="quote-inner reveal-scale">
+      <span class="eyebrow">depoimento</span>
+      <q style="margin-top:24px;">Antes eu tinha planilhas, posts e lembretes espalhados. Agora abro a Minha Arara e sei exatamente o que vender, o que repostar e o que separar. Voltei a ter tempo para curadoria.</q>
+      <div class="quote-author">
+        <div class="av">J</div>
+        <div style="text-align:left;">
+          <div class="n">Júlia Bertoni</div>
+          <div class="r">Curadoria Outro Olhar · Brasília</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="planos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">planos</span>
+        <h2>Comece grátis. Cresce <em>quando você quiser</em>.</h2>
+        <p>Sem fidelidade, sem letra miúda. Pague só pelo que usa — e cancele a qualquer momento.</p>
+      </div>
+      <div class="pricing-grid stagger">
+        <article class="price-card">
+          <div class="price-name">Sementinha</div>
+          <p class="price-desc">Para quem está começando a organizar o próprio armário.</p>
+          <div class="price-val">R$ 0 <span class="per">/ para sempre</span></div>
+          <ul class="price-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Até 30 peças cadastradas</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>1 perfil público</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Painel básico</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Etiquetas digitais</li>
+          </ul>
+          <a href="../app/index.html?signup=1" class="btn btn-secondary">Começar grátis</a>
+        </article>
+        <article class="price-card featured">
+          <div class="price-name">Coleção</div>
+          <p class="price-desc">Para brechós, curadoras e revendedoras com agenda cheia.</p>
+          <div class="price-val">R$ 49 <span class="per">/ mês</span></div>
+          <ul class="price-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Peças ilimitadas</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Painel completo + alertas</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vendas e consignação</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Etiquetas físicas para imprimir</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Relatórios mensais</li>
+          </ul>
+          <a href="../app/index.html?signup=1" class="btn btn-light">Começar 14 dias grátis</a>
+        </article>
+        <article class="price-card">
+          <div class="price-name">Curadoria</div>
+          <p class="price-desc">Para quem trabalha com várias parceiras e múltiplas araras.</p>
+          <div class="price-val">R$ 129 <span class="per">/ mês</span></div>
+          <ul class="price-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tudo do Coleção</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Múltiplas araras / lojas</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Time com até 5 pessoas</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Suporte prioritário</li>
+          </ul>
+          <a href="https://wa.me/5511982155535" target="_blank" rel="noopener" class="btn btn-secondary">Falar com a gente</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="duvidas">
+    <div class="container-narrow">
+      <div class="section-head reveal">
+        <span class="eyebrow">dúvidas frequentes</span>
+        <h2>Antes <em>de começar</em>.</h2>
+      </div>
+      <div class="faq-list stagger">
+        <details class="faq-item"><summary>Preciso ter um brechó para usar a Minha Arara?</summary><div class="ans">Não. A Minha Arara funciona para qualquer pessoa que quer organizar peças — do guarda-roupa pessoal até o brechó com centenas de itens. Comece pelo plano Sementinha e cresce conforme a sua arara cresce.</div></details>
+        <details class="faq-item"><summary>Como funciona a consignação dentro do sistema?</summary><div class="ans">Você cadastra a parceira, marca a peça como consignada e a Minha Arara calcula a divisão de valores quando a venda acontece. No fim do mês, gera um relatório para enviar.</div></details>
+        <details class="faq-item"><summary>Posso importar peças de uma planilha que já tenho?</summary><div class="ans">Sim. Aceitamos importação por CSV ou planilha do Google. Mapeamos os campos automaticamente e você revisa antes de salvar.</div></details>
+        <details class="faq-item"><summary>A plataforma funciona no celular?</summary><div class="ans">Totalmente. O cadastro com foto, leitura de etiqueta e registro de venda foram desenhados primeiro para o celular. No desktop você tem mais espaço para os painéis.</div></details>
+        <details class="faq-item"><summary>Existe taxa sobre as vendas?</summary><div class="ans">Não. A Minha Arara é uma plataforma de gestão, não um marketplace. Você cobra como quiser. Cobramos apenas a mensalidade do plano.</div></details>
+        <details class="faq-item"><summary>E se eu quiser cancelar?</summary><div class="ans">Sem fidelidade. Você cancela a qualquer momento, e seus dados ficam disponíveis para exportação por 90 dias.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="cta-card reveal-scale">
+        <span class="eyebrow" style="background:rgba(246,244,238,.10);color:var(--ma-gold-500);margin-bottom:18px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.5 2 8 0 5.5-4.8 10-10 10z"/></svg>
+          comece em poucos minutos
+        </span>
+        <h2>Sua arara mais <em>organizada</em>, começa hoje.</h2>
+        <p>Cadastre a primeira peça em 12 minutos. Sem cartão, sem fidelidade. Só uma rotina mais leve para quem vive moda.</p>
+        <div class="cta-buttons">
+          <a href="../app/index.html?signup=1" class="btn btn-light btn-lg">Começar grátis <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="https://wa.me/5511982155535" target="_blank" rel="noopener" class="btn btn-lg" style="background:transparent;color:var(--ma-warm-100);border:1.5px solid rgba(246,244,238,.30);">Agendar demonstração</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="container">
+      <div class="foot-inner">
+        <div class="foot-brand">
+          <a class="brand" href="#">
+            <img src="../design-system/assets/logo-final.png" alt="Minha Arara" style="height:28px;display:block;">
+          </a>
+          <p>A sua arara digital de gestão. Organize peças, looks e vendas em um só lugar — sem virar planilha.</p>
+        </div>
+        <div class="foot-col"><h4>Produto</h4><ul><li><a href="#produto">Funcionalidades</a></li><li><a href="#planos">Planos</a></li><li><a href="#">Novidades</a></li></ul></div>
+        <div class="foot-col"><h4>Conteúdo</h4><ul><li><a href="#">Para brechós</a></li><li><a href="#">Para curadoras</a></li><li><a href="#">Blog</a></li></ul></div>
+        <div class="foot-col"><h4>Empresa</h4><ul><li><a href="#">Sobre</a></li><li><a href="#">Suporte</a></li><li><a href="#">Termos</a></li></ul></div>
+      </div>
+      <div class="foot-bottom">
+        <div>© 2026 Minha Arara · Feito com cuidado em Bragança Paulista-SP</div>
+        <div style="display:flex;gap:18px;"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+      </div>
+    </div>
+  </footer>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(44px);
+    transition: opacity 760ms cubic-bezier(.22,.61,.36,1), transform 760ms cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-42px);
+    transition: opacity 720ms cubic-bezier(.22,.61,.36,1), transform 720ms cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(42px);
+    transition: opacity 720ms cubic-bezier(.22,.61,.36,1), transform 720ms cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(.92);
+    transition: opacity 640ms cubic-bezier(.22,.61,.36,1), transform 640ms cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+  /* stagger children */
+  .stagger > * { opacity: 0; transform: translateY(32px); transition: opacity 640ms cubic-bezier(.22,.61,.36,1), transform 640ms cubic-bezier(.22,.61,.36,1); }
+  .stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0ms; }
+  .stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 110ms; }
+  .stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 220ms; }
+  .stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 330ms; }
+  .stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay: 440ms; }
+  .stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay: 550ms; }
+</style>
+<script>
+  (function(){
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+          obs.unobserve(el.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    function init() {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger').forEach(el => obs.observe(el));
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+
+  // Hero counters — count up to target, pause, fade and restart in loop.
+  (function(){
+    function formatVal(n, el){
+      const p = el.dataset.trendPrefix || '';
+      const s = el.dataset.trendSuffix || '';
+      if (el.dataset.money === 'true') {
+        if (n >= 1000) return 'R$ ' + (n/1000).toFixed(1).replace('.', ',') + 'k';
+        return 'R$ ' + Math.round(n);
+      }
+      return p + Math.round(n).toLocaleString('pt-BR') + s;
+    }
+    function formatTrend(n, el){
+      const p = el.dataset.trendPrefix || el.dataset.countPrefix || '';
+      const s = el.dataset.trendSuffix || el.dataset.countSuffix || '';
+      return p + Math.round(n) + s;
+    }
+    function animate(el, isTrend){
+      const target = parseFloat(el.dataset.countTo || el.dataset.trendTo);
+      if (!target) return;
+      const duration = 1800;
+      const fps = 30;
+      const start = Date.now();
+      const timer = setInterval(() => {
+        const t = Math.min(1, (Date.now() - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const v = target * eased;
+        el.textContent = isTrend ? formatTrend(v, el) : formatVal(v, el);
+        if (t >= 1) clearInterval(timer);
+      }, 1000 / fps);
+    }
+    function start(){
+      document.querySelectorAll('[data-count-to]').forEach((el, i) => {
+        setTimeout(() => animate(el, false), i * 350);
+      });
+      document.querySelectorAll('[data-trend-to]').forEach((el, i) => {
+        setTimeout(() => animate(el, true), 600 + i * 350);
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
+  })();
+
+  // Burger menu
+  (()=>{
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('nav-mobile');
+    if (!burger || !menu) return;
+    burger.addEventListener('click', ()=>{
+      const open = menu.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+    });
+    // Close on link click
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', false);
+    }));
+    // Close on outside click
+    document.addEventListener('click', e=>{
+      if (!document.getElementById('nav').contains(e.target)) {
+        menu.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', false);
+      }
+    });
+  })();
+</script>
+
+<!-- WhatsApp flutuante -->
+<a href="https://wa.me/5511982155535" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"
+  style="position:fixed;bottom:28px;right:28px;z-index:900;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:transform 160ms,box-shadow 160ms;"
+  onmouseenter="this.style.transform='scale(1.08)';this.style.boxShadow='0 12px 32px rgba(0,0,0,.24)'"
+  onmouseleave="this.style.transform='scale(1)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.18)'">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 2C8.268 2 2 8.268 2 16c0 2.444.659 4.733 1.806 6.706L2 30l7.52-1.776A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.56 11.56 0 0 1-5.89-1.606l-.422-.252-4.464 1.054 1.08-4.35-.276-.448A11.56 11.56 0 0 1 4.4 16C4.4 9.593 9.593 4.4 16 4.4S27.6 9.593 27.6 16 22.407 27.6 16 27.6zm6.344-8.656c-.347-.174-2.056-1.015-2.375-1.13-.319-.116-.551-.174-.783.174-.232.347-.9 1.13-1.103 1.362-.203.232-.405.26-.753.087-.347-.174-1.466-.54-2.792-1.722-1.032-.92-1.727-2.056-1.93-2.403-.202-.347-.022-.535.153-.708.157-.156.347-.405.521-.608.174-.203.232-.347.347-.579.116-.232.058-.434-.029-.608-.087-.174-.783-1.888-1.073-2.587-.282-.68-.57-.588-.783-.598l-.666-.012c-.232 0-.608.087-.927.434-.319.347-1.217 1.189-1.217 2.9s1.246 3.365 1.42 3.597c.174.232 2.452 3.742 5.942 5.247.83.358 1.478.572 1.983.732.833.265 1.591.228 2.19.138.668-.1 2.056-.84 2.346-1.652.29-.811.29-1.507.203-1.652-.087-.145-.319-.232-.667-.405z"/>
+  </svg>
+</a>
+</body>
+</html>

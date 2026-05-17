@@ -1,0 +1,353 @@
+/* =========================================================================
+   Minha Arara — Foundation Tokens
+   Colors, type, spacing, radii, shadows.
+   Import this in any design surface that should look on-brand.
+   ========================================================================= */
+
+/* ---------- Brand fonts ---------- */
+/* Manrope — local files, the official Minha Arara UI typeface. */
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-ExtraLight.ttf") format("truetype");
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-Light.ttf") format("truetype");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/Manrope-ExtraBold.ttf") format("truetype");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+
+/* Playfair Display — local files, the official Minha Arara display/editorial typeface. */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-Italic.ttf") format("truetype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-MediumItalic.ttf") format("truetype");
+  font-weight: 500; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-BoldItalic.ttf") format("truetype");
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-ExtraBold.ttf") format("truetype");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-Black.ttf") format("truetype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("fonts/PlayfairDisplay-BlackItalic.ttf") format("truetype");
+  font-weight: 900; font-style: italic; font-display: swap;
+}
+
+:root {
+  /* ---------- Brand color scale ---------- */
+  --ma-olive-900: #2F3E22;  /* Verde Oliva Escuro — texto forte, botões primários */
+  --ma-olive-800: #3F512E;  /* Verde Floresta — botões, nav, destaques */
+  --ma-olive-700: #4F623B;  /* Verde Arara — cor principal, ícones, links */
+  --ma-olive-600: #5D6B4A;  /* Verde Natural — hover, chips */
+  --ma-sage-500:  #7A8A64;  /* Sálvia — secundária, informativo */
+  --ma-sage-300:  #C9D0B8;  /* Sálvia claro — cards suaves, divisores */
+  --ma-sand-200:  #E9E3D5;  /* Areia — fundo editorial, cards */
+  --ma-warm-100:  #F6F4EE;  /* Branco quente — fundo principal */
+  --ma-white:     #FFFFFF;
+
+  --ma-brown-900: #3E2F23;  /* Marrom café — títulos, logotipo, contraste elegante */
+  --ma-brown-700: #5A4736;  /* Marrom médio — texto secundário em peças marrom */
+  --ma-taupe-500: #8A8F90;  /* Taupe — texto auxiliar, linhas, neutro */
+  --ma-taupe-300: #BDBEBC;  /* Linhas finas, ícones desabilitados */
+
+  /* ---------- Accent / Support ---------- */
+  --ma-gold-500:  #C8A46A;  /* Dourado suave — premium discreto, warning */
+  --ma-clay-500:  #B8744E;  /* Terracota — calor humano, pontual */
+  --ma-bluegray-500: #6B8A8E; /* Azul acinzentado — info, gráficos */
+  --ma-error-500: #B85C4A;
+  --ma-success-500: #4F623B;
+  --ma-warning-500: #C8A46A;
+
+  /* ---------- Semantic — Surface ---------- */
+  --color-background: var(--ma-warm-100);
+  --color-surface: #FFFFFF;
+  --color-surface-muted: var(--ma-sand-200);
+  --color-surface-sage: var(--ma-sage-300);
+  --color-surface-dark: var(--ma-olive-900);
+
+  /* ---------- Semantic — Text ---------- */
+  --color-text: var(--ma-brown-900);
+  --color-text-strong: var(--ma-olive-900);
+  --color-text-muted: #6F6A61;
+  --color-text-subtle: var(--ma-taupe-500);
+  --color-text-on-dark: var(--ma-warm-100);
+  --color-text-link: var(--ma-olive-700);
+
+  /* ---------- Semantic — Border ---------- */
+  --color-border: rgba(47, 62, 34, 0.16);
+  --color-border-strong: rgba(47, 62, 34, 0.28);
+  --color-border-subtle: rgba(47, 62, 34, 0.08);
+
+  /* ---------- Semantic — Status ---------- */
+  --color-primary: var(--ma-olive-800);
+  --color-primary-hover: var(--ma-olive-900);
+  --color-primary-soft: rgba(79, 98, 59, 0.10);
+  --color-secondary: var(--ma-sage-500);
+  --color-success: var(--ma-olive-700);
+  --color-success-soft: rgba(79, 98, 59, 0.12);
+  --color-warning: var(--ma-gold-500);
+  --color-warning-soft: rgba(200, 164, 106, 0.18);
+  --color-error: var(--ma-error-500);
+  --color-error-soft: rgba(184, 92, 74, 0.14);
+  --color-info: var(--ma-bluegray-500);
+  --color-info-soft: rgba(107, 138, 142, 0.16);
+
+  /* ---------- Typography — Families ----------
+     Apenas duas famílias autorizadas no design system:
+     Manrope = principal (toda a UI, body, headings, dashboards, tokens, valores).
+     Playfair Display = secundária (display, capas editoriais, frases de marca, números em destaque, citações).
+     Fallbacks são genéricos para garantir leitura mínima caso os arquivos locais falhem. */
+  --font-sans: "Manrope", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-serif: "Playfair Display", serif;
+  --font-alt: "Manrope", sans-serif;
+  --font-mono: "Manrope", sans-serif;  /* sem família monoespaçada — usamos Manrope tabular */
+
+  /* ---------- Typography — Scale (desktop) ---------- */
+  --text-display-xl: clamp(40px, 6vw, 72px);
+  --text-h1: clamp(32px, 4vw, 48px);
+  --text-h2: clamp(26px, 3vw, 36px);
+  --text-h3: clamp(22px, 2.4vw, 28px);
+  --text-body-lg: 18px;
+  --text-body: 16px;
+  --text-body-sm: 14px;
+  --text-caption: 12px;
+  --text-button: 15px;
+
+  /* ---------- Typography — Weights ---------- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---------- Typography — Tracking ---------- */
+  --tracking-display: -0.015em;  /* Playfair has elegant counters; slightly negative tracking tightens the silhouette */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.04em;
+  --tracking-caps: 0.12em;
+
+  /* ---------- Typography — Leading ---------- */
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+
+  /* ---------- Radius ---------- */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* ---------- Shadow ---------- */
+  --shadow-xs: 0 1px 2px rgba(47, 62, 34, 0.06);
+  --shadow-sm: 0 4px 12px rgba(47, 62, 34, 0.08);
+  --shadow-md: 0 12px 32px rgba(47, 62, 34, 0.10);
+  --shadow-lg: 0 24px 60px rgba(47, 62, 34, 0.14);
+  --shadow-focus: 0 0 0 3px rgba(79, 98, 59, 0.28);
+
+  /* ---------- Spacing ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---------- Layout ---------- */
+  --container-max: 1240px;
+  --container-narrow: 920px;
+  --gutter-desktop: 24px;
+  --gutter-mobile: 16px;
+
+  /* ---------- Motion ---------- */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 360ms;
+}
+
+/* =========================================================================
+   Semantic typography classes — use these in HTML directly.
+   ========================================================================= */
+
+.ma-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-display-xl);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  color: var(--ma-brown-900);
+}
+.ma-display-italic {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: var(--text-display-xl);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  color: var(--ma-brown-900);
+}
+
+.ma-h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-strong);
+}
+
+.ma-h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-h2);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-strong);
+}
+
+.ma-h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-h3);
+  line-height: var(--leading-snug);
+  color: var(--color-text-strong);
+}
+
+.ma-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: 12px;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ma-olive-700);
+}
+
+.ma-body-lg {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+}
+
+.ma-body {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+}
+
+.ma-body-sm {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}
+
+.ma-caption {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-subtle);
+}
+
+.ma-button-label {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-button);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Helper backgrounds that read as "brand surfaces" */
+.ma-bg-warm { background: var(--ma-warm-100); color: var(--color-text); }
+.ma-bg-sand { background: var(--ma-sand-200); color: var(--color-text); }
+.ma-bg-sage { background: var(--ma-sage-300); color: var(--ma-olive-900); }
+.ma-bg-olive { background: var(--ma-olive-800); color: var(--color-text-on-dark); }
+.ma-bg-deep { background: var(--ma-olive-900); color: var(--color-text-on-dark); }

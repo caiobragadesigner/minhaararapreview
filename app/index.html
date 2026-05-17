@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minha Arara — Plataforma de gestão de moda</title>
+
+  <!-- Font declarations (paths relative to app/ → design-system/fonts/) -->
+  <style>
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-ExtraLight.ttf") format("truetype"); font-weight: 200; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Light.ttf") format("truetype"); font-weight: 300; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Manrope"; src: url("../design-system/fonts/Manrope-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; font-display: swap; }
+
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-MediumItalic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-SemiBoldItalic.ttf") format("truetype"); font-weight: 600; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-BoldItalic.ttf") format("truetype"); font-weight: 700; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-ExtraBold.ttf") format("truetype"); font-weight: 800; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-ExtraBoldItalic.ttf") format("truetype"); font-weight: 800; font-style: italic; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-Black.ttf") format("truetype"); font-weight: 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("../design-system/fonts/PlayfairDisplay-BlackItalic.ttf") format("truetype"); font-weight: 900; font-style: italic; font-display: swap; }
+  </style>
+
+  <!-- Design tokens (colors, type scale, spacing, radii, shadows — without @font-face) -->
+  <style>
+    :root {
+      --ma-olive-900:#2F3E22;--ma-olive-800:#3F512E;--ma-olive-700:#4F623B;--ma-olive-600:#5D6B4A;
+      --ma-sage-500:#7A8A64;--ma-sage-300:#C9D0B8;--ma-sand-200:#E9E3D5;--ma-warm-100:#F6F4EE;--ma-white:#FFFFFF;
+      --ma-brown-900:#3E2F23;--ma-brown-700:#5A4736;--ma-taupe-500:#8A8F90;--ma-taupe-300:#BDBEBC;
+      --ma-gold-500:#C8A46A;--ma-clay-500:#B8744E;--ma-bluegray-500:#6B8A8E;
+      --ma-error-500:#B85C4A;--ma-success-500:#4F623B;--ma-warning-500:#C8A46A;
+      --color-background:var(--ma-warm-100);--color-surface:#FFFFFF;--color-surface-muted:var(--ma-sand-200);
+      --color-text:var(--ma-brown-900);--color-text-strong:var(--ma-olive-900);--color-text-muted:#6F6A61;
+      --color-text-subtle:var(--ma-taupe-500);--color-text-on-dark:var(--ma-warm-100);--color-text-link:var(--ma-olive-700);
+      --color-border:rgba(47,62,34,0.16);--color-border-strong:rgba(47,62,34,0.28);--color-border-subtle:rgba(47,62,34,0.08);
+      --color-primary:var(--ma-olive-800);--color-primary-hover:var(--ma-olive-900);--color-primary-soft:rgba(79,98,59,0.10);
+      --color-error:var(--ma-error-500);--color-error-soft:rgba(184,92,74,0.14);
+      --shadow-xs:0 1px 2px rgba(47,62,34,0.06);--shadow-sm:0 4px 12px rgba(47,62,34,0.08);
+      --shadow-md:0 12px 32px rgba(47,62,34,0.10);--shadow-lg:0 24px 60px rgba(47,62,34,0.14);
+      --shadow-focus:0 0 0 3px rgba(79,98,59,0.28);
+      --font-sans:"Manrope",sans-serif;--font-display:"Playfair Display",serif;
+    }
+  </style>
+
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--ma-warm-100); font-family: var(--font-sans); color: var(--color-text); }
+    #root { min-height: 100vh; }
+    button { font-family: inherit; }
+
+    /* Page transition — opacity only, no transform, so .ma-content does not become a containing block for fixed descendants (drawers, modals). */
+    @keyframes pageEnter {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .ma-content { animation: pageEnter 320ms cubic-bezier(.22,.61,.36,1) both; }
+
+    /* ===== Drawer system — shared by ALL drawers ===== */
+    @keyframes drawerBackdropIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes drawerPanelIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+    @keyframes drawerBackdropOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+    @keyframes drawerPanelOut {
+      from { transform: translateX(0);    opacity: 1; }
+      to   { transform: translateX(100%); opacity: 0; }
+    }
+
+    /* backdrop */
+    .ma-drawer-backdrop {
+      position: fixed; inset: 0; z-index: 50;
+      background: rgba(47,62,34,.32);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex; justify-content: flex-end;
+      animation: drawerBackdropIn 240ms cubic-bezier(.22,.61,.36,1) both;
+    }
+    /* panel */
+    .ma-drawer-panel {
+      width: 520px;
+      background: var(--ma-warm-100);
+      height: 100vh;
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      animation: drawerPanelIn 360ms cubic-bezier(.22,.61,.36,1) both;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .ma-drawer-panel { width: 100vw !important; }
+    }
+    /* header */
+    .ma-drawer-header {
+      padding: 20px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--color-border-subtle);
+      flex-shrink: 0;
+    }
+    .ma-drawer-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ma-olive-700);
+    }
+    .ma-drawer-title {
+      font-size: 18px; font-weight: 600;
+      color: var(--ma-olive-900); margin-top: 2px;
+    }
+    /* scrollable body */
+    .ma-drawer-body {
+      padding: 24px 28px;
+      flex: 1; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    /* sticky footer */
+    .ma-drawer-footer {
+      padding: 20px 28px;
+      border-top: 1px solid var(--color-border-subtle);
+      display: flex; gap: 10px;
+      flex-shrink: 0;
+    }
+    /* field label */
+    .ma-drawer-label {
+      display: block;
+      font-size: 13px; font-weight: 600;
+      color: var(--ma-brown-900);
+      margin-bottom: 6px;
+    }
+
+    /* misc */
+    @keyframes toastIn  { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes ddIn     { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+    @keyframes slideIn  { from{transform:translateX(40px);opacity:0} to{transform:translateX(0);opacity:1} }
+    @keyframes scaleIn  { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+    @keyframes authFadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ===== Responsive (desktop-first) ===== */
+    @media (max-width: 1280px) {
+      .ma-content { padding: 24px !important; }
+      .ma-grid-4 { grid-template-columns: repeat(3, 1fr) !important; }
+      .ma-grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+
+    @media (max-width: 1024px) {
+      aside.ma-sidebar { width: 220px !important; }
+      .ma-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+      .ma-split-2-1, .ma-split-3-2 { grid-template-columns: 1fr !important; }
+      .ma-topbar { padding: 0 20px !important; gap: 12px !important; }
+      .ma-search { width: 200px !important; }
+    }
+
+    @media (max-width: 768px) {
+      aside.ma-sidebar { display: none !important; }
+      .ma-content { padding: 16px !important; }
+      .ma-grid-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+      .ma-grid-3 { grid-template-columns: 1fr !important; }
+      .ma-grid-2 { grid-template-columns: 1fr !important; }
+      .ma-search { display: none !important; }
+      .ma-topbar { padding: 0 16px !important; height: 60px !important; }
+      .ma-hero-h1 { font-size: 24px !important; line-height: 1.2 !important; }
+      .ma-hero { padding: 22px 22px !important; }
+      .ma-hero-row { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+      .ma-page-header { flex-direction: column !important; align-items: flex-start !important; gap: 14px !important; }
+      .ma-piece-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+      .ma-table { font-size: 13px !important; }
+      .ma-table th, .ma-table td { padding: 12px 14px !important; }
+      .ma-drawer { width: 100vw !important; }
+
+      .ma-bottom-nav {
+        position: fixed;
+        bottom: 16px; left: 16px; right: 16px;
+        display: flex !important;
+        background: var(--ma-olive-900);
+        color: var(--ma-warm-100);
+        border-radius: 999px;
+        padding: 8px;
+        gap: 4px;
+        z-index: 40;
+        box-shadow: 0 16px 32px rgba(47,62,34,.30);
+        justify-content: space-around;
+      }
+      .ma-bottom-nav button {
+        flex: 1;
+        background: transparent;
+        border: 0;
+        padding: 10px 6px;
+        border-radius: 999px;
+        color: rgba(246,244,238,.7);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+      }
+      .ma-bottom-nav button[data-active="true"] {
+        background: var(--ma-warm-100);
+        color: var(--ma-olive-900);
+      }
+      .ma-main { padding-bottom: 88px !important; }
+    }
+    .ma-bottom-nav { display: none; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <script type="text/babel" data-presets="react">
+/* ── ICONS ── */
+const iconBase = { width:20,height:20,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round" };
+function makeIcon(paths){return({size=20,strokeWidth=1.8,style,...rest})=><svg {...iconBase}{...rest}width={size}height={size}strokeWidth={strokeWidth}style={style}>{paths}</svg>;}
+const IconHanger=makeIcon(<><path d="M3 9h18l-2 12H5L3 9z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></>);
+const IconLooks=makeIcon(<><circle cx="12"cy="12"r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></>);
+const IconBag=makeIcon(<><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></>);
+const IconChart=makeIcon(<><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 6-6"/></>);
+const IconDashboard=makeIcon(<><rect x="3"y="3"width="7"height="7"rx="1"/><rect x="14"y="3"width="7"height="7"rx="1"/><rect x="3"y="14"width="7"height="7"rx="1"/><rect x="14"y="14"width="7"height="7"rx="1"/></>);
+const IconSearch=makeIcon(<><circle cx="11"cy="11"r="7"/><path d="m21 21-4.3-4.3"/></>);
+const IconPlus=makeIcon(<><path d="M5 12h14"/><path d="M12 5v14"/></>);
+const IconCheck=makeIcon(<path d="M20 6 9 17l-5-5"/>);
+const IconHeart=makeIcon(<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/>);
+const IconStar=makeIcon(<path d="m12 2 3 7 7 .5-5.5 4.5L18 22l-6-4-6 4 1.5-8L2 9.5 9 9z"/>);
+const IconCalendar=makeIcon(<><rect x="3"y="4"width="18"height="18"rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></>);
+const IconLeaf=makeIcon(<><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.5 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></>);
+const IconUser=makeIcon(<><circle cx="12"cy="8"r="4"/><path d="M4 22a8 8 0 0 1 16 0"/></>);
+const IconCoin=makeIcon(<><circle cx="12"cy="12"r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 6v2"/><path d="M12 16v2"/></>);
+const IconFilter=makeIcon(<><path d="M3 6h18"/><path d="M7 12h10"/><path d="M11 18h2"/></>);
+const IconUpload=makeIcon(<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12"y1="3"x2="12"y2="15"/></>);
+const IconCamera=makeIcon(<><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12"cy="13"r="3"/></>);
+const IconBox=makeIcon(<><path d="m21 16-9 5-9-5V8l9-5 9 5v8z"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/></>);
+const IconBell=makeIcon(<><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></>);
+const IconArrowRight=makeIcon(<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>);
+const IconChevronDown=makeIcon(<path d="m6 9 6 6 6-6"/>);
+const IconClose=makeIcon(<><path d="M18 6 6 18"/><path d="m6 6 12 12"/></>);
+const IconMore=makeIcon(<><circle cx="12"cy="12"r="1"/><circle cx="19"cy="12"r="1"/><circle cx="5"cy="12"r="1"/></>);
+const IconList=makeIcon(<><line x1="8"y1="6"x2="21"y2="6"/><line x1="8"y1="12"x2="21"y2="12"/><line x1="8"y1="18"x2="21"y2="18"/><line x1="3"y1="6"x2="3.01"y2="6"/><line x1="3"y1="12"x2="3.01"y2="12"/><line x1="3"y1="18"x2="3.01"y2="18"/></>);
+const IconSettings=makeIcon(<><path d="M12 2a2 2 0 0 1 2 2v.13a8 8 0 0 1 3.05 1.27l.09-.09a2 2 0 0 1 2.82 2.82l-.09.09A8 8 0 0 1 21.87 10H22a2 2 0 0 1 0 4h-.13a8 8 0 0 1-1 3.05l.09.09a2 2 0 0 1-2.82 2.82l-.09-.09A8 8 0 0 1 14 21.87V22a2 2 0 0 1-4 0v-.13a8 8 0 0 1-3.05-1.27l-.09.09a2 2 0 0 1-2.82-2.82l.09-.09A8 8 0 0 1 2.13 14H2a2 2 0 0 1 0-4h.13a8 8 0 0 1 1-3.05l-.09-.09a2.001 2.001 0 0 1 2.82-2.82l.09.09A8 8 0 0 1 10 2.13V2a2 2 0 0 1 2-2z"/><circle cx="12"cy="12"r="3"/></>);
+const IconHelp=makeIcon(<><circle cx="12"cy="12"r="10"/><path d="M9.1 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></>);
+const IconTrend=makeIcon(<><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></>);
+const IconMapPin=makeIcon(<><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></>);
+const IconPackage=makeIcon(<><path d="m21 16-9 5-9-5V8l9-5 9 5v8z"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/></>);
+const IconAlertCircle=makeIcon(<><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>);
+const IconCheckCircle=makeIcon(<><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>);
+const IconInfo=makeIcon(<><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></>);
+
+/* ── COMPONENTS ── */
+const componentStyles={btn:{fontFamily:"var(--font-sans)",fontWeight:600,fontSize:15,border:0,cursor:"pointer",padding:"13px 22px",borderRadius:14,transition:"all 180ms cubic-bezier(.22,.61,.36,1)",display:"inline-flex",alignItems:"center",justifyContent:"center",gap:8,lineHeight:1,whiteSpace:"nowrap"},btnPrimary:{background:"var(--ma-olive-800)",color:"var(--ma-warm-100)"},btnSecondary:{background:"var(--ma-warm-100)",color:"var(--ma-olive-800)",border:"1.5px solid var(--ma-sage-300)"},btnGhost:{background:"transparent",color:"var(--ma-olive-700)"},btnDark:{background:"var(--ma-olive-900)",color:"var(--ma-warm-100)"},btnDanger:{background:"transparent",color:"var(--ma-error-500)",border:"1.5px solid rgba(184,92,74,.35)"},btnIcon:{background:"var(--ma-white)",border:"1px solid var(--color-border)",color:"var(--color-text)",width:40,height:40,borderRadius:12,padding:0,display:"inline-flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"all 180ms"}};
+function Button({variant="primary",size,icon,iconRight,children,style,...rest}){const base=componentStyles.btn;const variants={primary:componentStyles.btnPrimary,secondary:componentStyles.btnSecondary,ghost:componentStyles.btnGhost,dark:componentStyles.btnDark,danger:componentStyles.btnDanger};const sizes={sm:{padding:"9px 16px",fontSize:13,borderRadius:12},md:{},lg:{padding:"16px 28px",fontSize:16,borderRadius:16}};return<button{...rest}style={{...base,...(variants[variant]||variants.primary),...(sizes[size]||sizes.md),...style}}onMouseEnter={e=>{if(variant==="primary")e.currentTarget.style.background="var(--ma-olive-900)";if(variant==="ghost")e.currentTarget.style.background="rgba(79,98,59,.08)";if(variant==="secondary")e.currentTarget.style.background="var(--ma-sand-200)"}}onMouseLeave={e=>{if(variant==="primary")e.currentTarget.style.background="var(--ma-olive-800)";if(variant==="ghost")e.currentTarget.style.background="transparent";if(variant==="secondary")e.currentTarget.style.background="var(--ma-warm-100)"}}>{icon}{children}{iconRight}</button>;}
+function IconButton({children,label,style,...rest}){return<button aria-label={label}{...rest}style={{...componentStyles.btnIcon,...style}}onMouseEnter={e=>{e.currentTarget.style.background="var(--ma-sand-200)"}}onMouseLeave={e=>{e.currentTarget.style.background="var(--ma-white)"}}>{children}</button>;}
+function Input({label,hint,error,icon,...rest}){return<label style={{display:"block"}}>{label&&<div style={{fontSize:13,fontWeight:600,color:error?"var(--ma-error-500)":"var(--ma-brown-900)",marginBottom:6}}>{label}</div>}<div style={{position:"relative"}}>{icon&&<span style={{position:"absolute",left:16,top:"50%",transform:"translateY(-50%)",color:"var(--ma-taupe-500)",display:"flex"}}>{icon}</span>}<input{...rest}style={{width:"100%",fontFamily:"var(--font-sans)",fontSize:15,padding:icon?"13px 16px 13px 44px":"13px 16px",borderRadius:14,border:`1.5px solid ${error?"var(--ma-error-500)":"var(--color-border)"}`,background:error?"rgba(184,92,74,.06)":"var(--ma-white)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"}}onFocus={e=>{if(!error)e.target.style.boxShadow="var(--shadow-focus)"}}onBlur={e=>{e.target.style.boxShadow="none"}}/></div>{(hint||error)&&<div style={{fontSize:12,marginTop:6,color:error?"var(--ma-error-500)":"var(--color-text-muted)"}}>{error||hint}</div>}</label>;}
+function Badge({tone="neutral",icon,children,style}){const tones={success:{bg:"rgba(79,98,59,.14)",fg:"var(--ma-olive-900)",dot:"var(--ma-olive-700)"},warning:{bg:"rgba(200,164,106,.22)",fg:"#7A5C24",dot:"var(--ma-gold-500)"},error:{bg:"rgba(184,92,74,.14)",fg:"#8E3F2F",dot:"var(--ma-error-500)"},info:{bg:"rgba(107,138,142,.18)",fg:"#3F595D",dot:"var(--ma-bluegray-500)"},clay:{bg:"rgba(184,116,78,.18)",fg:"#7E4324",dot:"var(--ma-clay-500)"},neutral:{bg:"var(--ma-sand-200)",fg:"var(--ma-brown-900)",dot:"var(--ma-taupe-500)"},solid:{bg:"var(--ma-olive-800)",fg:"var(--ma-warm-100)",dot:"var(--ma-warm-100)"}};const t=tones[tone]||tones.neutral;return<span style={{display:"inline-flex",alignItems:"center",gap:6,padding:"5px 11px",borderRadius:999,background:t.bg,color:t.fg,fontSize:12,fontWeight:600,lineHeight:1.4,...style}}>{icon||<span style={{width:7,height:7,borderRadius:999,background:t.dot}}/>}{children}</span>;}
+function Card({children,padding=24,tone="white",style,...rest}){const bgs={white:"var(--ma-white)",warm:"var(--ma-warm-100)",sand:"var(--ma-sand-200)",sage:"var(--ma-sage-300)",olive:"var(--ma-olive-900)"};return<div{...rest}style={{background:bgs[tone]||bgs.white,borderRadius:24,border:tone==="white"?"1px solid var(--color-border-subtle)":"0",padding,boxShadow:tone==="white"?"var(--shadow-xs)":"none",color:tone==="olive"?"var(--ma-warm-100)":"inherit",...style}}>{children}</div>;}
+function Avatar({name="M",src,size=40,tone="sage"}){const initials=name.split(" ").slice(0,2).map(n=>n[0]).join("").toUpperCase();const bgs={sage:"var(--ma-sage-300)",sand:"var(--ma-sand-200)",olive:"var(--ma-olive-800)"};const fgs={sage:"var(--ma-olive-900)",sand:"var(--ma-brown-900)",olive:"var(--ma-warm-100)"};return<div style={{width:size,height:size,borderRadius:999,background:src?`center/cover url(${src}) var(--ma-sage-300)`:bgs[tone],color:fgs[tone],display:"flex",alignItems:"center",justifyContent:"center",fontSize:size*0.4,fontWeight:600,flexShrink:0}}>{!src&&initials}</div>;}
+function Divider({vertical,style}){return vertical?<div style={{width:1,alignSelf:"stretch",background:"var(--color-border)",...style}}/>:<div style={{height:1,background:"var(--color-border)",...style}}/>;}
+function SectionHeader({eyebrow,title,action}){return<div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:20}}><div>{eyebrow&&<div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:4}}>{eyebrow}</div>}<h2 style={{fontFamily:"var(--font-sans)",fontWeight:600,fontSize:22,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>{title}</h2></div>{action}</div>;}
+function Chip({active,icon,children,...rest}){return<button{...rest}style={{display:"inline-flex",alignItems:"center",gap:6,padding:"8px 14px",borderRadius:999,background:active?"var(--ma-olive-800)":"var(--ma-white)",color:active?"var(--ma-warm-100)":"var(--ma-olive-900)",border:`1.5px solid ${active?"var(--ma-olive-800)":"var(--color-border)"}`,fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"var(--font-sans)",transition:"all 180ms"}}>{icon}{children}</button>;}
+function PieceCard({piece,onClick}){return<article onClick={onClick}style={{background:"var(--ma-white)",borderRadius:24,border:"1px solid var(--color-border-subtle)",overflow:"hidden",cursor:"pointer",transition:"all 220ms cubic-bezier(.22,.61,.36,1)",display:"flex",flexDirection:"column"}}onMouseEnter={e=>{e.currentTarget.style.boxShadow="var(--shadow-sm)";e.currentTarget.style.transform="translateY(-2px)"}}onMouseLeave={e=>{e.currentTarget.style.boxShadow="none";e.currentTarget.style.transform="translateY(0)"}}><div style={{aspectRatio:"4 / 5",background:`linear-gradient(160deg, ${piece.gradient[0]}, ${piece.gradient[1]})`,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}><Badge tone={piece.statusTone}style={{position:"absolute",top:12,right:12,background:"rgba(255,255,255,.88)",backdropFilter:"blur(8px)"}}>{piece.status}</Badge><button aria-label="Favoritar"style={{position:"absolute",top:12,left:12,width:34,height:34,borderRadius:999,background:"rgba(255,255,255,.88)",backdropFilter:"blur(8px)",border:0,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:piece.favorite?"var(--ma-clay-500)":"var(--ma-olive-700)"}}onClick={e=>e.stopPropagation()}><IconHeart size={16}/></button><div style={{opacity:0.32,width:"40%",maxWidth:90}}><IconHanger size={90}strokeWidth={1.2}style={{color:"var(--ma-olive-800)"}}/></div></div><div style={{padding:16}}><div style={{fontSize:11,fontWeight:600,letterSpacing:".06em",textTransform:"uppercase",color:"var(--ma-olive-700)"}}>{piece.category} · Tam {piece.size}</div><div style={{fontFamily:"var(--font-sans)",fontWeight:600,fontSize:15,color:"var(--ma-olive-900)",marginTop:4,lineHeight:1.3}}>{piece.name}</div><div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginTop:10}}><div style={{fontFamily:"var(--font-sans)",fontSize:17,fontWeight:600,color:"var(--ma-brown-900)"}}>R$ {piece.price.toLocaleString("pt-BR",{minimumFractionDigits:0})}</div><div style={{fontSize:11,color:"var(--ma-taupe-500)"}}>{piece.meta}</div></div></div></article>;}
+
+/* ── DROPDOWN (design-system, replaces native <select>) ── */
+function Dropdown({value,onChange,options,placeholder="Selecione",error,size="md",icon,variant="input",align="left",style}){
+  // variant: "input" (form select) | "ghost" (header period chip)
+  const[open,setOpen]=React.useState(false);
+  const[highlight,setHighlight]=React.useState(-1);
+  const ref=React.useRef(null);
+  React.useEffect(()=>{
+    if(!open)return;
+    const close=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};
+    const esc=e=>{if(e.key==="Escape")setOpen(false);};
+    window.addEventListener("mousedown",close);
+    window.addEventListener("keydown",esc);
+    return()=>{window.removeEventListener("mousedown",close);window.removeEventListener("keydown",esc);};
+  },[open]);
+  const opts=options.map(o=>typeof o==="string"?{value:o,label:o}:o);
+  const selected=opts.find(o=>o.value===value);
+  const baseTriggerInput={
+    width:"100%",fontFamily:"var(--font-sans)",
+    fontSize:14,
+    padding:"11px 14px",
+    borderRadius:12,
+    border:`1.5px solid ${error?"var(--ma-error-500)":(open?"var(--ma-olive-700)":"var(--color-border)")}`,
+    background:error?"rgba(184,92,74,.06)":"var(--ma-warm-100)",
+    color:selected?"var(--ma-brown-900)":"var(--ma-taupe-500)",
+    outline:"none",boxSizing:"border-box",cursor:"pointer",
+    textAlign:"left",
+    transition:"border-color 160ms,box-shadow 160ms",
+    boxShadow:open?"var(--shadow-focus)":"none",
+    display:"flex",alignItems:"center",gap:8,
+  };
+  const baseTriggerGhost={
+    fontFamily:"var(--font-sans)",
+    fontSize:13,fontWeight:600,
+    padding:"9px 14px",borderRadius:12,
+    border:`1.5px solid ${open?"var(--ma-olive-700)":"var(--ma-sage-300)"}`,
+    background:open?"var(--ma-sand-200)":"transparent",
+    color:"var(--ma-olive-800)",
+    cursor:"pointer",
+    transition:"all 160ms",
+    display:"inline-flex",alignItems:"center",gap:8,
+    fontFamilyVar:"var(--font-sans)",
+  };
+  const trigger=variant==="ghost"?baseTriggerGhost:baseTriggerInput;
+  return(
+    <div ref={ref} style={{position:"relative",...style}}>
+      <button type="button" onClick={()=>setOpen(o=>!o)} style={trigger}
+        onMouseEnter={e=>{if(variant==="ghost"&&!open)e.currentTarget.style.background="var(--ma-sand-200)";}}
+        onMouseLeave={e=>{if(variant==="ghost"&&!open)e.currentTarget.style.background="transparent";}}>
+        {icon&&<span style={{display:"flex",color:"var(--ma-olive-700)",flexShrink:0}}>{icon}</span>}
+        <span style={{flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",minWidth:0}}>{selected?selected.label:placeholder}</span>
+        <IconChevronDown size={14} style={{color:"var(--ma-taupe-500)",transition:"transform 220ms cubic-bezier(.22,.61,.36,1)",transform:open?"rotate(180deg)":"rotate(0deg)",flexShrink:0}}/>
+      </button>
+      {open&&(
+        <div role="listbox" style={{
+          position:"absolute",top:"calc(100% + 6px)",
+          [align==="right"?"right":"left"]:0,
+          minWidth:"100%",
+          background:"var(--ma-white)",
+          border:"1px solid var(--color-border-subtle)",
+          borderRadius:14,
+          boxShadow:"0 16px 40px rgba(47,62,34,.14)",
+          padding:4,
+          zIndex:60,
+          maxHeight:280,overflow:"auto",
+          animation:"ddIn 200ms cubic-bezier(.22,.61,.36,1) both",
+        }}>
+          {opts.map((o,i)=>{
+            const sel=o.value===value;
+            const hi=i===highlight;
+            return(
+              <button key={o.value} type="button"
+                onMouseEnter={()=>setHighlight(i)}
+                onMouseLeave={()=>setHighlight(-1)}
+                onClick={()=>{onChange&&onChange(o.value);setOpen(false);}}
+                style={{
+                  display:"flex",alignItems:"center",gap:8,
+                  width:"100%",textAlign:"left",
+                  padding:"10px 10px",borderRadius:10,
+                  background:sel?"rgba(79,98,59,.10)":(hi?"var(--ma-sand-200)":"transparent"),
+                  color:sel?"var(--ma-olive-900)":"var(--ma-brown-900)",
+                  fontWeight:sel?600:500,
+                  fontSize:14,
+                  border:0,cursor:"pointer",
+                  fontFamily:"var(--font-sans)",
+                  transition:"background 120ms",
+                }}>
+                {o.icon&&<span style={{color:sel?"var(--ma-olive-700)":"var(--ma-taupe-500)",display:"flex"}}>{o.icon}</span>}
+                <span style={{flex:1}}>{o.label}</span>
+                {sel&&<IconCheck size={14} style={{color:"var(--ma-olive-700)"}}/>}
+              </button>
+            );
+          })}
+        </div>
+      )}
+      <style>{`@keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}`}</style>
+    </div>
+  );
+}
+
+/* ── LAYOUT ── */
+const layoutStyles={app:{minHeight:"100vh",background:"var(--ma-warm-100)",color:"var(--color-text)",fontFamily:"var(--font-sans)",display:"flex"},sidebar:{width:260,flexShrink:0,background:"var(--ma-warm-100)",borderRight:"1px solid var(--color-border-subtle)",padding:"24px 16px",display:"flex",flexDirection:"column",position:"sticky",top:0,height:"100vh"},logo:{fontFamily:"var(--font-display)",fontWeight:700,fontSize:22,letterSpacing:"-0.015em",color:"var(--ma-brown-900)",padding:"6px 14px 24px"},navItem:active=>({display:"flex",alignItems:"center",gap:12,padding:"11px 14px",borderRadius:14,background:active?"rgba(79,98,59,.14)":"transparent",color:active?"var(--ma-olive-900)":"var(--ma-brown-900)",fontSize:14,fontWeight:active?600:500,cursor:"pointer",transition:"all 160ms",border:0,width:"100%",textAlign:"left",fontFamily:"var(--font-sans)"}),topbar:{height:72,background:"var(--ma-white)",borderBottom:"1px solid var(--color-border-subtle)",padding:"0 32px",display:"flex",alignItems:"center",gap:16,position:"sticky",top:0,zIndex:10},main:{flex:1,minWidth:0,display:"flex",flexDirection:"column"},content:{padding:32,maxWidth:1280,width:"100%",boxSizing:"border-box"}};
+function Sidebar({active,onNavigate}){
+  const items=[{id:"dashboard",label:"Painel",icon:<IconDashboard size={18}/>},{id:"arara",label:"Minha arara",icon:<IconHanger size={18}/>},{id:"looks",label:"Looks",icon:<IconLooks size={18}/>},{id:"vendas",label:"Vendas",icon:<IconBag size={18}/>},{id:"relatorios",label:"Relatórios",icon:<IconChart size={18}/>}];
+  const secondary=[{id:"consignacao",label:"Consignação",icon:<IconBox size={18}/>},{id:"agenda",label:"Agenda",icon:<IconCalendar size={18}/>}];
+  const[showTip,setShowTip]=React.useState(true);
+  return(
+    <aside className="ma-sidebar" style={layoutStyles.sidebar}>
+      <button style={{...layoutStyles.logo,background:"none",border:0,cursor:"pointer",padding:"6px 14px 24px",display:"block"}} onClick={()=>onNavigate("dashboard")}><img src="./logo.png" alt="Minha Arara" style={{height:32,display:"block"}}/></button>
+      <nav style={{display:"flex",flexDirection:"column",gap:4}}>
+        {items.map(it=><button key={it.id} style={layoutStyles.navItem(active===it.id)} onClick={()=>onNavigate(it.id)}><span style={{color:"var(--ma-olive-700)",opacity:active===it.id?1:0.7,display:"flex"}}>{it.icon}</span><span>{it.label}</span></button>)}
+        <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-taupe-500)",padding:"20px 14px 8px"}}>Mais</div>
+        {secondary.map(it=><button key={it.id} style={layoutStyles.navItem(active===it.id)} onClick={()=>onNavigate(it.id)}><span style={{color:"var(--ma-olive-700)",opacity:0.7,display:"flex"}}>{it.icon}</span><span>{it.label}</span></button>)}
+      </nav>
+      {showTip&&(
+        <div style={{marginTop:"auto",padding:16,background:"var(--ma-sand-200)",borderRadius:18,position:"relative"}}>
+          <button onClick={()=>setShowTip(false)} aria-label="Fechar aviso" style={{position:"absolute",top:8,right:8,width:24,height:24,borderRadius:999,border:0,background:"transparent",color:"var(--ma-brown-700)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,transition:"background 140ms"}} onMouseEnter={e=>e.currentTarget.style.background="rgba(62,47,35,.08)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+            <IconClose size={14}/>
+          </button>
+          <IconLeaf size={20} style={{color:"var(--ma-olive-700)",marginBottom:8}}/>
+          <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)",marginBottom:4,lineHeight:1.3,paddingRight:20}}>Moda mais consciente</div>
+          <div style={{fontSize:12,color:"var(--ma-brown-700)",lineHeight:1.5}}>7 peças repostas neste mês ganharam nova história.</div>
+        </div>
+      )}
+    </aside>
+  );
+}
+function Topbar({title,breadcrumb,onSearch,onNew,newLabel="Cadastrar peça"}){return<header className="ma-topbar"style={layoutStyles.topbar}><div style={{flex:1}}>{breadcrumb&&<div style={{fontSize:12,fontWeight:500,color:"var(--ma-taupe-500)",marginBottom:2}}>{breadcrumb}</div>}<div style={{fontFamily:"var(--font-sans)",fontWeight:600,fontSize:20,color:"var(--ma-olive-900)",letterSpacing:"-0.01em"}}>{title}</div></div><div style={{position:"relative",width:320}}className="ma-search"><span style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",color:"var(--ma-taupe-500)",display:"flex"}}><IconSearch size={16}/></span><input placeholder="Buscar peça, look ou etiqueta…"onChange={onSearch}style={{width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"10px 14px 10px 38px",borderRadius:12,border:"1px solid var(--color-border)",background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"}}/></div><IconButton label="Notificações"><IconBell size={18}/></IconButton><Button icon={<IconPlus size={16}/>}onClick={onNew}>{newLabel}</Button><Avatar name="Priscila Villela"src="./priscila-villela.png"size={40}tone="sage"/></header>;}
+function Page({children}){return<div className="ma-content"style={layoutStyles.content}>{children}</div>;}
+function BottomNav({active,onNavigate}){const items=[{id:"dashboard",label:"Painel",icon:<IconDashboard size={20}/>},{id:"arara",label:"Arara",icon:<IconHanger size={20}/>},{id:"looks",label:"Looks",icon:<IconLooks size={20}/>},{id:"vendas",label:"Vendas",icon:<IconBag size={20}/>}];return<nav className="ma-bottom-nav"aria-label="Navegação principal">{items.map(it=><button key={it.id}data-active={active===it.id}aria-label={it.label}onClick={()=>onNavigate(it.id)}>{it.icon}</button>)}</nav>;}
+
+/* ── SCREENS DATA ── */
+const PIECES=[{id:1,name:"Vestido midi linho areia",category:"Vestido",size:"M",price:168,status:"Disponível",statusTone:"success",meta:"12 visitas",favorite:false,gradient:["#E9E3D5","#C9D0B8"]},{id:2,name:"Camisa oversize algodão",category:"Camisa",size:"G",price:89,status:"Disponível",statusTone:"success",meta:"4 favoritos",favorite:true,gradient:["#F6F4EE","#E9E3D5"]},{id:3,name:"Saia plissada midi",category:"Saia",size:"P",price:124,status:"Em curadoria",statusTone:"warning",meta:"rascunho",favorite:false,gradient:["#E9E3D5","#BFB39A"]},{id:4,name:"Calça wide leg cintura alta",category:"Calça",size:"M",price:198,status:"Consignada",statusTone:"info",meta:"Brechó Asa Norte",favorite:false,gradient:["#D9D7CB","#A8AE92"]},{id:5,name:"Blazer alfaiataria caramelo",category:"Blazer",size:"M",price:256,status:"Parada 60+ dias",statusTone:"clay",meta:"considere repostar",favorite:false,gradient:["#E0D5C2","#C8A46A"]},{id:6,name:"Top cropped malha canelada",category:"Top",size:"P",price:64,status:"Vendida",statusTone:"solid",meta:"vendida em 12/05",favorite:false,gradient:["#C9D0B8","#7A8A64"]},{id:7,name:"Bolsa estruturada palha",category:"Acessório",size:"U",price:142,status:"Disponível",statusTone:"success",meta:"1 favorito",favorite:false,gradient:["#EFE8D7","#D6C9A8"]},{id:8,name:"Sapatilha couro caramelo",category:"Calçado",size:"37",price:178,status:"Disponível",statusTone:"success",meta:"3 visitas",favorite:false,gradient:["#E5DDCC","#B8A78A"]}];
+const SALES=[{id:"VN-128",piece:"Top cropped malha canelada",buyer:"Júlia Bertoni",date:"12 mai",value:64,channel:"Feira virtual"},{id:"VN-127",piece:"Vestido floral viscose",buyer:"Camila Souza",date:"09 mai",value:132,channel:"Loja própria"},{id:"VN-126",piece:"Tricô gola alta marfim",buyer:"Renata Lima",date:"06 mai",value:96,channel:"Consignação"},{id:"VN-125",piece:"Bermuda alfaiataria",buyer:"Marina Diniz",date:"04 mai",value:78,channel:"Loja própria"},{id:"VN-124",piece:"Lenço seda estampado",buyer:"Patrícia Reis",date:"02 mai",value:58,channel:"Feira virtual"}];
+
+/* ── SCREEN HELPERS ── */
+function MetricCard({label,value,trend,hint,tone,sparkline}){const trendTones={success:{bg:"rgba(79,98,59,.14)",fg:"var(--ma-olive-900)"},warning:{bg:"rgba(200,164,106,.22)",fg:"#7A5C24"},neutral:{bg:"var(--ma-sand-200)",fg:"var(--ma-brown-900)"}};const t=trendTones[tone]||trendTones.neutral;return<Card padding={22}><div style={{fontSize:11,fontWeight:600,letterSpacing:".10em",textTransform:"uppercase",color:"var(--ma-olive-700)"}}>{label}</div><div style={{fontFamily:"var(--font-sans)",fontSize:30,fontWeight:700,color:"var(--ma-olive-900)",margin:"10px 0 8px",lineHeight:1.05,letterSpacing:"-0.01em"}}>{value}</div><div style={{display:"flex",alignItems:"center",gap:8}}><span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"3px 10px",borderRadius:999,background:t.bg,color:t.fg,fontSize:11,fontWeight:600}}>{trend}</span><span style={{fontSize:12,color:"var(--ma-taupe-500)"}}>{hint}</span></div>{sparkline&&<svg viewBox="0 0 200 50"preserveAspectRatio="none"style={{width:"100%",height:36,marginTop:14,display:"block"}}><path d="M0 38 L25 32 L50 36 L75 24 L100 28 L125 18 L150 22 L175 14 L200 8"stroke="var(--ma-olive-700)"strokeWidth="2"fill="none"strokeLinecap="round"strokeLinejoin="round"/><path d="M0 38 L25 32 L50 36 L75 24 L100 28 L125 18 L150 22 L175 14 L200 8 L200 50 L0 50 Z"fill="rgba(79,98,59,.12)"/></svg>}</Card>;}
+function MiniPiece({piece,onClick}){return<button onClick={onClick}style={{background:"transparent",border:0,padding:0,textAlign:"left",cursor:"pointer",fontFamily:"inherit",display:"flex",flexDirection:"column",gap:0}}><div style={{aspectRatio:"1 / 1",background:`linear-gradient(160deg, ${piece.gradient[0]}, ${piece.gradient[1]})`,borderRadius:16,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",overflow:"hidden",marginBottom:8}}><div style={{opacity:0.32}}><IconHanger size={56}strokeWidth={1.2}style={{color:"var(--ma-olive-800)"}}/></div></div><div style={{display:"flex",flexDirection:"column",gap:2}}><div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)",lineHeight:1.3}}>{piece.name}</div><div style={{fontSize:12,color:"var(--ma-brown-700)"}}>R$ {piece.price}</div></div></button>;}
+function AlertItem({tone,title,desc,cta,onClick}){const tones={success:"var(--ma-olive-700)",warning:"var(--ma-gold-500)",info:"var(--ma-bluegray-500)"};return<div style={{display:"flex",flexDirection:"column",gap:4,padding:"14px 16px",background:"var(--ma-white)",borderRadius:16,borderLeft:`3px solid ${tones[tone]}`,boxShadow:"var(--shadow-xs)",flex:1,justifyContent:"center"}}><div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)"}}>{title}</div><div style={{fontSize:12,color:"var(--ma-brown-700)",marginBottom:4}}>{desc}</div><a href="#"onClick={e=>{e.preventDefault();onClick&&onClick();}}style={{fontSize:12,fontWeight:600,color:"var(--ma-olive-700)",textDecoration:"none",display:"inline-flex",alignItems:"center",gap:4,cursor:"pointer",alignSelf:"flex-start"}}>{cta} <IconArrowRight size={12}/></a></div>;}
+function CategoryBar({label,value,pct,color}){return<div><div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}><span style={{fontSize:13,fontWeight:500,color:"var(--ma-brown-900)"}}>{label}</span><span style={{fontSize:12,color:"var(--ma-taupe-500)"}}>{value} peças · {pct}%</span></div><div style={{height:8,background:"var(--ma-sand-200)",borderRadius:999,overflow:"hidden"}}><div style={{width:`${pct*3}%`,height:"100%",background:color,borderRadius:999}}/></div></div>;}
+function LegendDot({color,label}){return<span style={{display:"inline-flex",alignItems:"center",gap:6,color:"var(--ma-brown-700)"}}><span style={{width:10,height:10,borderRadius:3,background:color}}/>{label}</span>;}
+function RevenueChart(){
+  const months=["jan","fev","mar","abr","mai"];
+  const consigna=[320,410,380,520,480];
+  const loja=[880,1020,1340,1180,1620];
+  const feira=[240,360,280,420,720];
+  const max=2600;
+  const BAR_H=160;
+  const h=val=>Math.round((val/max)*BAR_H);
+  return(
+    <div>
+      <div style={{display:"flex",gap:20,marginBottom:16,flexWrap:"wrap"}}>
+        <LegendDot color="var(--ma-olive-700)"label="Loja própria"/>
+        <LegendDot color="var(--ma-sage-500)"label="Consignação"/>
+        <LegendDot color="var(--ma-gold-500)"label="Feira virtual"/>
+      </div>
+      <div style={{display:"flex",alignItems:"flex-end",gap:10,height:BAR_H+40,paddingBottom:0}}>
+        {months.map((m,i)=>{
+          const total=consigna[i]+loja[i]+feira[i];
+          return(
+            <div key={m} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:0,minWidth:0}}>
+              <div style={{fontSize:11,fontWeight:600,color:"var(--ma-olive-900)",marginBottom:6,whiteSpace:"nowrap"}}>
+                R$ {(total/1000).toFixed(1)}k
+              </div>
+              <div style={{width:"60%",minWidth:16,maxWidth:32,display:"flex",flexDirection:"column",justifyContent:"flex-end",height:BAR_H,overflow:"hidden",borderRadius:"6px 6px 0 0"}}>
+                <div style={{height:h(feira[i]),background:"var(--ma-gold-500)",flexShrink:0}}/>
+                <div style={{height:h(consigna[i]),background:"var(--ma-sage-500)",flexShrink:0}}/>
+                <div style={{height:h(loja[i]),background:"var(--ma-olive-700)",flexShrink:0}}/>
+              </div>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",textTransform:"uppercase",letterSpacing:".08em",marginTop:8}}>{m}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+function LookCard({look,onOpen}){return<Card padding={0}style={{overflow:"hidden",cursor:"pointer"}} onClick={onOpen}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:4,padding:4,background:"var(--ma-sand-200)"}}>{[0,1,2,3].map(i=><div key={i}style={{aspectRatio:"1 / 1",background:`linear-gradient(${130+i*30}deg, ${look.gradient[0]}, ${look.gradient[1]})`,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center"}}><IconHanger size={36}strokeWidth={1.2}style={{color:"var(--ma-olive-800)",opacity:0.32}}/></div>)}</div><div style={{padding:18}}><div style={{fontFamily:"var(--font-sans)",fontSize:17,fontWeight:600,color:"var(--ma-olive-900)"}}>{look.name}</div><div style={{fontSize:13,color:"var(--ma-brown-700)",marginTop:4,lineHeight:1.4}}>{look.pieces.length} peças · {look.pieces.slice(0,2).join(" · ")}</div><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:14}}><Badge tone={look.favs>0?"clay":"neutral"}icon={<IconHeart size={11}/>}>{look.favs} favoritos</Badge><Button variant="ghost"size="sm"iconRight={<IconArrowRight size={12}/>}>Abrir</Button></div></div></Card>;}
+function CreateLookCard({onClick}){return<button onClick={onClick} style={{background:"transparent",border:"2px dashed var(--ma-sage-300)",borderRadius:24,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:14,padding:32,cursor:"pointer",fontFamily:"inherit",color:"var(--ma-olive-700)",minHeight:280}}><div style={{width:48,height:48,borderRadius:999,background:"var(--ma-sage-300)",display:"flex",alignItems:"center",justifyContent:"center"}}><IconPlus size={22}style={{color:"var(--ma-olive-900)"}}/></div><div style={{fontSize:15,fontWeight:600,color:"var(--ma-olive-900)"}}>Criar novo look</div><div style={{fontSize:13,color:"var(--ma-brown-700)",textAlign:"center",maxWidth:220}}>Combine peças da sua arara em uma composição salva.</div></button>;}
+function DetailRow({label,value,mono}){return<div><div style={{fontSize:11,color:"var(--ma-taupe-500)",marginBottom:2}}>{label.toUpperCase()}</div><div style={{fontSize:14,fontWeight:500,color:"var(--ma-olive-900)",fontFamily:"var(--font-sans)",fontFeatureSettings:mono?'"tnum" 1':"normal",letterSpacing:mono?"0.02em":"normal"}}>{value}</div></div>;}
+function Timeline({event,date,tone}){const tones={success:"var(--ma-olive-700)",warning:"var(--ma-gold-500)",info:"var(--ma-bluegray-500)",neutral:"var(--ma-taupe-500)"};return<div style={{display:"flex",gap:10,alignItems:"center",fontSize:13}}><span style={{width:8,height:8,borderRadius:999,background:tones[tone]||tones.neutral,flexShrink:0}}/><span style={{color:"var(--ma-olive-900)",fontWeight:500,flex:1}}>{event}</span><span style={{color:"var(--ma-taupe-500)",fontSize:12}}>{date}</span></div>;}
+
+/* ── SCREENS ── */
+function Dashboard({onOpenPiece,onNavigate,onCadastrar}){
+  const hoje=(()=>{const d=new Date();const dias=["domingo","segunda","terça","quarta","quinta","sexta","sábado"];const meses=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];return`${dias[d.getDay()]} · ${d.getDate()} de ${meses[d.getMonth()]}`;})();
+  return<Page><div className="ma-hero"style={{background:"linear-gradient(135deg, var(--ma-sand-200), var(--ma-warm-100))",borderRadius:28,padding:"32px 36px",marginBottom:28,border:"1px solid var(--color-border-subtle)",display:"flex",justifyContent:"space-between",alignItems:"center",gap:24}}><div><div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:8}}>{hoje}</div><h1 className="ma-hero-h1"style={{fontFamily:"var(--font-sans)",fontWeight:700,fontSize:32,color:"var(--ma-olive-900)",margin:"0 0 8px",letterSpacing:"-0.01em",lineHeight:1.15}}>Olá, Priscila. Sua arara segue bem cuidada.</h1><div style={{fontSize:15,color:"var(--ma-brown-700)",maxWidth:540,lineHeight:1.55}}>Você tem <strong style={{color:"var(--ma-olive-900)"}}>3 peças</strong> esperando publicação e <strong style={{color:"var(--ma-olive-900)"}}>2 vendas</strong> para confirmar despacho.</div></div><Button variant="primary"size="lg"icon={<IconPlus size={18}/>}onClick={onCadastrar}>Cadastrar peça</Button></div><div className="ma-grid-4"style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:20,marginBottom:32}}><MetricCard label="Peças cadastradas"value="128"trend="+8"hint="esta semana"tone="success"/><MetricCard label="Vendas do mês"value="R$ 4.820"trend="+18%"hint="vs abril"tone="success"sparkline/><MetricCard label="Ticket médio"value="R$ 142"trend="—"hint="estável"tone="neutral"/><MetricCard label="Peças paradas"value="12"trend="-3"hint="60+ dias"tone="warning"/></div><div className="ma-split-2-1"style={{display:"grid",gridTemplateColumns:"2fr 1fr",gap:24,marginBottom:32,alignItems:"stretch"}}><Card padding={24} style={{display:"flex",flexDirection:"column"}}><SectionHeader eyebrow="Última semana"title="Peças cadastradas"action={<Button variant="ghost"size="sm"iconRight={<IconArrowRight size={14}/>}onClick={()=>onNavigate("arara")}>Ver tudo</Button>}/><div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:14,flex:1}}>{PIECES.slice(0,4).map(p=><MiniPiece key={p.id}piece={p}onClick={()=>onOpenPiece(p)}/>)}</div></Card><Card padding={24}tone="warm" style={{display:"flex",flexDirection:"column"}}><SectionHeader eyebrow="Para revisar"title="Sua atenção"/><div style={{display:"flex",flexDirection:"column",gap:12,flex:1}}><AlertItem tone="warning"title="3 peças paradas há 60 dias"desc="Que tal repostar com nova foto?"cta="Ver peças"onClick={()=>onNavigate("arara")}/><AlertItem tone="info"title="2 vendas aguardam despacho"desc="Camila e Júlia esperam atualização."cta="Ver vendas"onClick={()=>onNavigate("vendas")}/><AlertItem tone="success"title="Look 'Domingo sereno' favoritado"desc="4 pessoas salvaram esta combinação."cta="Abrir look"onClick={()=>onNavigate("looks")}/></div></Card></div><div className="ma-split-3-2"style={{display:"grid",gridTemplateColumns:"3fr 2fr",gap:24}}><Card padding={24}><SectionHeader eyebrow="Últimas semanas"title="Receita por canal"action={<Dropdown variant="ghost" align="right" icon={<IconCalendar size={14}/>} value="30d" onChange={()=>{}} options={[{value:"7d",label:"Últimos 7 dias"},{value:"30d",label:"Últimos 30 dias"},{value:"90d",label:"Últimos 90 dias"},{value:"ytd",label:"Ano corrente"}]}/>}/><RevenueChart/></Card><Card padding={24}><SectionHeader eyebrow="Distribuição"title="Categorias na arara"/><div style={{display:"flex",flexDirection:"column",gap:14}}><CategoryBar label="Vestidos"value={32}pct={28}color="var(--ma-olive-700)"/><CategoryBar label="Camisas e blusas"value={26}pct={22}color="var(--ma-sage-500)"/><CategoryBar label="Calças"value={18}pct={15}color="var(--ma-gold-500)"/><CategoryBar label="Saias"value={14}pct={12}color="var(--ma-bluegray-500)"/><CategoryBar label="Acessórios"value={22}pct={19}color="var(--ma-clay-500)"/><CategoryBar label="Calçados"value={6}pct={4}color="var(--ma-sage-300)"/></div></Card></div></Page>;}
+function AraraScreen({onOpenPiece,onCadastrar}){const toast=useToast();const[filter,setFilter]=React.useState("todas");const filters=[{id:"todas",label:"Todas (128)"},{id:"disponivel",label:"Disponíveis (96)"},{id:"curadoria",label:"Em curadoria (8)"},{id:"consignada",label:"Consignadas (12)"},{id:"parada",label:"Paradas (12)"}];return<Page><div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:24}}><div><div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:6}}>Sua coleção</div><h1 style={{fontFamily:"var(--font-sans)",fontSize:32,fontWeight:700,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>Minha arara</h1><div style={{fontSize:14,color:"var(--ma-brown-700)",marginTop:4}}>128 peças · R$ 18.420 em estoque</div></div><div style={{display:"flex",gap:10}}><Button variant="secondary"icon={<IconUpload size={14}/>}size="sm"onClick={()=>toast("Selecione a planilha CSV para importar.")}>Importar planilha</Button><Button icon={<IconPlus size={14}/>}size="sm"onClick={onCadastrar}>Cadastrar peça</Button></div></div><div style={{display:"flex",gap:10,alignItems:"center",marginBottom:24,flexWrap:"wrap"}}>{filters.map(f=><Chip key={f.id}active={filter===f.id}onClick={()=>setFilter(f.id)}>{f.label}</Chip>)}<div style={{flex:1}}/><Button variant="secondary"size="sm"icon={<IconFilter size={14}/>}onClick={()=>toast("Painel de filtros avançados aberto.")}>Filtros</Button></div><div className="ma-piece-grid"style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:20}}>{PIECES.map(p=><PieceCard key={p.id}piece={p}onClick={()=>onOpenPiece(p)}/>)}</div></Page>;}
+/* ── CRIAR LOOK DRAWER ── */
+function CriarLookDrawer({onClose,onSave}){
+  const[nome,setNome]=React.useState("");
+  const[desc,setDesc]=React.useState("");
+  const[pecas,setPecas]=React.useState([]);
+  const allPecas=PIECES.map(p=>p.name);
+  const toggle=p=>setPecas(ps=>ps.includes(p)?ps.filter(x=>x!==p):[...ps,p]);
+  const inputSt={width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"11px 14px",borderRadius:12,border:"1.5px solid var(--color-border)",background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"};
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Novo look</div>
+            <div className="ma-drawer-title">Criar combinação</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+        <div className="ma-drawer-body">
+          <div>
+            <label className="ma-drawer-label">Nome do look <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <input style={inputSt} value={nome} onChange={e=>setNome(e.target.value)} placeholder="Ex: Look de verão com jeans"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+          <div>
+            <label className="ma-drawer-label">Descrição</label>
+            <textarea style={{...inputSt,resize:"vertical",minHeight:80,lineHeight:1.5}} value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Contexto, ocasião, inspiração…"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+          <div>
+            <label className="ma-drawer-label">Selecionar peças <span style={{fontSize:12,color:"var(--ma-taupe-500)",fontWeight:400}}>({pecas.length} selecionadas)</span></label>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {allPecas.map((p,i)=>{
+                const sel=pecas.includes(p);
+                return(
+                  <button key={i} type="button" onClick={()=>toggle(p)} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 14px",borderRadius:12,border:`1.5px solid ${sel?"var(--ma-olive-700)":"var(--color-border)"}`,background:sel?"rgba(79,98,59,.07)":"var(--ma-white)",cursor:"pointer",textAlign:"left",transition:"all 160ms",fontFamily:"var(--font-sans)"}}>
+                    <div style={{width:18,height:18,borderRadius:6,border:`2px solid ${sel?"var(--ma-olive-700)":"var(--ma-taupe-300)"}`,background:sel?"var(--ma-olive-700)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all 160ms"}}>
+                      {sel&&<IconCheck size={10} style={{color:"white"}}/>}
+                    </div>
+                    <div style={{flex:1,minWidth:0}}>
+                      <div style={{fontSize:14,fontWeight:500,color:"var(--ma-olive-900)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p}</div>
+                      <div style={{fontSize:12,color:"var(--ma-taupe-500)",marginTop:1}}>{PIECES[i]?.category} · Tam {PIECES[i]?.size}</div>
+                    </div>
+                    <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-700)"}}>R$ {PIECES[i]?.price}</div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" style={{flex:1}} onClick={onClose} type="button">Cancelar</Button>
+          <Button style={{flex:2}} icon={<IconCheck size={16}/>} onClick={()=>{if(!nome.trim())return;onSave(nome,pecas);}}>Salvar look</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LooksScreen(){
+  const toast=useToast();
+  const[showCriar,setShowCriar]=React.useState(false);
+  const[looks,setLooks]=React.useState([
+    {name:"Domingo sereno",pieces:["Vestido midi linho areia","Sapatilha couro caramelo","Bolsa palha"],gradient:["#E9E3D5","#C9D0B8"],favs:4},
+    {name:"Reunião na luz",pieces:["Blazer alfaiataria","Camisa branca","Calça wide leg"],gradient:["#D6D3C5","#7A8A64"],favs:7},
+    {name:"Café com amigas",pieces:["Top cropped","Saia plissada midi"],gradient:["#F0E6D3","#C8A46A"],favs:2},
+    {name:"Tarde no parque",pieces:["Camisa oversize","Bermuda alfaiataria"],gradient:["#DCD9C4","#5D6B4A"],favs:0},
+  ]);
+  const handleSave=(nome,pecas)=>{
+    setLooks(ls=>[...ls,{name:nome,pieces:pecas,gradient:["#E9E3D5","#7A8A64"],favs:0}]);
+    setShowCriar(false);
+    toast(`Look "${nome}" criado com ${pecas.length} peça(s)!`);
+  };
+  return(
+    <Page>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:24}}>
+        <div>
+          <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:6}}>Curadoria</div>
+          <h1 style={{fontFamily:"var(--font-sans)",fontSize:32,fontWeight:700,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>Looks criados</h1>
+          <div style={{fontSize:14,color:"var(--ma-brown-700)",marginTop:4}}>{looks.length} combinações montadas · 23 favoritados pelos seus clientes</div>
+        </div>
+        <Button icon={<IconPlus size={14}/>} size="sm" onClick={()=>setShowCriar(true)}>Criar look</Button>
+      </div>
+      <div className="ma-grid-3" style={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:24}}>
+        {looks.map((look,i)=><LookCard key={i} look={look} onOpen={()=>toast(`Look "${look.name}" aberto.`)}/>)}
+        <CreateLookCard onClick={()=>setShowCriar(true)}/>
+      </div>
+      {showCriar&&<CriarLookDrawer onClose={()=>setShowCriar(false)} onSave={handleSave}/>}
+    </Page>
+  );
+}
+/* ── REGISTRAR VENDA DRAWER ── */
+function RegistrarVendaDrawer({onClose,onSave}){
+  const[form,setForm]=React.useState({peca:"",compradora:"",canal:"loja",valor:"",data:new Date().toISOString().slice(0,10),obs:""});
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  const[errors,setErrors]=React.useState({});
+  const inputSt=err=>({width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"11px 14px",borderRadius:12,border:`1.5px solid ${err?"var(--ma-error-500)":"var(--color-border)"}`,background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"});
+  const canais=[{value:"loja",label:"Loja própria"},{value:"consignacao",label:"Consignação"},{value:"feira",label:"Feira virtual"},{value:"whatsapp",label:"WhatsApp direto"}];
+  const pecaOpts=PIECES.map(p=>({value:p.name,label:p.name+" — R$ "+p.price}));
+  const validate=()=>{
+    const e={};
+    if(!form.peca)e.peca=true;
+    if(!form.compradora.trim())e.compradora=true;
+    if(!form.valor||isNaN(parseFloat(form.valor.replace(",","."))))e.valor=true;
+    setErrors(e);
+    return Object.keys(e).length===0;
+  };
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Nova venda</div>
+            <div className="ma-drawer-title">Registrar venda</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+        <div className="ma-drawer-body">
+          <div>
+            <label className="ma-drawer-label">Peça vendida <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <Dropdown value={form.peca} onChange={v=>setForm(f=>({...f,peca:v}))} options={pecaOpts} placeholder="Selecione a peça" error={errors.peca}/>
+            {errors.peca&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Selecione a peça</div>}
+          </div>
+          <div>
+            <label className="ma-drawer-label">Compradora <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <input style={inputSt(errors.compradora)} value={form.compradora} onChange={set("compradora")} placeholder="Nome da compradora"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            {errors.compradora&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Informe o nome</div>}
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <div>
+              <label className="ma-drawer-label">Canal de venda</label>
+              <Dropdown value={form.canal} onChange={v=>setForm(f=>({...f,canal:v}))} options={canais}/>
+            </div>
+            <div>
+              <label className="ma-drawer-label">Data da venda</label>
+              <input type="date" style={inputSt(false)} value={form.data} onChange={set("data")}
+                onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            </div>
+          </div>
+          <div>
+            <label className="ma-drawer-label">Valor (R$) <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <input style={inputSt(errors.valor)} value={form.valor} onChange={set("valor")} placeholder="0,00" inputMode="decimal"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            {errors.valor&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Informe o valor</div>}
+          </div>
+          <div>
+            <label className="ma-drawer-label">Observações</label>
+            <textarea style={{...inputSt(false),resize:"vertical",minHeight:80,lineHeight:1.5}} value={form.obs} onChange={set("obs")} placeholder="Forma de pagamento, frete, etc."
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+        </div>
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" style={{flex:1}} onClick={onClose} type="button">Cancelar</Button>
+          <Button style={{flex:2}} type="button" icon={<IconCheck size={16}/>} onClick={()=>{if(validate())onSave(form);}}>Registrar venda</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VendasScreen(){
+  const toast=useToast();
+  const[showDrawer,setShowDrawer]=React.useState(false);
+  const[sales,setSales]=React.useState(SALES);
+  const handleSave=form=>{
+    const nova={id:"MA-0"+(200+sales.length),piece:form.peca,buyer:form.compradora,channel:canaisLabel[form.canal]||form.canal,date:form.data,value:parseFloat(form.valor.replace(",",".")).toFixed(0)};
+    setSales(s=>[nova,...s]);
+    setShowDrawer(false);
+    toast(`Venda de "${form.peca}" registrada com sucesso!`);
+  };
+  const canaisLabel={loja:"Loja própria",consignacao:"Consignação",feira:"Feira virtual",whatsapp:"WhatsApp"};
+  return(
+    <Page>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:24}}>
+        <div>
+          <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:6}}>Histórico</div>
+          <h1 style={{fontFamily:"var(--font-sans)",fontSize:32,fontWeight:700,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>Vendas</h1>
+          <div style={{fontSize:14,color:"var(--ma-brown-700)",marginTop:4}}>{sales.length} vendas em maio · R$ 4.820 de receita</div>
+        </div>
+        <div style={{display:"flex",gap:10,alignItems:"center"}}>
+          <Dropdown variant="ghost" align="right" icon={<IconCalendar size={14}/>} value="mai-2026" onChange={v=>toast("Período: "+v)} options={[{value:"mai-2026",label:"Maio 2026"},{value:"abr-2026",label:"Abril 2026"},{value:"mar-2026",label:"Março 2026"},{value:"q2-2026",label:"2º trimestre"},{value:"2026",label:"Ano de 2026"}]}/>
+          <Button size="sm" icon={<IconPlus size={14}/>} onClick={()=>setShowDrawer(true)}>Registrar venda</Button>
+        </div>
+      </div>
+      <div className="ma-grid-3" style={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:16,marginBottom:24}}>
+        <MetricCard label="Receita" value="R$ 4.820" trend="+18%" hint="vs abril" tone="success"/>
+        <MetricCard label="Vendas" value={String(sales.length)} trend="+6" hint="vs abril" tone="success"/>
+        <MetricCard label="Ticket médio" value="R$ 142" trend="+R$ 8" hint="vs abril" tone="success"/>
+      </div>
+      <Card padding={0}>
+        <div style={{padding:"18px 24px",borderBottom:"1px solid var(--color-border-subtle)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <SectionHeader title="Últimas vendas"/>
+          <Button variant="ghost" size="sm" iconRight={<IconArrowRight size={12}/>} onClick={()=>toast("Exportação em CSV pronta para download.")}>Exportar</Button>
+        </div>
+        <table className="ma-table" style={{width:"100%",borderCollapse:"collapse",fontFamily:"var(--font-sans)"}}>
+          <thead><tr style={{fontSize:11,fontWeight:600,letterSpacing:".08em",textTransform:"uppercase",color:"var(--ma-taupe-500)",textAlign:"left"}}>
+            <th style={{padding:"12px 24px",fontWeight:600}}>Código</th>
+            <th style={{padding:"12px 24px",fontWeight:600}}>Peça</th>
+            <th style={{padding:"12px 24px",fontWeight:600}}>Compradora</th>
+            <th style={{padding:"12px 24px",fontWeight:600}}>Canal</th>
+            <th style={{padding:"12px 24px",fontWeight:600}}>Data</th>
+            <th style={{padding:"12px 24px",fontWeight:600,textAlign:"right"}}>Valor</th>
+          </tr></thead>
+          <tbody>{sales.map(s=>(
+            <tr key={s.id} style={{borderTop:"1px solid var(--color-border-subtle)"}}>
+              <td style={{padding:"16px 24px",fontFamily:"var(--font-sans)",fontWeight:500,fontSize:13,color:"var(--ma-olive-700)"}}>{s.id}</td>
+              <td style={{padding:"16px 24px",fontSize:14,fontWeight:500,color:"var(--ma-olive-900)"}}>{s.piece}</td>
+              <td style={{padding:"16px 24px",fontSize:14,color:"var(--ma-brown-900)"}}><span style={{display:"inline-flex",alignItems:"center",gap:8}}><Avatar name={s.buyer} size={26} tone="sand"/>{s.buyer}</span></td>
+              <td style={{padding:"16px 24px",fontSize:14}}><Badge tone={s.channel==="Loja própria"?"success":s.channel==="Consignação"?"info":"warning"}>{s.channel}</Badge></td>
+              <td style={{padding:"16px 24px",fontSize:14,color:"var(--ma-brown-700)"}}>{s.date}</td>
+              <td style={{padding:"16px 24px",fontSize:15,fontWeight:600,color:"var(--ma-olive-900)",textAlign:"right"}}>R$ {s.value}</td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </Card>
+      {showDrawer&&<RegistrarVendaDrawer onClose={()=>setShowDrawer(false)} onSave={handleSave}/>}
+    </Page>
+  );
+}
+function PieceDetail({piece,onClose}){
+  const toast=useToast();
+  if(!piece)return null;
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Detalhe da peça</div>
+            <div className="ma-drawer-title">{piece.name}</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+        <div className="ma-drawer-body">
+          <div style={{aspectRatio:"4 / 5",background:`linear-gradient(160deg, ${piece.gradient[0]}, ${piece.gradient[1]})`,borderRadius:20,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+            <IconHanger size={120} strokeWidth={1.1} style={{color:"var(--ma-olive-800)",opacity:0.3}}/>
+          </div>
+          <div>
+            <Badge tone={piece.statusTone}>{piece.status}</Badge>
+            <div style={{fontSize:13,color:"var(--ma-brown-700)",marginTop:8}}>{piece.category} · Tam {piece.size} · cadastrada há 6 dias</div>
+          </div>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",padding:"16px 0",borderTop:"1px solid var(--color-border-subtle)",borderBottom:"1px solid var(--color-border-subtle)"}}>
+            <div>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",marginBottom:2}}>VALOR DE VENDA</div>
+              <div style={{fontSize:28,fontWeight:700,color:"var(--ma-olive-900)"}}>R$ {piece.price}</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",marginBottom:2}}>CUSTO</div>
+              <div style={{fontSize:18,fontWeight:600,color:"var(--ma-brown-700)"}}>R$ {Math.round(piece.price*0.4)}</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",marginBottom:2}}>MARGEM</div>
+              <div style={{fontSize:18,fontWeight:600,color:"var(--ma-olive-700)"}}>60%</div>
+            </div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <DetailRow label="Procedência" value="Estoque próprio"/>
+            <DetailRow label="Coleção" value="Outono / Inverno"/>
+            <DetailRow label="Etiqueta" value="MA-0128" mono/>
+            <DetailRow label="Última atualização" value="hoje, 14:22"/>
+          </div>
+          <div>
+            <div style={{fontSize:11,fontWeight:600,letterSpacing:".06em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:8}}>Histórico</div>
+            <div style={{display:"flex",flexDirection:"column",gap:10}}>
+              <Timeline event="Peça cadastrada" date="10 mai" tone="success"/>
+              <Timeline event="Foto atualizada" date="11 mai" tone="info"/>
+              <Timeline event="Publicada na loja" date="12 mai" tone="success"/>
+              <Timeline event={`${piece.meta}`} date="hoje" tone={piece.statusTone==="clay"?"warning":"neutral"}/>
+            </div>
+          </div>
+        </div>
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" icon={<IconCamera size={14}/>} style={{flex:1}} onClick={()=>toast("Câmera pronta para nova foto.")}>Nova foto</Button>
+          <Button style={{flex:2}} onClick={()=>{toast(`"${piece.name}" pronta para edição.`);onClose();}}>Editar peça</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── CADASTRO DE PEÇA (modal/drawer) ── */
+function CadastroPeca({onClose,onSave}){
+  const[form,setForm]=React.useState({nome:"",categoria:"",tamanho:"",preco:"",procedencia:"",colecao:"",etiqueta:"",status:"Disponível",notas:""});
+  const[errors,setErrors]=React.useState({});
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  function validate(){const e={};if(!form.nome.trim())e.nome="Obrigatório";if(!form.categoria)e.categoria="Obrigatório";if(!form.tamanho.trim())e.tamanho="Obrigatório";if(!form.preco||isNaN(Number(form.preco)))e.preco="Valor inválido";return e;}
+  function submit(e){e.preventDefault();const e2=validate();if(Object.keys(e2).length){setErrors(e2);return;}onSave&&onSave(form);onClose();}
+  const categorias=["Vestido","Camisa","Blusa","Calça","Saia","Blazer","Casaco","Top","Acessório","Calçado","Outro"];
+  const tamanhos=["PP","P","M","G","GG","XGG","34","36","38","40","42","44","46","U"];
+  const statusOpts=["Disponível","Em curadoria","Consignada","Parada","Vendida"];
+  const Field=({label,err,children})=><label style={{display:"block"}}><div style={{fontSize:13,fontWeight:600,color:err?"var(--ma-error-500)":"var(--ma-brown-900)",marginBottom:6}}>{label}</div>{children}{err&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>{err}</div>}</label>;
+  const inputSt=err=>({width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"11px 14px",borderRadius:12,border:`1.5px solid ${err?"var(--ma-error-500)":"var(--color-border)"}`,background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"});
+  const selectSt=err=>({...inputSt(err),appearance:"none",cursor:"pointer"});
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Nova peça</div>
+            <div className="ma-drawer-title">Cadastrar peça</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+
+        {/* foto placeholder */}
+        <div style={{margin:"24px 28px 0",background:"var(--ma-sand-200)",borderRadius:20,aspectRatio:"16/7",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:10,border:"2px dashed var(--ma-sage-300)",cursor:"pointer",flexShrink:0}}>
+          <div style={{width:44,height:44,borderRadius:999,background:"var(--ma-white)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"var(--shadow-xs)"}}><IconCamera size={20} style={{color:"var(--ma-olive-700)"}}/></div>
+          <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)"}}>Adicionar fotos</div>
+          <div style={{fontSize:12,color:"var(--ma-taupe-500)"}}>JPG, PNG ou WEBP · até 10 MB</div>
+        </div>
+
+        <form onSubmit={submit} className="ma-drawer-body">
+          <Field label="Nome da peça *" err={errors.nome}>
+            <input style={inputSt(errors.nome)} value={form.nome} onChange={set("nome")} placeholder="Ex: Vestido midi linho areia"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </Field>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <Field label="Categoria *" err={errors.categoria}>
+              <Dropdown value={form.categoria} onChange={v=>setForm(f=>({...f,categoria:v}))} options={categorias} placeholder="Selecione" error={errors.categoria}/>
+            </Field>
+            <Field label="Tamanho *" err={errors.tamanho}>
+              <Dropdown value={form.tamanho} onChange={v=>setForm(f=>({...f,tamanho:v}))} options={tamanhos} placeholder="Selecione" error={errors.tamanho}/>
+            </Field>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <Field label="Valor de venda (R$) *" err={errors.preco}>
+              <input style={inputSt(errors.preco)} value={form.preco} onChange={set("preco")} placeholder="0,00" inputMode="decimal"
+                onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            </Field>
+            <Field label="Status">
+              <Dropdown value={form.status} onChange={v=>setForm(f=>({...f,status:v}))} options={statusOpts}/>
+            </Field>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <Field label="Procedência">
+              <input style={inputSt(false)} value={form.procedencia} onChange={set("procedencia")} placeholder="Ex: Estoque próprio"
+                onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            </Field>
+            <Field label="Coleção">
+              <input style={inputSt(false)} value={form.colecao} onChange={set("colecao")} placeholder="Ex: Outono / Inverno"
+                onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            </Field>
+          </div>
+          <Field label="Etiqueta / código">
+            <input style={inputSt(false)} value={form.etiqueta} onChange={set("etiqueta")} placeholder="Ex: MA-0129"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </Field>
+          <Field label="Notas internas">
+            <textarea style={{...inputSt(false),resize:"vertical",minHeight:80,lineHeight:1.5}} value={form.notas} onChange={set("notas")} placeholder="Observações sobre a peça, histórico, etc."
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </Field>
+          <div className="ma-drawer-footer" style={{margin:"0 -28px -24px",padding:"20px 28px"}}>
+            <Button variant="secondary" style={{flex:1}} onClick={onClose} type="button">Cancelar</Button>
+            <Button style={{flex:2}} type="submit" icon={<IconCheck size={16}/>}>Cadastrar peça</Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+/* ── AUTH SHARED STYLES ── */
+const authStyles=`
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+  @keyframes authFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes slideFade{0%{opacity:1}100%{opacity:0}}
+  @keyframes slideShow{0%{opacity:0;transform:scale(1.04)}8%{opacity:1;transform:scale(1)}88%{opacity:1;transform:scale(1.02)}100%{opacity:0;transform:scale(1.04)}}
+
+  /* layout */
+  .auth-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;font-family:var(--font-sans)}
+
+  /* left: slideshow */
+  .auth-visual{position:relative;overflow:hidden;background:#2a3820}
+  .auth-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1800ms cubic-bezier(.4,0,.2,1),transform 12s ease-out}
+  .auth-slide.on{opacity:1;transform:scale(1.04)}
+  .auth-visual-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,56,32,.18) 0%,rgba(42,56,32,.40) 55%,rgba(42,56,32,.88) 100%);z-index:1}
+  .auth-visual-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;padding:44px 52px}
+  .auth-visual-logo img{height:32px;filter:brightness(0) invert(1);opacity:.92}
+  .auth-visual-quote{color:var(--ma-warm-100);max-width:440px}
+  .auth-visual-quote q{font-family:var(--font-display);font-style:italic;font-size:30px;line-height:1.3;display:block;margin-bottom:14px;opacity:.96;letter-spacing:-0.01em}
+  .auth-visual-quote cite{font-size:13px;opacity:.7;font-style:normal;letter-spacing:.02em}
+
+  /* right: form panel */
+  .auth-panel{display:flex;align-items:center;justify-content:center;padding:40px 24px;background:var(--ma-warm-100);overflow-y:auto}
+  .auth-card{width:100%;max-width:400px;animation:authFadeUp 480ms cubic-bezier(.22,.61,.36,1) both}
+  .auth-logo{margin-bottom:40px}
+  .auth-heading{font-family:var(--font-display);font-size:30px;color:var(--ma-olive-900);margin:0 0 6px;letter-spacing:-0.015em;line-height:1.2}
+  .auth-sub{font-size:14px;color:var(--ma-taupe-500);margin:0 0 32px;line-height:1.55}
+  .auth-field{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+  .auth-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ma-brown-700)}
+  .auth-input{font-family:var(--font-sans);font-size:15px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--color-border);background:var(--ma-white);color:var(--ma-brown-900);outline:none;width:100%;box-sizing:border-box;transition:border-color 160ms,box-shadow 160ms}
+  .auth-input:focus{border-color:var(--ma-olive-600,#6b7a52);box-shadow:0 0 0 3px rgba(79,98,59,.12)}
+  .auth-input.err{border-color:var(--ma-error-500)}
+  .auth-btn{width:100%;font-family:var(--font-sans);font-weight:600;font-size:15px;border:0;cursor:pointer;padding:14px;border-radius:12px;background:var(--ma-olive-800);color:var(--ma-warm-100);transition:background 180ms,transform 120ms;margin-top:4px;letter-spacing:.01em}
+  .auth-btn:hover{background:var(--ma-olive-900);transform:translateY(-1px)}
+  .auth-link-row{text-align:center;font-size:13px;color:var(--ma-taupe-500);margin-top:28px}
+  .auth-link{color:var(--ma-olive-700);font-weight:600;text-decoration:none;cursor:pointer}
+  .auth-link:hover{color:var(--ma-olive-900)}
+  .auth-error{font-size:13px;color:var(--ma-error-500);background:rgba(184,92,74,.08);padding:10px 14px;border-radius:10px;text-align:center;margin-bottom:12px}
+  .auth-step-dots{display:flex;gap:6px;margin-bottom:32px}
+  .auth-dot{width:6px;height:6px;border-radius:999px;background:var(--ma-sage-300);transition:all 300ms cubic-bezier(.22,.61,.36,1)}
+  .auth-dot.on{width:22px;background:var(--ma-olive-800)}
+  .auth-back{background:none;border:none;font-family:var(--font-sans);font-size:13px;color:var(--ma-olive-700);font-weight:600;cursor:pointer;padding:0;margin-bottom:24px;display:flex;align-items:center;gap:6px}
+  .auth-back:hover{color:var(--ma-olive-900)}
+  @media(max-width:900px){.auth-wrap{grid-template-columns:1fr}.auth-visual{display:none}}
+`;
+
+const SLIDESHOW_SLIDES=[
+  {
+    img:"./auth-1.jpg",
+    quote:"Minha arara finalmente faz sentido.",
+    cite:"Priscila V. · brechó Outro Olhar · Bragança Paulista",
+  },
+  {
+    img:"./auth-2.jpg",
+    quote:"Curo, fotografo e vendo — tudo no mesmo lugar.",
+    cite:"Júlia Bertoni · Curadoria Outro Olhar",
+  },
+  {
+    img:"./auth-4.jpg",
+    quote:"Meu brechó parou de virar planilha.",
+    cite:"Camila Reis · Casa Madre",
+  },
+  {
+    img:"./auth-3.jpg",
+    quote:"Cada peça tem agora uma história visível.",
+    cite:"Renata A. · Ateliê Folha",
+  },
+];
+
+function AuthVisual({slide}){
+  const s=SLIDESHOW_SLIDES[slide];
+  return(
+    <div className="auth-visual">
+      {SLIDESHOW_SLIDES.map((sl,i)=>(
+        <div key={i} className={`auth-slide${i===slide?" on":""}`} style={{backgroundImage:`url(${sl.img})`}}/>
+      ))}
+      <div className="auth-visual-overlay"/>
+      <div className="auth-visual-content">
+        <div className="auth-visual-logo">
+          <img src="./logo.png" alt="Minha Arara"/>
+        </div>
+        <div className="auth-visual-quote" key={slide} style={{animation:"authFadeUp 900ms cubic-bezier(.22,.61,.36,1) both"}}>
+          <q>{s.quote}</q>
+          <cite>{s.cite}</cite>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── LOGIN ── */
+function LoginScreen({onLogin,onGoRegister,error}){
+  const[user,setUser]=React.useState("");
+  const[pass,setPass]=React.useState("");
+  const[shake,setShake]=React.useState(false);
+  const[slide,setSlide]=React.useState(0);
+  React.useEffect(()=>{
+    const t=setInterval(()=>setSlide(s=>(s+1)%SLIDESHOW_SLIDES.length),6000);
+    return()=>clearInterval(t);
+  },[]);
+  function submit(e){
+    e.preventDefault();
+    if(!onLogin(user,pass)){setShake(true);setTimeout(()=>setShake(false),500);}
+  }
+  return(
+    <div className="auth-wrap">
+      <style>{authStyles}</style>
+      <AuthVisual slide={slide}/>
+      <div className="auth-panel">
+        <div className="auth-card" style={shake?{animation:"shake .4s ease"}:{}}>
+          <a href="../landing/index.html" className="auth-logo" style={{display:"block"}}><img src="./logo.png" alt="Minha Arara" style={{height:34}}/></a>
+          <h1 className="auth-heading">Bem-vinda de volta.</h1>
+          <p className="auth-sub">Entre na sua conta para continuar cuidando da sua arara.</p>
+          <form onSubmit={submit}>
+            <div className="auth-field">
+              <label className="auth-label">Login</label>
+              <input className={`auth-input${error?" err":""}`} type="text" value={user} onChange={e=>setUser(e.target.value)} placeholder="seu login" autoComplete="username"/>
+            </div>
+            <div className="auth-field">
+              <label className="auth-label">Senha</label>
+              <input className={`auth-input${error?" err":""}`} type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••" autoComplete="current-password"/>
+            </div>
+            {error&&<div className="auth-error">Login ou senha incorretos.</div>}
+            <button className="auth-btn" type="submit">Entrar na conta</button>
+          </form>
+          <div className="auth-link-row">
+            Ainda não tem conta?{" "}
+            <span className="auth-link" onClick={onGoRegister}>Criar conta grátis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── CADASTRO (3 steps) ── */
+function RegisterScreen({onGoLogin,onRegister}){
+  const[step,setStep]=React.useState(0);
+  const[form,setForm]=React.useState({nome:"",email:"",senha:"",confirma:"",perfil:"proprio"});
+  const[lgpd,setLgpd]=React.useState(false);
+  const[lgpdErr,setLgpdErr]=React.useState(false);
+  const[errors,setErrors]=React.useState({});
+  const[slide,setSlide]=React.useState(0);
+  React.useEffect(()=>{
+    const t=setInterval(()=>setSlide(s=>(s+1)%SLIDESHOW_SLIDES.length),6000);
+    return()=>clearInterval(t);
+  },[]);
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+
+  function validateStep(){
+    const e={};
+    if(step===0){
+      if(!form.nome.trim())e.nome="Digite seu nome";
+      if(!form.email.includes("@"))e.email="E-mail inválido";
+    }
+    if(step===1){
+      if(form.senha.length<6)e.senha="Mínimo 6 caracteres";
+      if(form.senha!==form.confirma)e.confirma="Senhas não conferem";
+    }
+    return e;
+  }
+
+  function next(e){
+    e.preventDefault();
+    const e2=validateStep();
+    if(Object.keys(e2).length){setErrors(e2);return;}
+    setErrors({});
+    if(step<2)setStep(s=>s+1);
+    else{
+      if(!lgpd){setLgpdErr(true);return;}
+      setLgpdErr(false);
+      onRegister(form);
+    }
+  }
+
+  const perfis=[
+    {id:"proprio",label:"Guarda-roupa pessoal",desc:"Organizo minhas próprias peças"},
+    {id:"brecho",label:"Brechó",desc:"Tenho um negócio de moda circular"},
+    {id:"consig",label:"Consignação",desc:"Trabalho com parceiras e comissões"},
+  ];
+
+  return(
+    <div className="auth-wrap">
+      <style>{authStyles}</style>
+      <AuthVisual slide={slide}/>
+      <div className="auth-panel">
+        <div className="auth-card">
+          <a href="../landing/index.html" className="auth-logo" style={{display:"block"}}><img src="./logo.png" alt="Minha Arara" style={{height:34}}/></a>
+          <div className="auth-step-dots">
+            {[0,1,2].map(i=><div key={i} className={`auth-dot${step===i?" on":""}`}/>)}
+          </div>
+
+          {step===0&&(
+            <>
+              <h1 className="auth-heading">Crie sua conta.</h1>
+              <p className="auth-sub">Comece grátis — sem cartão de crédito.</p>
+              <form onSubmit={next}>
+                <div className="auth-field">
+                  <label className="auth-label">Nome completo</label>
+                  <input className={`auth-input${errors.nome?" err":""}`} type="text" value={form.nome} onChange={set("nome")} placeholder="Priscila Villela" autoComplete="name"/>
+                  {errors.nome&&<span style={{fontSize:12,color:"var(--ma-error-500)",marginTop:2}}>{errors.nome}</span>}
+                </div>
+                <div className="auth-field">
+                  <label className="auth-label">E-mail</label>
+                  <input className={`auth-input${errors.email?" err":""}`} type="email" value={form.email} onChange={set("email")} placeholder="marina@exemplo.com" autoComplete="email"/>
+                  {errors.email&&<span style={{fontSize:12,color:"var(--ma-error-500)",marginTop:2}}>{errors.email}</span>}
+                </div>
+                <button className="auth-btn" type="submit">Continuar</button>
+              </form>
+            </>
+          )}
+
+          {step===1&&(
+            <>
+              <button className="auth-back" onClick={()=>setStep(0)}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+                Voltar
+              </button>
+              <h1 className="auth-heading">Crie sua senha.</h1>
+              <p className="auth-sub">Mínimo 6 caracteres. Use algo só seu.</p>
+              <form onSubmit={next}>
+                <div className="auth-field">
+                  <label className="auth-label">Senha</label>
+                  <input className={`auth-input${errors.senha?" err":""}`} type="password" value={form.senha} onChange={set("senha")} placeholder="••••••••" autoComplete="new-password"/>
+                  {errors.senha&&<span style={{fontSize:12,color:"var(--ma-error-500)",marginTop:2}}>{errors.senha}</span>}
+                </div>
+                <div className="auth-field">
+                  <label className="auth-label">Confirmar senha</label>
+                  <input className={`auth-input${errors.confirma?" err":""}`} type="password" value={form.confirma} onChange={set("confirma")} placeholder="••••••••" autoComplete="new-password"/>
+                  {errors.confirma&&<span style={{fontSize:12,color:"var(--ma-error-500)",marginTop:2}}>{errors.confirma}</span>}
+                </div>
+                <button className="auth-btn" type="submit">Continuar</button>
+              </form>
+            </>
+          )}
+
+          {step===2&&(
+            <>
+              <button className="auth-back" onClick={()=>setStep(1)}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+                Voltar
+              </button>
+              <h1 className="auth-heading">Como você usa?</h1>
+              <p className="auth-sub">Escolha o perfil que melhor descreve a sua arara.</p>
+              <form onSubmit={next}>
+                <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24}}>
+                  {perfis.map(p=>(
+                    <label key={p.id} style={{display:"flex",alignItems:"center",gap:14,padding:"16px 18px",borderRadius:14,border:`1.5px solid ${form.perfil===p.id?"var(--ma-olive-800)":"var(--color-border)"}`,background:form.perfil===p.id?"rgba(79,98,59,.07)":"var(--ma-white)",cursor:"pointer",transition:"all 160ms"}}>
+                      <input type="radio" name="perfil" value={p.id} checked={form.perfil===p.id} onChange={set("perfil")} style={{accentColor:"var(--ma-olive-800)",width:16,height:16,flexShrink:0}}/>
+                      <div>
+                        <div style={{fontSize:14,fontWeight:600,color:"var(--ma-olive-900)"}}>{p.label}</div>
+                        <div style={{fontSize:12,color:"var(--ma-taupe-500)",marginTop:3}}>{p.desc}</div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+                <label style={{display:"flex",alignItems:"flex-start",gap:10,cursor:"pointer",marginBottom:20,padding:"14px 16px",borderRadius:14,border:`1.5px solid ${lgpdErr?"var(--ma-error-500)":"var(--color-border)"}`,background:lgpdErr?"rgba(184,92,74,.05)":"var(--ma-warm-100)",transition:"border 160ms"}}>
+                  <input type="checkbox" checked={lgpd} onChange={e=>{setLgpd(e.target.checked);if(e.target.checked)setLgpdErr(false);}} style={{accentColor:"var(--ma-olive-800)",width:16,height:16,marginTop:1,flexShrink:0}}/>
+                  <span style={{fontSize:12,color:"var(--ma-brown-700)",lineHeight:1.55}}>
+                    Li e concordo com os <a href="#" onClick={e=>e.preventDefault()} style={{color:"var(--ma-olive-700)",fontWeight:600,textDecoration:"underline"}}>Termos de Uso</a> e a <a href="#" onClick={e=>e.preventDefault()} style={{color:"var(--ma-olive-700)",fontWeight:600,textDecoration:"underline"}}>Política de Privacidade</a>, incluindo o tratamento de dados pessoais conforme a <strong>Lei 13.709/2018 (LGPD)</strong>.
+                  </span>
+                </label>
+                {lgpdErr&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginBottom:12,marginTop:-8}}>Aceite os termos para continuar.</div>}
+                <button className="auth-btn" type="submit">Criar minha conta</button>
+              </form>
+            </>
+          )}
+
+          <div className="auth-link-row">
+            Já tem conta?{" "}
+            <span className="auth-link" onClick={onGoLogin}>Entrar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── RELATÓRIOS ── */
+function RelatoriosScreen(){
+  const toast=useToast();
+  const monthly=[{m:"Fev",v:3.2,n:22},{m:"Mar",v:3.9,n:28},{m:"Abr",v:4.1,n:28},{m:"Mai",v:4.8,n:34}];
+  const max=Math.max(...monthly.map(x=>x.v));
+  const categorias=[
+    {label:"Vestidos",pct:38,color:"var(--ma-olive-700)"},
+    {label:"Camisas e blusas",pct:24,color:"var(--ma-sage-500)"},
+    {label:"Calças",pct:18,color:"var(--ma-gold-500)"},
+    {label:"Acessórios",pct:12,color:"var(--ma-clay-500)"},
+    {label:"Outros",pct:8,color:"var(--ma-taupe-500)"},
+  ];
+  const topPecas=[
+    {n:"Vestido midi linho areia",v:168,sold:6},
+    {n:"Blazer alfaiataria preto",v:240,sold:4},
+    {n:"Saia plissada midi",v:128,sold:5},
+    {n:"Camisa branca clássica",v:96,sold:7},
+  ];
+  return<Page>
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:28}}>
+      <div>
+        <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:6}}>Análise</div>
+        <h1 style={{fontFamily:"var(--font-sans)",fontSize:32,fontWeight:700,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>Relatórios</h1>
+        <div style={{fontSize:14,color:"var(--ma-brown-700)",marginTop:4}}>Como a sua arara performou nos últimos 90 dias.</div>
+      </div>
+      <div style={{display:"flex",gap:10}}>
+        <Dropdown variant="ghost" align="right" icon={<IconCalendar size={14}/>} value="90d" onChange={v=>toast("Período de análise: "+v)} options={[{value:"30d",label:"Últimos 30 dias"},{value:"90d",label:"Fev — Mai 2026"},{value:"6m",label:"Últimos 6 meses"},{value:"12m",label:"Últimos 12 meses"},{value:"ytd",label:"Ano corrente"}]}/>
+        <Button size="sm"icon={<IconUpload size={14}/>}onClick={()=>toast("Relatório PDF pronto para download.")}>Exportar PDF</Button>
+      </div>
+    </div>
+
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:16,marginBottom:24}}>
+      <MetricCard label="Receita total"value="R$ 16.020"trend="+24%"hint="vs trimestre anterior"tone="success"/>
+      <MetricCard label="Peças vendidas"value="112"trend="+19"hint="vs trimestre anterior"tone="success"/>
+      <MetricCard label="Ticket médio"value="R$ 143"trend="+R$ 11"hint="vs trimestre anterior"tone="success"/>
+      <MetricCard label="Giro do estoque"value="32 dias"trend="-4 dias"hint="rotação mais rápida"tone="success"/>
+    </div>
+
+    <div style={{display:"grid",gridTemplateColumns:"1.6fr 1fr",gap:20,marginBottom:24}}>
+      <Card padding={28}>
+        <SectionHeader title="Receita mensal"subtitle="Em milhares de R$"/>
+        <div style={{display:"flex",alignItems:"flex-end",gap:24,height:200,marginTop:24,padding:"0 8px"}}>
+          {monthly.map(m=>(
+            <div key={m.m}style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:8}}>
+              <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)"}}>R$ {m.v}k</div>
+              <div style={{width:"100%",height:`${(m.v/max)*150}px`,background:m.m==="Mai"?"var(--ma-olive-800)":"var(--ma-sage-300)",borderRadius:"12px 12px 4px 4px",transition:"all 240ms"}}/>
+              <div style={{fontSize:12,fontWeight:500,color:"var(--ma-taupe-500)",letterSpacing:".06em",textTransform:"uppercase"}}>{m.m}</div>
+              <div style={{fontSize:11,color:"var(--ma-brown-700)"}}>{m.n} peças</div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card padding={28}>
+        <SectionHeader title="Por categoria"subtitle="Distribuição de vendas"/>
+        <div style={{marginTop:20,display:"flex",flexDirection:"column",gap:14}}>
+          {categorias.map(c=>(
+            <div key={c.label}>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:6,fontSize:13}}>
+                <span style={{color:"var(--ma-brown-900)",fontWeight:500}}>{c.label}</span>
+                <span style={{color:"var(--ma-olive-900)",fontWeight:600}}>{c.pct}%</span>
+              </div>
+              <div style={{height:6,background:"var(--ma-sand-200)",borderRadius:999,overflow:"hidden"}}>
+                <div style={{width:`${c.pct}%`,height:"100%",background:c.color,borderRadius:999,transition:"width 480ms"}}/>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+
+    <Card padding={0}>
+      <div style={{padding:"20px 28px",borderBottom:"1px solid var(--color-border-subtle)"}}>
+        <SectionHeader title="Top peças do trimestre"subtitle="As mais vendidas e seu impacto"/>
+      </div>
+      <div style={{padding:"8px 0"}}>
+        {topPecas.map((p,i)=>(
+          <div key={i}style={{display:"flex",alignItems:"center",gap:16,padding:"16px 28px",borderTop:i?"1px solid var(--color-border-subtle)":0}}>
+            <div style={{width:32,fontFamily:"var(--font-display)",fontStyle:"italic",fontSize:22,color:"var(--ma-olive-700)"}}>{i+1}</div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:15,fontWeight:600,color:"var(--ma-olive-900)"}}>{p.n}</div>
+              <div style={{fontSize:13,color:"var(--ma-brown-700)",marginTop:2}}>{p.sold} unidades vendidas</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              <div style={{fontSize:16,fontWeight:700,color:"var(--ma-olive-900)"}}>R$ {(p.v*p.sold).toLocaleString("pt-BR")}</div>
+              <div style={{fontSize:12,color:"var(--ma-taupe-500)",marginTop:2}}>R$ {p.v} cada</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Card>
+  </Page>;
+}
+
+/* ── CONSIGNAÇÃO ── */
+/* ── NOVA PARCEIRA DRAWER ── */
+function NovaParceiraNDrawer({onClose,onSave}){
+  const[form,setForm]=React.useState({nome:"",local:"",instagram:"",comissao:"30",prazo:"30",obs:""});
+  const[errors,setErrors]=React.useState({});
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  const inputSt=err=>({width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"11px 14px",borderRadius:12,border:`1.5px solid ${err?"var(--ma-error-500)":"var(--color-border)"}`,background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"});
+  const comissaoOpts=[{value:"20",label:"20%"},{value:"25",label:"25%"},{value:"30",label:"30%"},{value:"35",label:"35%"},{value:"40",label:"40%"}];
+  const prazoOpts=[{value:"15",label:"15 dias"},{value:"30",label:"30 dias"},{value:"45",label:"45 dias"},{value:"60",label:"60 dias"}];
+  const validate=()=>{
+    const e={};
+    if(!form.nome.trim())e.nome=true;
+    if(!form.local.trim())e.local=true;
+    setErrors(e);
+    return Object.keys(e).length===0;
+  };
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Consignação</div>
+            <div className="ma-drawer-title">Nova parceira</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+        <div className="ma-drawer-body">
+          <div>
+            <label className="ma-drawer-label">Nome completo <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <input style={inputSt(errors.nome)} value={form.nome} onChange={set("nome")} placeholder="Ex: Helena Marques"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            {errors.nome&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Informe o nome</div>}
+          </div>
+          <div>
+            <label className="ma-drawer-label">Cidade / Estado <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <input style={inputSt(errors.local)} value={form.local} onChange={set("local")} placeholder="Ex: São Paulo-SP"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            {errors.local&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Informe a localização</div>}
+          </div>
+          <div>
+            <label className="ma-drawer-label">Instagram</label>
+            <input style={inputSt(false)} value={form.instagram} onChange={set("instagram")} placeholder="@nome.da.parceira"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <div>
+              <label className="ma-drawer-label">Comissão</label>
+              <Dropdown value={form.comissao} onChange={v=>setForm(f=>({...f,comissao:v}))} options={comissaoOpts}/>
+            </div>
+            <div>
+              <label className="ma-drawer-label">Prazo de repasse</label>
+              <Dropdown value={form.prazo} onChange={v=>setForm(f=>({...f,prazo:v}))} options={prazoOpts}/>
+            </div>
+          </div>
+          <div>
+            <label className="ma-drawer-label">Observações</label>
+            <textarea style={{...inputSt(false),resize:"vertical",minHeight:80,lineHeight:1.5}} value={form.obs} onChange={set("obs")} placeholder="Condições especiais, contatos, etc."
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+          <div style={{background:"var(--ma-sand-200)",borderRadius:14,padding:"16px 18px"}}>
+            <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)",marginBottom:4}}>Próximo passo</div>
+            <div style={{fontSize:13,color:"var(--ma-brown-700)",lineHeight:1.55}}>Após o cadastro, envie o link de acesso para {form.nome||"a parceira"} para ela registrar as peças em consignação.</div>
+          </div>
+        </div>
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" style={{flex:1}} onClick={onClose} type="button">Cancelar</Button>
+          <Button style={{flex:2}} type="button" icon={<IconCheck size={16}/>} onClick={()=>{if(validate())onSave(form);}}>Cadastrar parceira</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ConsignacaoScreen(){
+  const toast=useToast();
+  const[showDrawer,setShowDrawer]=React.useState(false);
+  const[parceiras,setParceiras]=React.useState([
+    {nome:"Helena Marques",local:"Curitiba-PR",pecas:14,vendidas:6,receita:840,comissao:30},
+    {nome:"Beatriz Lemos",local:"São Paulo-SP",pecas:22,vendidas:11,receita:1620,comissao:35},
+    {nome:"Rafaela Cunha",local:"Bragança Paulista-SP",pecas:9,vendidas:4,receita:580,comissao:25},
+    {nome:"Camila Reis",local:"Belo Horizonte-MG",pecas:18,vendidas:7,receita:1120,comissao:30},
+  ]);
+  const handleSave=form=>{
+    setParceiras(ps=>[...ps,{nome:form.nome,local:form.local,pecas:0,vendidas:0,receita:0,comissao:parseInt(form.comissao)}]);
+    setShowDrawer(false);
+    toast(`${form.nome} cadastrada como parceira com ${form.comissao}% de comissão!`);
+  };
+  return(
+    <Page>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:28}}>
+        <div>
+          <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:6}}>Parcerias</div>
+          <h1 style={{fontFamily:"var(--font-sans)",fontSize:32,fontWeight:700,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>Consignação</h1>
+          <div style={{fontSize:14,color:"var(--ma-brown-700)",marginTop:4}}>{parceiras.length} parceiras ativas · 63 peças em circulação</div>
+        </div>
+        <div style={{display:"flex",gap:10}}>
+          <Button variant="secondary" size="sm" icon={<IconUpload size={14}/>} onClick={()=>toast("Repasse gerado: R$ 1.247 para "+parceiras.length+" parceiras.")}>Gerar repasse</Button>
+          <Button size="sm" icon={<IconPlus size={14}/>} onClick={()=>setShowDrawer(true)}>Nova parceira</Button>
+        </div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:16,marginBottom:24}}>
+        <MetricCard label="Peças em consignação" value="63" trend="+8" hint="vs abril" tone="success"/>
+        <MetricCard label="Vendidas no mês" value="28" trend="+12" hint="vs abril" tone="success"/>
+        <MetricCard label="Receita bruta" value="R$ 4.160" trend="+34%" hint="vs abril" tone="success"/>
+        <MetricCard label="A repassar" value="R$ 1.247" hint="próximo fechamento dia 31" tone="warning"/>
+      </div>
+      <Card padding={0}>
+        <div style={{padding:"20px 28px",borderBottom:"1px solid var(--color-border-subtle)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <SectionHeader title="Parceiras ativas" subtitle="Performance e repasse de cada uma"/>
+          <Button variant="ghost" size="sm" iconRight={<IconArrowRight size={12}/>} onClick={()=>toast("Histórico de repasses aberto.")}>Ver histórico</Button>
+        </div>
+        {parceiras.map((p,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:18,padding:"20px 28px",borderTop:i?"1px solid var(--color-border-subtle)":0}}>
+            <Avatar name={p.nome} size={48} tone={i%2?"sand":"sage"}/>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{fontSize:15,fontWeight:600,color:"var(--ma-olive-900)"}}>{p.nome}</div>
+              <div style={{fontSize:13,color:"var(--ma-brown-700)",marginTop:2}}>{p.local} · comissão {p.comissao}%</div>
+            </div>
+            <div style={{textAlign:"center",minWidth:80}}>
+              <div style={{fontSize:18,fontWeight:700,color:"var(--ma-olive-900)"}}>{p.pecas}</div>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",letterSpacing:".06em",textTransform:"uppercase",marginTop:2}}>Peças</div>
+            </div>
+            <div style={{textAlign:"center",minWidth:80}}>
+              <div style={{fontSize:18,fontWeight:700,color:"var(--ma-olive-700)"}}>{p.vendidas}</div>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",letterSpacing:".06em",textTransform:"uppercase",marginTop:2}}>Vendidas</div>
+            </div>
+            <div style={{textAlign:"right",minWidth:120}}>
+              <div style={{fontSize:16,fontWeight:700,color:"var(--ma-olive-900)"}}>R$ {p.receita.toLocaleString("pt-BR")}</div>
+              <div style={{fontSize:11,color:"var(--ma-taupe-500)",marginTop:2}}>repasse R$ {Math.round(p.receita*p.comissao/100).toLocaleString("pt-BR")}</div>
+            </div>
+            <IconButton label="Detalhes" onClick={()=>toast(`Detalhes de ${p.nome} abertos.`)}><IconArrowRight size={16}/></IconButton>
+          </div>
+        ))}
+      </Card>
+      {showDrawer&&<NovaParceiraNDrawer onClose={()=>setShowDrawer(false)} onSave={handleSave}/>}
+    </Page>
+  );
+}
+
+/* ── NOVO COMPROMISSO DRAWER ── */
+function NovoCompromissoDrawer({onClose,onSave}){
+  const[form,setForm]=React.useState({titulo:"",data:"",hora:"",local:"",tipo:"reuniao",notas:""});
+  const[errors,setErrors]=React.useState({});
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  const inputSt=err=>({width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"11px 14px",borderRadius:12,border:`1.5px solid ${err?"var(--ma-error-500)":"var(--color-border)"}`,background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box"});
+  const tipoOpts=[
+    {value:"sessao",label:"Sessão de fotos"},{value:"reuniao",label:"Reunião / repasse"},
+    {value:"curadoria",label:"Curadoria de peças"},{value:"evento",label:"Bazar / evento"},
+    {value:"lancamento",label:"Lançamento online"},{value:"interno",label:"Tarefa interna"},
+  ];
+  const corByTipo={sessao:"var(--ma-olive-800)",reuniao:"var(--ma-sage-500)",curadoria:"var(--ma-gold-500)",evento:"var(--ma-clay-500)",lancamento:"var(--ma-olive-700)",interno:"var(--ma-taupe-500)"};
+  const validate=()=>{
+    const e={};
+    if(!form.titulo.trim())e.titulo=true;
+    if(!form.data)e.data=true;
+    setErrors(e);
+    return Object.keys(e).length===0;
+  };
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Agenda</div>
+            <div className="ma-drawer-title">Novo compromisso</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+        <div className="ma-drawer-body">
+          <div>
+            <label className="ma-drawer-label">Título <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+            <input style={inputSt(errors.titulo)} value={form.titulo} onChange={set("titulo")} placeholder="Ex: Reunião com Helena Marques"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            {errors.titulo&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Informe o título</div>}
+          </div>
+          <div>
+            <label className="ma-drawer-label">Tipo</label>
+            <Dropdown value={form.tipo} onChange={v=>setForm(f=>({...f,tipo:v}))} options={tipoOpts}/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+            <div>
+              <label className="ma-drawer-label">Data <span style={{color:"var(--ma-error-500)"}}>*</span></label>
+              <input type="date" style={inputSt(errors.data)} value={form.data} onChange={set("data")}
+                onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+              {errors.data&&<div style={{fontSize:12,color:"var(--ma-error-500)",marginTop:4}}>Informe a data</div>}
+            </div>
+            <div>
+              <label className="ma-drawer-label">Horário</label>
+              <input type="time" style={inputSt(false)} value={form.hora} onChange={set("hora")}
+                onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+            </div>
+          </div>
+          <div>
+            <label className="ma-drawer-label">Local</label>
+            <input style={inputSt(false)} value={form.local} onChange={set("local")} placeholder="Ex: Estúdio, vídeo chamada, online…"
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+          <div>
+            <label className="ma-drawer-label">Notas</label>
+            <textarea style={{...inputSt(false),resize:"vertical",minHeight:80,lineHeight:1.5}} value={form.notas} onChange={set("notas")} placeholder="Detalhes, material necessário, etc."
+              onFocus={e=>e.target.style.boxShadow="var(--shadow-focus)"} onBlur={e=>e.target.style.boxShadow="none"}/>
+          </div>
+          {form.titulo&&form.data&&(
+            <div style={{display:"flex",alignItems:"center",gap:14,background:"var(--ma-sand-200)",borderRadius:14,padding:"14px 16px"}}>
+              <div style={{width:4,height:40,background:corByTipo[form.tipo]||"var(--ma-olive-700)",borderRadius:999,flexShrink:0}}/>
+              <div>
+                <div style={{fontSize:14,fontWeight:600,color:"var(--ma-olive-900)"}}>{form.titulo}</div>
+                <div style={{fontSize:12,color:"var(--ma-brown-700)",marginTop:2}}>{form.data}{form.hora?" · "+form.hora:""}{form.local?" · "+form.local:""}</div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" style={{flex:1}} onClick={onClose} type="button">Cancelar</Button>
+          <Button style={{flex:2}} type="button" icon={<IconCheck size={16}/>} onClick={()=>{if(validate())onSave(form);}}>Adicionar à agenda</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── CHECKLIST MODAL ── */
+function ChecklistModal({onClose}){
+  const itens0=[
+    {t:"Vestido midi linho areia",d:"MA-0128 · separada"},
+    {t:"Blazer alfaiataria verde oliva",d:"MA-0114 · separada"},
+    {t:"Camisa oversize algodão",d:"MA-0099 · separada"},
+    {t:"Saia plissada midi",d:"MA-0101 · separada"},
+    {t:"Calça wide leg cintura alta",d:"MA-0105 · separada"},
+    {t:"Top cropped linho",d:"MA-0117 · separada"},
+    {t:"Sapatilha couro caramelo",d:"MA-0088 · verificar estado"},
+    {t:"Bolsa palha verão",d:"MA-0093 · limpeza rápida"},
+    {t:"Colar dourado delicado",d:"MA-0132 · novo"},
+    {t:"Lenço seda estampado",d:"MA-0119 · separado"},
+    {t:"Shorts alfaiataria bege",d:"MA-0126 · passar"},
+    {t:"Mule mule couro nude",d:"MA-0091 · revisar calcanhar"},
+  ];
+  const[checked,setChecked]=React.useState([]);
+  const toggle=i=>setChecked(cs=>cs.includes(i)?cs.filter(x=>x!==i):[...cs,i]);
+  const pct=Math.round((checked.length/itens0.length)*100);
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">Sessão de fotos</div>
+            <div className="ma-drawer-title">Checklist — coleção inverno</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+        <div style={{padding:"16px 28px",borderBottom:"1px solid var(--color-border-subtle)",flexShrink:0}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <div style={{fontSize:13,color:"var(--ma-brown-700)"}}>{checked.length} de {itens0.length} itens concluídos</div>
+            <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-700)"}}>{pct}%</div>
+          </div>
+          <div style={{height:6,background:"var(--ma-sand-200)",borderRadius:999,overflow:"hidden"}}>
+            <div style={{height:"100%",width:pct+"%",background:"var(--ma-olive-700)",borderRadius:999,transition:"width 300ms cubic-bezier(.22,.61,.36,1)"}}/>
+          </div>
+        </div>
+        <div style={{padding:"8px 20px",flex:1,overflowY:"auto"}}>
+          {itens0.map((item,i)=>{
+            const done=checked.includes(i);
+            return(
+              <label key={i} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"12px 8px",borderBottom:i<itens0.length-1?"1px solid var(--color-border-subtle)":0,cursor:"pointer"}}>
+                <div onClick={()=>toggle(i)} style={{width:20,height:20,borderRadius:6,border:`2px solid ${done?"var(--ma-olive-700)":"var(--ma-taupe-300)"}`,background:done?"var(--ma-olive-700)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1,transition:"all 160ms",cursor:"pointer"}}>
+                  {done&&<IconCheck size={11} style={{color:"white"}}/>}
+                </div>
+                <div style={{flex:1,minWidth:0}} onClick={()=>toggle(i)}>
+                  <div style={{fontSize:14,fontWeight:500,color:done?"var(--ma-taupe-500)":"var(--ma-olive-900)",textDecoration:done?"line-through":"none",transition:"all 200ms"}}>{item.t}</div>
+                  <div style={{fontSize:12,color:"var(--ma-taupe-500)",marginTop:2,textDecoration:done?"line-through":"none",transition:"all 200ms"}}>{item.d}</div>
+                </div>
+              </label>
+            );
+          })}
+        </div>
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" style={{flex:1}} onClick={()=>setChecked([])}>Limpar</Button>
+          <Button style={{flex:2}} icon={<IconCheck size={16}/>} onClick={onClose}>Concluir</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── AGENDA ── */
+function AgendaScreen(){
+  const toast=useToast();
+  const[showNovoCompromisso,setShowNovoCompromisso]=React.useState(false);
+  const[showChecklist,setShowChecklist]=React.useState(false);
+  const[eventos,setEventos]=React.useState([
+    {dia:"16",mes:"mai",dow:"sáb",titulo:"Sessão de fotos — coleção inverno",hora:"09:00 – 12:00",local:"Estúdio próprio",cor:"var(--ma-olive-800)"},
+    {dia:"18",mes:"mai",dow:"seg",titulo:"Repasse com Beatriz Lemos",hora:"14:30",local:"Vídeo chamada",cor:"var(--ma-sage-500)"},
+    {dia:"20",mes:"mai",dow:"qua",titulo:"Curadoria nova leva de peças",hora:"10:00 – 16:00",local:"Ateliê",cor:"var(--ma-gold-500)"},
+    {dia:"22",mes:"mai",dow:"sex",titulo:"Bazar pop-up — Casa Madre",hora:"11:00 – 19:00",local:"Vila Madalena, SP",cor:"var(--ma-clay-500)"},
+    {dia:"24",mes:"mai",dow:"dom",titulo:"Drop de coleção no Instagram",hora:"19:00",local:"Lançamento online",cor:"var(--ma-olive-700)"},
+    {dia:"31",mes:"mai",dow:"sáb",titulo:"Fechamento mensal e relatórios",hora:"todo o dia",local:"Tarefa interna",cor:"var(--ma-taupe-500)"},
+  ]);
+  const[lembretes,setLembretes]=React.useState([
+    {t:"Etiquetar 8 peças novas",d:"até amanhã",done:false},
+    {t:"Responder mensagens do Instagram",d:"3 conversas pendentes",done:false},
+    {t:"Reposicionar peças paradas há 60+ dias",d:"12 peças aguardando",done:false},
+  ]);
+  const toggleLembrete=i=>setLembretes(ls=>ls.map((l,j)=>j===i?{...l,done:!l.done}:l));
+  const corByTipo={sessao:"var(--ma-olive-800)",reuniao:"var(--ma-sage-500)",curadoria:"var(--ma-gold-500)",evento:"var(--ma-clay-500)",lancamento:"var(--ma-olive-700)",interno:"var(--ma-taupe-500)"};
+  const handleSaveEvento=form=>{
+    const d=new Date(form.data+"T12:00:00");
+    const dow=["dom","seg","ter","qua","qui","sex","sáb"][d.getDay()];
+    const mes=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"][d.getMonth()];
+    setEventos(es=>[...es,{
+      dia:String(d.getDate()).padStart(2,"0"),mes,dow,
+      titulo:form.titulo,hora:form.hora||"a definir",local:form.local||"—",
+      cor:corByTipo[form.tipo]||"var(--ma-olive-700)"
+    }]);
+    setShowNovoCompromisso(false);
+    toast(`"${form.titulo}" adicionado à agenda!`);
+  };
+  return(
+    <Page>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginBottom:28}}>
+        <div>
+          <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:6}}>Sua semana</div>
+          <h1 style={{fontFamily:"var(--font-sans)",fontSize:32,fontWeight:700,color:"var(--ma-olive-900)",margin:0,letterSpacing:"-0.01em"}}>Agenda</h1>
+          <div style={{fontSize:14,color:"var(--ma-brown-700)",marginTop:4}}>{eventos.length} compromissos planejados · próximo evento daqui a 2 dias</div>
+        </div>
+        <Button size="sm" icon={<IconPlus size={14}/>} onClick={()=>setShowNovoCompromisso(true)}>Novo compromisso</Button>
+      </div>
+
+      <div style={{display:"grid",gridTemplateColumns:"1.7fr 1fr",gap:20}}>
+        <Card padding={0}>
+          <div style={{padding:"20px 28px",borderBottom:"1px solid var(--color-border-subtle)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <SectionHeader title="Próximos compromissos" subtitle="Maio · 2026"/>
+            <div style={{display:"flex",gap:8}}>
+              <IconButton label="Anterior" onClick={()=>toast("Abril 2026.")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg></IconButton>
+              <IconButton label="Próximo" onClick={()=>toast("Junho 2026.")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg></IconButton>
+            </div>
+          </div>
+          <div>
+            {eventos.map((e,i)=>(
+              <div key={i} style={{display:"flex",alignItems:"center",gap:20,padding:"18px 28px",borderTop:i?"1px solid var(--color-border-subtle)":0}}>
+                <div style={{width:56,textAlign:"center",padding:"10px 0",background:"var(--ma-sand-200)",borderRadius:14,flexShrink:0}}>
+                  <div style={{fontSize:11,fontWeight:600,letterSpacing:".08em",textTransform:"uppercase",color:"var(--ma-olive-700)"}}>{e.dow}</div>
+                  <div style={{fontFamily:"var(--font-display)",fontSize:22,fontWeight:700,color:"var(--ma-olive-900)",lineHeight:1,marginTop:2}}>{e.dia}</div>
+                  <div style={{fontSize:11,color:"var(--ma-brown-700)",marginTop:2}}>{e.mes}</div>
+                </div>
+                <div style={{width:3,height:42,background:e.cor,borderRadius:999,flexShrink:0}}/>
+                <div style={{flex:1,minWidth:0}}>
+                  <div style={{fontSize:15,fontWeight:600,color:"var(--ma-olive-900)"}}>{e.titulo}</div>
+                  <div style={{fontSize:13,color:"var(--ma-brown-700)",marginTop:3,display:"flex",gap:14}}>
+                    <span style={{display:"inline-flex",alignItems:"center",gap:5}}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      {e.hora}
+                    </span>
+                    <span style={{display:"inline-flex",alignItems:"center",gap:5}}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      {e.local}
+                    </span>
+                  </div>
+                </div>
+                <IconButton label="Detalhes" onClick={()=>toast(`"${e.titulo}" — detalhes abertos.`)}><IconArrowRight size={16}/></IconButton>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <div style={{display:"flex",flexDirection:"column",gap:20}}>
+          <Card padding={24} tone="sand">
+            <div style={{fontSize:11,fontWeight:600,letterSpacing:".12em",textTransform:"uppercase",color:"var(--ma-olive-700)",marginBottom:8}}>Hoje</div>
+            <div style={{fontFamily:"var(--font-display)",fontSize:24,fontWeight:700,color:"var(--ma-olive-900)",letterSpacing:"-0.01em",lineHeight:1.2,marginBottom:6}}>Sessão de fotos da coleção inverno.</div>
+            <div style={{fontSize:14,color:"var(--ma-brown-700)",lineHeight:1.55}}>Reserve 3h no estúdio. Priscila já preparou as 12 peças prioritárias.</div>
+            <div style={{marginTop:18,display:"flex",gap:8}}>
+              <Button size="sm" onClick={()=>setShowChecklist(true)}>Abrir checklist</Button>
+              <Button variant="ghost" size="sm" onClick={()=>toast("Sessão adiada para amanhã, 09:00.")}>Adiar</Button>
+            </div>
+          </Card>
+
+          <Card padding={24}>
+            <SectionHeader title="Lembretes" subtitle="Pequenas tarefas da semana"/>
+            <div style={{marginTop:16,display:"flex",flexDirection:"column",gap:2}}>
+              {lembretes.map((l,i)=>(
+                <label key={i} onClick={()=>toggleLembrete(i)} style={{display:"flex",alignItems:"flex-start",gap:12,padding:"10px 0",borderBottom:i<lembretes.length-1?"1px solid var(--color-border-subtle)":0,cursor:"pointer"}}>
+                  <div style={{width:18,height:18,borderRadius:5,border:`2px solid ${l.done?"var(--ma-olive-700)":"var(--ma-taupe-300)"}`,background:l.done?"var(--ma-olive-700)":"transparent",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:2,transition:"all 160ms"}}>
+                    {l.done&&<IconCheck size={10} style={{color:"white"}}/>}
+                  </div>
+                  <div>
+                    <div style={{fontSize:14,fontWeight:500,color:l.done?"var(--ma-taupe-500)":"var(--ma-olive-900)",textDecoration:l.done?"line-through":"none",transition:"all 200ms"}}>{l.t}</div>
+                    <div style={{fontSize:12,color:"var(--ma-taupe-500)",marginTop:2,textDecoration:l.done?"line-through":"none",transition:"all 200ms"}}>{l.d}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      {showNovoCompromisso&&<NovoCompromissoDrawer onClose={()=>setShowNovoCompromisso(false)} onSave={handleSaveEvento}/>}
+      {showChecklist&&<ChecklistModal onClose={()=>setShowChecklist(false)}/>}
+    </Page>
+  );
+}
+
+/* ── NOTIFICATIONS DRAWER ── */
+const NOTIFS_INITIAL=[
+  {id:1,type:"warning",title:"3 peças paradas há 60+ dias",desc:"Vestido floral, Blazer caramelo e Calça linho. Que tal repostar com nova foto?",time:"Agora",read:false,action:"Ver peças",screen:"arara"},
+  {id:2,type:"success",title:"Venda confirmada — Top cropped",desc:"Júlia Bertoni confirmou o recebimento. Venda VN-128 concluída com sucesso.",time:"2h atrás",read:false,action:"Ver venda",screen:"vendas"},
+  {id:3,type:"info",title:"Look 'Domingo sereno' favoritado",desc:"4 clientes salvaram esta combinação. É um bom candidato para repostar.",time:"5h atrás",read:false,action:"Ver look",screen:"looks"},
+  {id:4,type:"warning",title:"Repasse pendente com Beatriz Lemos",desc:"R$ 567 de comissão aguardando repasse. Prazo: 31 de maio.",time:"1 dia",read:true,action:"Ver parceira",screen:"consignacao"},
+  {id:5,type:"success",title:"Camisa oversize marcada como favorita",desc:"Mais 3 pessoas adicionaram aos favoritos nos últimos 2 dias.",time:"2 dias",read:true,action:"Ver peça",screen:"arara"},
+  {id:6,type:"info",title:"Sessão de fotos amanhã às 09:00",desc:"Checklist com 12 peças montado. Reserve o estúdio e separe os itens.",time:"2 dias",read:true,action:"Ver agenda",screen:"agenda"},
+  {id:7,type:"warning",title:"Saia plissada midi sem atualização",desc:"Peça em curadoria há 14 dias sem movimentação. Revise o status.",time:"3 dias",read:true,action:"Ver peça",screen:"arara"},
+];
+
+function NotifIcon({type}){
+  const map={
+    success:{bg:"rgba(79,98,59,.14)",fg:"var(--ma-olive-700)",icon:<IconCheckCircle size={16}/>},
+    warning:{bg:"rgba(200,164,106,.22)",fg:"#7A5C24",icon:<IconAlertCircle size={16}/>},
+    info:{bg:"rgba(107,138,142,.18)",fg:"#3F595D",icon:<IconInfo size={16}/>},
+  };
+  const m=map[type]||map.info;
+  return(
+    <div style={{width:36,height:36,borderRadius:999,background:m.bg,color:m.fg,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+      {m.icon}
+    </div>
+  );
+}
+
+function NotificationsDrawer({onClose,onNavigate}){
+  const[notifs,setNotifs]=React.useState(NOTIFS_INITIAL);
+  const unread=notifs.filter(n=>!n.read).length;
+  const markAll=()=>setNotifs(ns=>ns.map(n=>({...n,read:true})));
+  const clearAll=()=>setNotifs([]);
+  const markOne=id=>setNotifs(ns=>ns.map(n=>n.id===id?{...n,read:true}:n));
+  const handleAction=(n)=>{markOne(n.id);onNavigate(n.screen);onClose();};
+  const today=notifs.filter(n=>["Agora","2h atrás","5h atrás"].includes(n.time));
+  const earlier=notifs.filter(n=>!["Agora","2h atrás","5h atrás"].includes(n.time));
+  return(
+    <div className="ma-drawer-backdrop" onClick={onClose}>
+      <div className="ma-drawer-panel" onClick={e=>e.stopPropagation()}>
+
+        {/* header */}
+        <div className="ma-drawer-header">
+          <div>
+            <div className="ma-drawer-eyebrow">
+              Central de avisos{unread>0&&<span style={{marginLeft:8,background:"var(--ma-clay-500)",color:"#fff",fontSize:10,fontWeight:700,borderRadius:999,padding:"1px 7px",verticalAlign:"middle"}}>{unread}</span>}
+            </div>
+            <div className="ma-drawer-title">Notificações</div>
+          </div>
+          <IconButton label="Fechar" onClick={onClose}><IconClose size={18}/></IconButton>
+        </div>
+
+        {/* list */}
+        <div style={{flex:1,overflowY:"auto",padding:"8px 0"}}>
+          {notifs.length===0&&(
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%",gap:12,padding:40}}>
+              <div style={{width:56,height:56,borderRadius:999,background:"var(--ma-sand-200)",display:"flex",alignItems:"center",justifyContent:"center"}}><IconBell size={24} style={{color:"var(--ma-taupe-300)"}}/></div>
+              <div style={{fontSize:15,fontWeight:600,color:"var(--ma-olive-900)"}}>Tudo em dia</div>
+              <div style={{fontSize:13,color:"var(--ma-taupe-500)",textAlign:"center",lineHeight:1.5}}>Nenhuma notificação no momento.</div>
+            </div>
+          )}
+          {today.length>0&&(
+            <div>
+              <div style={{fontSize:11,fontWeight:600,letterSpacing:".10em",textTransform:"uppercase",color:"var(--ma-taupe-500)",padding:"12px 28px 6px"}}>Hoje</div>
+              {today.map(n=>(
+                <div key={n.id} onClick={()=>markOne(n.id)} style={{display:"flex",gap:14,padding:"14px 28px",background:n.read?"transparent":"rgba(79,98,59,.05)",borderLeft:`3px solid ${n.read?"transparent":"var(--ma-olive-700)"}`,cursor:"pointer",transition:"background 140ms"}}
+                  onMouseEnter={e=>e.currentTarget.style.background="var(--ma-sand-200)"}
+                  onMouseLeave={e=>e.currentTarget.style.background=n.read?"transparent":"rgba(79,98,59,.05)"}>
+                  <NotifIcon type={n.type}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:13,fontWeight:n.read?500:600,color:"var(--ma-olive-900)",lineHeight:1.35,marginBottom:3}}>{n.title}</div>
+                    <div style={{fontSize:12,color:"var(--ma-brown-700)",lineHeight:1.5,marginBottom:8}}>{n.desc}</div>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <button onClick={e=>{e.stopPropagation();handleAction(n);}} style={{fontSize:12,fontWeight:600,color:"var(--ma-olive-700)",background:"transparent",border:0,cursor:"pointer",padding:0,fontFamily:"inherit",display:"inline-flex",alignItems:"center",gap:4}}>
+                        {n.action}<IconArrowRight size={11}/>
+                      </button>
+                      <span style={{fontSize:11,color:"var(--ma-taupe-500)"}}>{n.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {earlier.length>0&&(
+            <div>
+              <div style={{fontSize:11,fontWeight:600,letterSpacing:".10em",textTransform:"uppercase",color:"var(--ma-taupe-500)",padding:"16px 28px 6px"}}>Anteriores</div>
+              {earlier.map(n=>(
+                <div key={n.id} onClick={()=>markOne(n.id)} style={{display:"flex",gap:14,padding:"14px 28px",background:n.read?"transparent":"rgba(79,98,59,.05)",borderLeft:`3px solid ${n.read?"transparent":"var(--ma-olive-700)"}`,cursor:"pointer",transition:"background 140ms"}}
+                  onMouseEnter={e=>e.currentTarget.style.background="var(--ma-sand-200)"}
+                  onMouseLeave={e=>e.currentTarget.style.background=n.read?"transparent":"rgba(79,98,59,.05)"}>
+                  <NotifIcon type={n.type}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:13,fontWeight:n.read?500:600,color:n.read?"var(--ma-brown-900)":"var(--ma-olive-900)",lineHeight:1.35,marginBottom:3}}>{n.title}</div>
+                    <div style={{fontSize:12,color:"var(--ma-brown-700)",lineHeight:1.5,marginBottom:8}}>{n.desc}</div>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <button onClick={e=>{e.stopPropagation();handleAction(n);}} style={{fontSize:12,fontWeight:600,color:"var(--ma-olive-700)",background:"transparent",border:0,cursor:"pointer",padding:0,fontFamily:"inherit",display:"inline-flex",alignItems:"center",gap:4}}>
+                        {n.action}<IconArrowRight size={11}/>
+                      </button>
+                      <span style={{fontSize:11,color:"var(--ma-taupe-500)"}}>{n.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* footer */}
+        <div className="ma-drawer-footer">
+          <Button variant="secondary" style={{flex:1}} onClick={()=>{if(unread>0)markAll();}} disabled={unread===0}>
+            Marcar como lidas
+          </Button>
+          <Button variant="danger" style={{flex:1}} icon={<IconClose size={14}/>} onClick={clearAll}>
+            Limpar tudo
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── SEARCH RESULTS PAGE ── */
+const SEARCH_ALL=[
+  ...PIECES.map(p=>({type:"peca",id:p.id,name:p.name,sub:p.category+" · Tam "+p.size,meta:"R$ "+p.price,status:p.status,tone:p.statusTone,gradient:p.gradient})),
+  {type:"look",id:"l1",name:"Domingo sereno",sub:"3 peças · Vestido, Sapatilha, Bolsa",meta:"4 favoritos",status:"Publicado",tone:"success",gradient:["#E9E3D5","#C9D0B8"]},
+  {type:"look",id:"l2",name:"Reunião na luz",sub:"3 peças · Blazer, Camisa, Calça",meta:"7 favoritos",status:"Publicado",tone:"success",gradient:["#D6D3C5","#7A8A64"]},
+  {type:"look",id:"l3",name:"Café com amigas",sub:"2 peças · Top, Saia",meta:"2 favoritos",status:"Rascunho",tone:"warning",gradient:["#F0E6D3","#C8A46A"]},
+  {type:"venda",id:"v1",name:"Top cropped malha canelada",sub:"Júlia Bertoni · 12 mai",meta:"R$ 64",status:"Concluída",tone:"success",gradient:["#C9D0B8","#7A8A64"]},
+  {type:"venda",id:"v2",name:"Vestido floral viscose",sub:"Camila Souza · 09 mai",meta:"R$ 132",status:"Concluída",tone:"success",gradient:["#E9E3D5","#C9D0B8"]},
+  {type:"etiqueta",id:"e1",name:"MA-0128",sub:"Vestido midi linho areia",meta:"Disponível",status:"Disponível",tone:"success",gradient:["#E9E3D5","#C9D0B8"]},
+  {type:"etiqueta",id:"e2",name:"MA-0099",sub:"Camisa oversize algodão",meta:"Disponível",status:"Disponível",tone:"success",gradient:["#F6F4EE","#E9E3D5"]},
+];
+
+const TYPE_LABELS={peca:"Peça",look:"Look",venda:"Venda",etiqueta:"Etiqueta"};
+const TYPE_ICONS={peca:<IconHanger size={14}/>,look:<IconLooks size={14}/>,venda:<IconBag size={14}/>,etiqueta:<IconList size={14}/>};
+const RESULTS_PER_PAGE=6;
+
+function searchItems(q){
+  if(!q||q.length<1)return[];
+  const lq=q.toLowerCase();
+  return SEARCH_ALL.filter(r=>
+    r.name.toLowerCase().includes(lq)||
+    r.sub.toLowerCase().includes(lq)||
+    (r.id&&String(r.id).toLowerCase().includes(lq))
+  );
+}
+
+function SearchResultCard({item}){
+  return(
+    <div style={{display:"flex",alignItems:"center",gap:16,padding:"16px 0",borderBottom:"1px solid var(--color-border-subtle)"}}>
+      <div style={{width:52,height:52,borderRadius:14,background:`linear-gradient(135deg,${item.gradient[0]},${item.gradient[1]})`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+        <IconHanger size={26} strokeWidth={1.2} style={{color:"var(--ma-olive-800)",opacity:0.4}}/>
+      </div>
+      <div style={{flex:1,minWidth:0}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}>
+          <span style={{display:"inline-flex",alignItems:"center",gap:4,fontSize:11,fontWeight:600,letterSpacing:".06em",textTransform:"uppercase",color:"var(--ma-olive-700)"}}>{TYPE_ICONS[item.type]}{TYPE_LABELS[item.type]}</span>
+        </div>
+        <div style={{fontSize:15,fontWeight:600,color:"var(--ma-olive-900)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.name}</div>
+        <div style={{fontSize:13,color:"var(--ma-brown-700)",marginTop:2}}>{item.sub}</div>
+      </div>
+      <div style={{textAlign:"right",flexShrink:0}}>
+        <div style={{fontSize:15,fontWeight:600,color:"var(--ma-brown-900)",marginBottom:4}}>{item.meta}</div>
+        <Badge tone={item.tone}>{item.status}</Badge>
+      </div>
+    </div>
+  );
+}
+
+function SearchResultsPage({query,onBack}){
+  const[filter,setFilter]=React.useState("todos");
+  const[page,setPage]=React.useState(1);
+  const all=searchItems(query);
+  const types=["todos",...[...new Set(all.map(r=>r.type))]];
+  const filtered=filter==="todos"?all:all.filter(r=>r.type===filter);
+  const totalPages=Math.ceil(filtered.length/RESULTS_PER_PAGE);
+  const paged=filtered.slice((page-1)*RESULTS_PER_PAGE,page*RESULTS_PER_PAGE);
+  React.useEffect(()=>setPage(1),[filter,query]);
+  return(
+    <Page>
+      <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:28}}>
+        <button onClick={onBack} style={{display:"flex",alignItems:"center",gap:6,background:"transparent",border:0,cursor:"pointer",fontFamily:"inherit",fontSize:13,fontWeight:600,color:"var(--ma-olive-700)",padding:"8px 12px",borderRadius:10,transition:"background 140ms"}}
+          onMouseEnter={e=>e.currentTarget.style.background="var(--ma-sand-200)"}
+          onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+          Voltar
+        </button>
+        <Divider vertical style={{height:20}}/>
+        <div>
+          <div style={{fontSize:12,fontWeight:500,color:"var(--ma-taupe-500)"}}>Resultados da busca</div>
+          <div style={{fontSize:20,fontWeight:600,color:"var(--ma-olive-900)",letterSpacing:"-0.01em"}}>"{query}"</div>
+        </div>
+      </div>
+
+      {/* type filters */}
+      <div style={{display:"flex",gap:8,marginBottom:24,flexWrap:"wrap",alignItems:"center"}}>
+        {types.map(t=>(
+          <Chip key={t} active={filter===t} onClick={()=>setFilter(t)}>
+            {t==="todos"?"Todos os resultados ("+all.length+")":TYPE_LABELS[t]+" ("+(all.filter(r=>r.type===t).length)+")"}
+          </Chip>
+        ))}
+      </div>
+
+      {filtered.length===0?(
+        <Card padding={56} style={{textAlign:"center"}}>
+          <IconSearch size={40} style={{color:"var(--ma-taupe-300)",marginBottom:16}}/>
+          <div style={{fontSize:18,fontWeight:600,color:"var(--ma-olive-900)",marginBottom:8}}>Nenhum resultado encontrado</div>
+          <div style={{fontSize:14,color:"var(--ma-brown-700)",lineHeight:1.6,maxWidth:400,margin:"0 auto"}}>Tente buscar com outros termos, como nome da peça, categoria ou código da etiqueta.</div>
+        </Card>
+      ):(
+        <Card padding={24}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <div style={{fontSize:13,color:"var(--ma-taupe-500)"}}>{filtered.length} resultado{filtered.length!==1?"s":""} encontrado{filtered.length!==1?"s":""}</div>
+            {totalPages>1&&<div style={{fontSize:13,color:"var(--ma-taupe-500)"}}>Página {page} de {totalPages}</div>}
+          </div>
+          <div>
+            {paged.map((item,i)=>(
+              <SearchResultCard key={item.type+item.id} item={item}/>
+            ))}
+          </div>
+          {totalPages>1&&(
+            <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:6,marginTop:24,paddingTop:20,borderTop:"1px solid var(--color-border-subtle)"}}>
+              <button disabled={page===1} onClick={()=>setPage(p=>p-1)} style={{display:"flex",alignItems:"center",gap:6,padding:"8px 14px",borderRadius:10,border:"1px solid var(--color-border)",background:page===1?"var(--ma-warm-100)":"var(--ma-white)",color:page===1?"var(--ma-taupe-300)":"var(--ma-brown-900)",fontFamily:"inherit",fontSize:13,fontWeight:500,cursor:page===1?"not-allowed":"pointer",transition:"all 140ms"}}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+                Anterior
+              </button>
+              {Array.from({length:totalPages},(_,i)=>i+1).map(n=>(
+                <button key={n} onClick={()=>setPage(n)} style={{width:36,height:36,borderRadius:10,border:`1px solid ${n===page?"var(--ma-olive-700)":"var(--color-border)"}`,background:n===page?"var(--ma-olive-800)":"var(--ma-white)",color:n===page?"var(--ma-warm-100)":"var(--ma-brown-900)",fontFamily:"inherit",fontSize:13,fontWeight:n===page?700:400,cursor:"pointer",transition:"all 140ms"}}>
+                  {n}
+                </button>
+              ))}
+              <button disabled={page===totalPages} onClick={()=>setPage(p=>p+1)} style={{display:"flex",alignItems:"center",gap:6,padding:"8px 14px",borderRadius:10,border:"1px solid var(--color-border)",background:page===totalPages?"var(--ma-warm-100)":"var(--ma-white)",color:page===totalPages?"var(--ma-taupe-300)":"var(--ma-brown-900)",fontFamily:"inherit",fontSize:13,fontWeight:500,cursor:page===totalPages?"not-allowed":"pointer",transition:"all 140ms"}}>
+                Próxima
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          )}
+        </Card>
+      )}
+    </Page>
+  );
+}
+
+/* ── SEARCH BOX WITH AUTOCOMPLETE ── */
+function SearchBox({onSearch}){
+  const[q,setQ]=React.useState("");
+  const[open,setOpen]=React.useState(false);
+  const ref=React.useRef(null);
+  const inputRef=React.useRef(null);
+  const suggestions=q.trim().length>=1?searchItems(q).slice(0,5):[];
+
+  React.useEffect(()=>{
+    if(!open)return;
+    const handler=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};
+    window.addEventListener("mousedown",handler);
+    return()=>window.removeEventListener("mousedown",handler);
+  },[open]);
+
+  const submit=()=>{
+    const v=q.trim();
+    if(v){onSearch(v);setOpen(false);}
+  };
+
+  return(
+    <div ref={ref} style={{position:"relative",width:320}} className="ma-search">
+      <span style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",color:"var(--ma-taupe-500)",display:"flex",zIndex:1,pointerEvents:"none"}}><IconSearch size={16}/></span>
+      <input
+        ref={inputRef}
+        value={q}
+        onChange={e=>{setQ(e.target.value);setOpen(true);}}
+        onFocus={()=>{if(q.trim())setOpen(true);}}
+        onKeyDown={e=>{if(e.key==="Enter"){submit();}if(e.key==="Escape"){setOpen(false);setQ("");inputRef.current&&inputRef.current.blur();}}}
+        placeholder="Buscar peça, look ou etiqueta…"
+        style={{width:"100%",fontFamily:"var(--font-sans)",fontSize:14,padding:"10px 14px 10px 38px",borderRadius:12,border:"1px solid var(--color-border)",background:"var(--ma-warm-100)",color:"var(--ma-brown-900)",outline:"none",boxSizing:"border-box",transition:"border-color 160ms,box-shadow 160ms"}}
+        onFocusCapture={e=>{e.target.style.borderColor="var(--ma-olive-700)";e.target.style.boxShadow="var(--shadow-focus)";}}
+        onBlurCapture={e=>{e.target.style.borderColor="var(--color-border)";e.target.style.boxShadow="none";}}
+      />
+      {open&&suggestions.length>0&&(
+        <div style={{position:"absolute",top:"calc(100% + 6px)",left:0,right:0,background:"var(--ma-white)",border:"1px solid var(--color-border-subtle)",borderRadius:16,boxShadow:"0 16px 40px rgba(47,62,34,.14)",zIndex:200,overflow:"hidden",animation:"ddIn 180ms cubic-bezier(.22,.61,.36,1) both"}}>
+          {suggestions.map((item,i)=>(
+            <button key={item.type+item.id} onMouseDown={e=>{e.preventDefault();onSearch(q.trim());setOpen(false);}} style={{display:"flex",alignItems:"center",gap:12,width:"100%",padding:"10px 14px",background:"transparent",border:0,cursor:"pointer",textAlign:"left",fontFamily:"inherit",borderBottom:i<suggestions.length-1?"1px solid var(--color-border-subtle)":"none",transition:"background 120ms"}}
+              onMouseEnter={e=>e.currentTarget.style.background="var(--ma-sand-200)"}
+              onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+              <div style={{width:36,height:36,borderRadius:10,background:`linear-gradient(135deg,${item.gradient[0]},${item.gradient[1]})`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                <IconHanger size={18} strokeWidth={1.3} style={{color:"var(--ma-olive-800)",opacity:0.45}}/>
+              </div>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{fontSize:13,fontWeight:600,color:"var(--ma-olive-900)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.name}</div>
+                <div style={{fontSize:11,color:"var(--ma-taupe-500)",marginTop:1,display:"flex",alignItems:"center",gap:6}}>
+                  <span style={{display:"inline-flex",alignItems:"center",gap:3,color:"var(--ma-olive-700)"}}>{TYPE_ICONS[item.type]}<span style={{fontWeight:600,textTransform:"uppercase",letterSpacing:".06em"}}>{TYPE_LABELS[item.type]}</span></span>
+                  <span>·</span>
+                  <span>{item.sub.split(" · ")[0]}</span>
+                </div>
+              </div>
+              <div style={{fontSize:13,fontWeight:600,color:"var(--ma-brown-900)",flexShrink:0}}>{item.meta}</div>
+            </button>
+          ))}
+          <div style={{padding:"10px 14px",background:"var(--ma-warm-100)",borderTop:"1px solid var(--color-border-subtle)"}}>
+            <button onMouseDown={e=>{e.preventDefault();submit();}} style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",background:"transparent",border:0,cursor:"pointer",fontFamily:"inherit",fontSize:13,color:"var(--ma-olive-700)",fontWeight:600,padding:0}}>
+              <span>Ver todos os resultados de "{q.trim()}"</span>
+              <IconArrowRight size={13}/>
+            </button>
+          </div>
+        </div>
+      )}
+      {open&&q.trim().length>=1&&suggestions.length===0&&(
+        <div style={{position:"absolute",top:"calc(100% + 6px)",left:0,right:0,background:"var(--ma-white)",border:"1px solid var(--color-border-subtle)",borderRadius:16,boxShadow:"0 16px 40px rgba(47,62,34,.14)",zIndex:200,padding:"18px 16px",textAlign:"center",animation:"ddIn 180ms cubic-bezier(.22,.61,.36,1) both"}}>
+          <div style={{fontSize:13,color:"var(--ma-taupe-500)"}}>Nenhum resultado para "<strong style={{color:"var(--ma-brown-900)"}}>{q}</strong>"</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── USER MENU DROPDOWN ── */
+function UserMenu({onLogout}){
+  const toast=useToast();
+  const[open,setOpen]=React.useState(false);
+  React.useEffect(()=>{
+    if(!open)return;
+    const close=()=>setOpen(false);
+    window.addEventListener("click",close,{once:true});
+    return()=>window.removeEventListener("click",close);
+  },[open]);
+  return(
+    <div style={{position:"relative"}}>
+      <button onClick={e=>{e.stopPropagation();setOpen(o=>!o);}} style={{
+        width:40,height:40,borderRadius:999,padding:0,overflow:"hidden",
+        background:`center/cover url(./priscila-villela.png) var(--ma-sage-300)`,
+        border:`2px solid ${open?"var(--ma-olive-700)":"transparent"}`,
+        cursor:"pointer",transition:"border 160ms",
+      }} aria-label="Priscila Villela"/>
+
+      {open&&(
+        <div onClick={e=>e.stopPropagation()} style={{
+          position:"absolute",top:"calc(100% + 10px)",right:0,
+          background:"var(--ma-white)",borderRadius:18,
+          border:"1px solid var(--color-border-subtle)",
+          boxShadow:"0 12px 36px rgba(47,62,34,.14)",
+          minWidth:220,zIndex:100,
+          animation:"authFadeUp 180ms cubic-bezier(.22,.61,.36,1) both",
+        }}>
+          <div style={{padding:"16px 18px",borderBottom:"1px solid var(--color-border-subtle)",display:"flex",alignItems:"center",gap:12}}>
+            <div style={{width:40,height:40,borderRadius:999,background:"center/cover url(./priscila-villela.png) var(--ma-sage-300)",flexShrink:0}}/>
+            <div>
+              <div style={{fontSize:14,fontWeight:600,color:"var(--ma-olive-900)"}}>Priscila Villela</div>
+              <div style={{fontSize:12,color:"var(--ma-taupe-500)",marginTop:2}}>admin · Plano Grátis</div>
+            </div>
+          </div>
+          <div style={{padding:"8px 0"}}>
+            {[
+              {icon:<IconUser size={15}/>,label:"Meu perfil"},
+              {icon:<IconSettings size={15}/>,label:"Configurações"},
+              {icon:<IconHelp size={15}/>,label:"Ajuda"},
+            ].map(({icon,label})=>(
+              <button key={label} onClick={()=>{setOpen(false);toast(`${label} aberto.`);}} style={{
+                display:"flex",alignItems:"center",gap:10,width:"100%",
+                padding:"10px 18px",background:"transparent",border:0,
+                fontSize:14,color:"var(--ma-brown-900)",cursor:"pointer",
+                fontFamily:"inherit",textAlign:"left",transition:"background 120ms",
+              }}
+              onMouseEnter={e=>e.currentTarget.style.background="var(--ma-sand-200)"}
+              onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+                <span style={{color:"var(--ma-olive-700)",display:"flex"}}>{icon}</span>{label}
+              </button>
+            ))}
+          </div>
+          <div style={{borderTop:"1px solid var(--color-border-subtle)",padding:"8px 0"}}>
+            <button onClick={onLogout} style={{
+              display:"flex",alignItems:"center",gap:10,width:"100%",
+              padding:"10px 18px",background:"transparent",border:0,
+              fontSize:14,color:"var(--ma-error-500)",cursor:"pointer",
+              fontFamily:"inherit",textAlign:"left",transition:"background 120ms",
+              fontWeight:500,
+            }}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(184,92,74,.07)"}
+            onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Sair da conta
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ── TOAST (global feedback for actions) ── */
+const ToastContext=React.createContext(()=>{});
+function ToastProvider({children}){
+  const[toasts,setToasts]=React.useState([]);
+  const show=React.useCallback((message,tone="success")=>{
+    const id=Date.now()+Math.random();
+    setToasts(t=>[...t,{id,message,tone}]);
+    setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),5000);
+  },[]);
+  return(
+    <ToastContext.Provider value={show}>
+      {children}
+      <div style={{position:"fixed",bottom:24,right:24,display:"flex",flexDirection:"column",gap:10,zIndex:200,pointerEvents:"none"}}>
+        {toasts.map(t=>(
+          <div key={t.id} style={{
+            background:"var(--ma-white)",borderRadius:14,
+            padding:"14px 18px",minWidth:260,maxWidth:380,
+            boxShadow:"0 16px 40px rgba(47,62,34,.16)",
+            border:"1px solid var(--color-border-subtle)",
+            display:"flex",alignItems:"center",gap:12,
+            animation:"toastIn 280ms cubic-bezier(.22,.61,.36,1) both",
+          }}>
+            <div style={{width:32,height:32,borderRadius:999,background:t.tone==="success"?"rgba(79,98,59,.14)":"rgba(200,164,106,.22)",color:t.tone==="success"?"var(--ma-olive-700)":"#7A5C24",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+              {t.tone==="success"?<IconCheck size={16}/>:<IconBell size={16}/>}
+            </div>
+            <div style={{fontSize:14,color:"var(--ma-olive-900)",fontWeight:500,lineHeight:1.4}}>{t.message}</div>
+          </div>
+        ))}
+      </div>
+      <style>{`@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}`}</style>
+    </ToastContext.Provider>
+  );
+}
+const useToast=()=>React.useContext(ToastContext);
+
+/* ── APP ROOT ── */
+function App(){
+  const initScreen=new URLSearchParams(window.location.search).get("signup")==="1"?"register":"login";
+  const[screen,setScreen]=React.useState(initScreen); // login | register | app
+  const[loginError,setLoginError]=React.useState(false);
+  const[route,setRoute]=React.useState("dashboard");
+  const[selectedPiece,setSelectedPiece]=React.useState(null);
+  const[cadastrando,setCadastrando]=React.useState(false);
+  const[showNotifs,setShowNotifs]=React.useState(false);
+  const[searchQuery,setSearchQuery]=React.useState(null); // null = not searching, string = results page
+  const[notifCount,setNotifCount]=React.useState(3); // unread count badge
+  const mainRef=React.useRef(null);
+  const toast=useToast();
+
+  // navigate: change route, close drawer, scroll to top of main column.
+  const navigate=React.useCallback((r)=>{
+    setRoute(r);
+    setSelectedPiece(null);
+    setSearchQuery(null);
+    if(mainRef.current)mainRef.current.scrollTo({top:0,behavior:"smooth"});
+    window.scrollTo({top:0,behavior:"smooth"});
+  },[]);
+
+  const handleSearch=React.useCallback((q)=>{
+    setSearchQuery(q);
+    setSelectedPiece(null);
+    if(mainRef.current)mainRef.current.scrollTo({top:0,behavior:"smooth"});
+  },[]);
+
+  function handleLogin(user,pass){
+    if(user==="admin"&&pass==="admin"){setScreen("app");setLoginError(false);return true;}
+    setLoginError(true);return false;
+  }
+  function handleRegister(){setScreen("app");}
+  function handleLogout(){window.location.href="../landing/index.html";}
+
+  if(screen==="login")return<LoginScreen onLogin={handleLogin} onGoRegister={()=>{setLoginError(false);setScreen("register");}} error={loginError}/>;
+  if(screen==="register")return<RegisterScreen onGoLogin={()=>setScreen("login")} onRegister={handleRegister}/>;
+
+  const titles={dashboard:{title:"Painel",crumb:"Bem-vinda"},arara:{title:"Minha arara",crumb:"Estoque · Coleção atual"},looks:{title:"Looks",crumb:"Curadoria"},vendas:{title:"Vendas",crumb:"Histórico · Maio 2026"},relatorios:{title:"Relatórios",crumb:"Análises · Últimos 90 dias"},consignacao:{title:"Consignação",crumb:"Parceiras · Maio 2026"},agenda:{title:"Agenda",crumb:"Próximos compromissos"}};
+  const t=searchQuery?{title:"Busca",crumb:"Resultados"}:(titles[route]||titles.dashboard);
+  let pageScreen;
+  if(searchQuery)pageScreen=<SearchResultsPage query={searchQuery} onBack={()=>setSearchQuery(null)}/>;
+  else if(route==="dashboard")pageScreen=<Dashboard onOpenPiece={setSelectedPiece}onNavigate={navigate}onCadastrar={()=>setCadastrando(true)}/>;
+  else if(route==="arara")pageScreen=<AraraScreen onOpenPiece={setSelectedPiece}onCadastrar={()=>setCadastrando(true)}/>;
+  else if(route==="looks")pageScreen=<LooksScreen/>;
+  else if(route==="vendas")pageScreen=<VendasScreen/>;
+  else if(route==="relatorios")pageScreen=<RelatoriosScreen/>;
+  else if(route==="consignacao")pageScreen=<ConsignacaoScreen/>;
+  else if(route==="agenda")pageScreen=<AgendaScreen/>;
+  else pageScreen=<Page><Card padding={48}tone="sand"style={{textAlign:"center"}}><div style={{fontFamily:"var(--font-display)",fontStyle:"italic",fontSize:28,color:"var(--ma-brown-900)",marginBottom:12}}>Em breve</div><div style={{fontSize:16,color:"var(--ma-brown-700)",maxWidth:480,margin:"0 auto",lineHeight:1.6}}>Esta área ainda está em curadoria. Em breve você vai encontrar aqui ferramentas dedicadas a {t.title.toLowerCase()}.</div></Card></Page>;
+
+  return(
+    <div style={layoutStyles.app}>
+      <style>{`@keyframes authFadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}`}</style>
+      <Sidebar active={route}onNavigate={navigate}/>
+      <div ref={mainRef} className="ma-main"style={layoutStyles.main}>
+        {/* Topbar */}
+        <header className="ma-topbar"style={layoutStyles.topbar}>
+          <div style={{flex:1}}>
+            <div style={{fontSize:12,fontWeight:500,color:"var(--ma-taupe-500)",marginBottom:2}}>{t.crumb}</div>
+            <div style={{fontFamily:"var(--font-sans)",fontWeight:600,fontSize:20,color:"var(--ma-olive-900)",letterSpacing:"-0.01em"}}>{t.title}</div>
+          </div>
+          <SearchBox onSearch={handleSearch}/>
+          {/* notification bell with badge */}
+          <div style={{position:"relative"}}>
+            <IconButton label="Notificações" onClick={()=>{setShowNotifs(o=>!o);setNotifCount(0);}}>
+              <IconBell size={18}/>
+            </IconButton>
+            {notifCount>0&&(
+              <span style={{position:"absolute",top:-3,right:-3,background:"var(--ma-clay-500)",color:"#fff",fontSize:10,fontWeight:700,borderRadius:999,minWidth:17,height:17,display:"flex",alignItems:"center",justifyContent:"center",padding:"0 4px",pointerEvents:"none",lineHeight:1}}>
+                {notifCount}
+              </span>
+            )}
+          </div>
+          <Button icon={<IconPlus size={16}/>}onClick={()=>setCadastrando(true)}>Cadastrar peça</Button>
+          <UserMenu onLogout={handleLogout}/>
+        </header>
+        <div key={searchQuery||route}>{pageScreen}</div>
+      </div>
+      <BottomNav active={route}onNavigate={navigate}/>
+      {selectedPiece&&<PieceDetail piece={selectedPiece}onClose={()=>setSelectedPiece(null)}/>}
+      {cadastrando&&<CadastroPeca onClose={()=>setCadastrando(false)}/>}
+      {showNotifs&&<NotificationsDrawer onClose={()=>setShowNotifs(false)} onNavigate={navigate}/>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ToastProvider><App/></ToastProvider>);
+  </script>
+
+</body>
+</html>
